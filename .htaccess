@@ -1,0 +1,50 @@
+AddDefaultCharset utf-8
+RewriteEngine On
+
+# Редирект на HTTPS
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Редирект с www на без www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Убираем знак вопроса в конце URL (/?)
+RewriteCond %{THE_REQUEST} ^[^\s]+\s+[^?]*?\?
+RewriteCond %{QUERY_STRING} ^$
+RewriteRule .? %{REQUEST_URI}? [R=301,L]
+
+# Удаление слеша в конце URL
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^(.+)/$
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+# Редирект для URL с запятой в конце параметров
+RewriteCond %{QUERY_STRING} ^(.+),$ [NC]
+RewriteRule ^(.*)$ /$1?%1 [R=301,L]
+
+# Если в URL есть параметр block=..., перенаправляем на URL без него
+RewriteCond %{QUERY_STRING} (.*)(^|&)block=[^&]+(&|$) [NC]
+RewriteRule ^(.*)$ /$1?%1%3 [R=301,L,NE]
+
+# Редиректы со старых адресов
+Redirect 301 /?__im-ExODtFYd=11889498768758190612 https://smesi.loc
+Redirect 301 /?yandex-source=touch-maps https://smesi.loc
+Redirect 301 /home https://smesi.loc
+Redirect 301 /? https://smesi.loc
+Redirect 301 /school https://smesi.loc/article
+Redirect 301 /article/kak-opredelit-sya-s-vyborom-nailuchshego-teploizolyacionnogo-materiala-dlya-konkretnyh-stroitel-nyh-nuzhd https://smesi.loc/article/kak-vybrat-teploizolyacionnyj-material
+Redirect 301 /page/kontakty https://smesi.loc/contacts
+
+# убирает index.php
+#===================================================
+RewriteCond %{THE_REQUEST} ^GET.*index\.php [NC]
+RewriteRule ^(.*?)index\.php/*(.*) /$1$2 [R=301,NE,L]
+
+# Дубли страниц index.html
+RewriteCond %{REQUEST_URI} ^(.*)/index\.html$
+RewriteRule ^(.*)index\.html$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# Редирект на папку public
+RewriteRule (.*) public/$1

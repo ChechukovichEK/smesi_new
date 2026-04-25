@@ -1,0 +1,6 @@
+/.idea
+/vendor/
+!/vendor/ishop
+/bkp
+*/.DS_Store
+.ftpquota
