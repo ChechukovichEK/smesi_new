@@ -1,0 +1,116 @@
+.home-title {
+	margin-bottom: 30px;
+	.title {
+		font-family: "MyriadProSemibold", Arial, sans-serif;
+		color: $color-black;
+		font-size: 32px;
+	}
+}
+
+.home-brands {
+	.home-title {
+		@include flex(flex-end, space-between,wrap);
+		gap: 15px 20px;
+
+		a {
+			@include font(16px, 400, 1, $color-orange, "MyriadProRegular");
+			@include transition;
+
+			&:hover {
+				color: $color-orange-hover;
+			}
+		}
+	}
+}
+
+.home-text {
+	margin-bottom: 30px;
+
+	.text-editor {
+		@include font(18px, 300, 1.4, $color-black, "MyriadProLight");
+
+		p {
+			margin: 5px 0;
+		}
+	}
+
+	h1 {
+		@include font(42px, 600, 1, $color-black, "MyriadProSemibold");
+		margin-bottom: 20px;
+	}
+
+	h2 {
+		@include font(32px, 600, 1, $color-black, "MyriadProSemibold")
+	}
+
+	h3, .h3 {
+		@include font(24px, 600, 1, $color-black, "MyriadProSemibold");
+		margin: 15px 0;
+
+	}
+	
+	.container {
+		max-width: $cont-width;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+}
+
+.home-about {
+	margin-bottom: 50px;
+
+	.container {
+		max-width: 1500px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+}
+
+@media (max-width: 992px) {
+	.home-title {
+		margin-bottom: 25px;
+		
+		.title {
+			font-size: 32px;
+		}
+	}
+	
+	.home-text {
+		margin-bottom: 50px;
+	}
+}
+
+@media (max-width: 768px) {
+	.home-title {
+		margin-bottom: 20px;
+		
+		.title {
+			font-size: 22px;
+		}
+	}
+	
+	.home-text {
+		margin-bottom: 30px;
+	}
+
+	.home-text {
+
+		.text-editor {
+			font-size: 16px;
+		}
+
+		h1 {
+			font-size: 32px;
+		}
+
+		h2 {
+			font-size: 22px;
+		}
+
+		.container {
+			max-width: $cont-width;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+	}
+}

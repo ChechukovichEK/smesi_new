@@ -1,0 +1,68 @@
+.contact-form {
+	padding: 120px 0;
+	background: #3e3e3e url('../img/home/contact-form-bg.jpg') no-repeat 50% 50% /cover;
+	
+	.container {
+		max-width: $cont-width;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+	
+	&-title {
+		font-family: "MyriadProSemibold", Arial, sans-serif;
+		color: $color-white;
+		font-size: 32px;
+		line-height: 1.2;
+		text-align: center;
+		margin: 0 auto 80px;
+	}
+	
+	.form {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 30px;
+		max-width: 1120px;
+		margin: 0 auto;
+		
+		&-input {
+			font-family: "MyriadProRegular", Arial, sans-serif;
+			background: $color-white;
+			padding: 18px 25px 22px;
+			font-size: 16px;
+			line-height: 1.2;
+			@include ellipsis();
+			border-radius: 100px;
+		}
+	}
+}
+
+@media (max-width: 992px) {
+	.contact-form {
+		padding: 50px 0;
+		
+		&-title {
+			max-width: 360px;
+			font-size: 28px;
+			margin-bottom: 30px;
+		}
+		.form {
+			max-width: 360px;
+			grid-template-columns: 1fr;
+			gap: 20px;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.contact-form {
+		padding: 30px 0;
+		
+		&-title {
+			font-size: 24px;
+		}
+		.form {
+			grid-template-columns: 1fr;
+			gap: 15px;
+		}
+	}
+}
