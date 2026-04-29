@@ -17,10 +17,11 @@
 					<table class="table table-bordered">
 						<thead>
 						<tr>
-							<th>Дата</th>
-							<th>Название статьи</th>
+							<th>Дата публикации</th>
+							<th>Дата обновления</th>
+							<th>Название статьи ( Количество статей: <?= count($news) ?> )</th>
 							<th>FAQ</th>
-							<th>Количество статей: <?= count($news) ?></th>
+							<th></th>
 						</tr>
 						</thead>
 						<tbody>
@@ -28,16 +29,35 @@
 							<tr>
 								<td style="width: 100px;"><?= $published = $item['date'] ? date('d.m.Y', strtotime($item['date'])) : '—';
 									?></td>
-								<td><?= $item['title']; ?></td>
 								<td style="width: 100px;">
-									<div class="hidden"><?= $faq_count = \R::count('articlefaq', 'id_article = ?', [$item['id']]);?></div>
-									<?= $faq_count > 0 ? 'Да' : 'Нет'; ?>
+									<?php
+									$p = trim($item['published_at']);
+									$ts = strtotime($p);
+									
+									echo ($ts && $p !== '0000-00-00 00:00:00')
+										? date('d.m.Y', $ts)
+										: '—';
+									?>
 								</td>
-								<td style="width: 200px;">
-									<a href="<?= ADMIN; ?>/article/edit?id=<?= $item['id']; ?>"
-									   class="btn btn-primary btn-sm">Редактировать</a>
-									<a href="<?= ADMIN; ?>/article/delete?id=<?= $item['id']; ?>"
-									   class="btn btn-danger btn-sm" onclick="return confirm('Удалить?')">Удалить</a>
+								<td><?= $item['title']; ?></td>
+								<td style="width: 50px;">
+									<div class="hidden"><?= $faq_count = \R::count('articlefaq', 'id_article = ?', [$item['id']]); ?></div>
+									<?php if ($faq_count > 0): ?>
+										<i class="fa fa-fw fa-eye" style="color: #00a65a;"></i>
+									<?php else: ?>
+										<i class="fa fa-fw fa-eye-slash" style="color: #f56954;"></i>
+									<?php endif; ?>
+								</td>
+								<td style="width: 150px;">
+									<div class="btn-group">
+										<a href="<?= ADMIN; ?>/article/edit?id=<?= $item['id']; ?>"
+										   class="btn btn-success"><i class="fa fa-fw fa-pencil"></i></a>
+										<a href="<?= ADMIN; ?>/article-faq/index?id=<?= $item['id']; ?>"
+										   class="btn btn-warning"><i class="fa fa-fw fa-question-circle"></i></a>
+										<a href="<?= ADMIN; ?>/article/delete?id=<?= $item['id']; ?>"
+										   class="btn btn-danger" onclick="return confirm('Удалить?')"><i
+													class="fa fa-fw fa-trash"></i></a>
+									</div>
 								</td>
 							</tr>
 						<?php endforeach; ?>

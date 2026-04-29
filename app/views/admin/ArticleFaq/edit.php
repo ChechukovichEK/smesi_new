@@ -39,6 +39,7 @@
 						
 						<button type="submit" class="btn btn-success">Сохранить изменения</button>
 						<a href="/admin/article/edit?id=<?= $id_article ?>" class="btn btn-default">Назад к статье</a>
+						<a href="/admin/article-faq/index?id=<?= $id_article ?>" class="btn btn-default">Назад к FAQ статьи</a>
 					
 					</form>
 				

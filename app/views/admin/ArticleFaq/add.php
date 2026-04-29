@@ -31,6 +31,7 @@
 						</div>
 						
 						<button type="submit" class="btn btn-success">Сохранить</button>
+						<a href="/admin/article-faq/index?id=<?= $id_article ?>" class="btn btn-default">Назад к FAQ статьи</a>
 					</form>
 				</div>
 			</div>
