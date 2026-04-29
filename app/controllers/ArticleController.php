@@ -4,17 +4,33 @@ namespace app\controllers;
 
 class ArticleController extends AppController
 {
-
-    public function IndexAction()
-    {
-        $news = \R::getAssoc("SELECT * FROM articles ORDER BY id DESC");
-
-        $title = "Статьи и полезная информация о строительстве и ремонте";
-        $desc = "В этом разделе вы можете ознакомиться с полезной информацией и актуальными новостями на тему строительства и ремонта, новинок стройматериалов и т.д. Будьте в курсе!";
-
-        $this->setMeta($title, $desc, $title);
-        $this->set(compact('news'));
-    }
+	
+	public function IndexAction()
+	{
+		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+		$perpage = 12; // количество статей на странице
+		$offset = ($page - 1) * $perpage;
+		
+		// Всего статей
+		$total = \R::count('articles');
+		
+		// Статьи для текущей страницы
+		$news = \R::findAll(
+			'articles',
+			'ORDER BY id DESC LIMIT ? OFFSET ?',
+			[$perpage, $offset]
+		);
+		
+		// Количество страниц
+		$pages = ceil($total / $perpage);
+		
+		$title = "Статьи и полезная информация о строительстве и ремонте1";
+		$desc = "В этом разделе вы можете ознакомиться с полезной информацией и актуальными новостями.";
+		
+		$this->setMeta($title, $desc, $title);
+		$this->set(compact('news', 'page', 'pages'));
+	}
+	
 	
 	public function ViewAction()
 	{
