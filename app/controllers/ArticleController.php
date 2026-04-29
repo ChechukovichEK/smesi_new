@@ -15,31 +15,44 @@ class ArticleController extends AppController
         $this->setMeta($title, $desc, $title);
         $this->set(compact('news'));
     }
-
-    public function ViewAction()
-    {
-        $alias = $this->route['alias'];
-        $new = \R::findOne('articles', ' alias = ? ', [$alias]);
-
-        if (empty($new->meta_title)) {
-            $title = 'Smesi.by - ' . $new->title;
-        } else {
-            $title = $new->meta_title;
-        }
-
-        if (empty($new->meta_desc)) {
-            $desc = 'Smesi.by - ' . $new->title;
-        } else {
-            $desc = $new->meta_desc;
-        }
-
-        $other_articles = \R::findAll('articles', 'id != ? ORDER BY id DESC LIMIT 3', [$new->id]);
-
-        $new['content'] = $this->replaceBlogProducts($new['content']);
-
-        $this->setMeta($title, $desc);
-        $this->set(compact('new', 'other_articles'));
-    }
+	
+	public function ViewAction()
+	{
+		$alias = $this->route['alias'];
+		$new = \R::findOne('articles', ' alias = ? ', [$alias]);
+		
+		if (empty($new)) {
+			throw new \Exception('Статья не найдена', 404);
+		}
+		
+		// 🔥 Загружаем FAQ для статьи
+		$faq = \R::findAll(
+			'articlefaq',
+			'id_article = ? AND visibility = 1 ORDER BY num DESC',
+			[$new->id]
+		);
+		
+		$faq_title = $new->faq_title ?: 'Часто задаваемые вопросы';
+		
+		if (empty($new->meta_title)) {
+			$title = 'Smesi.by - ' . $new->title;
+		} else {
+			$title = $new->meta_title;
+		}
+		
+		if (empty($new->meta_desc)) {
+			$desc = 'Smesi.by - ' . $new->title;
+		} else {
+			$desc = $new->meta_desc;
+		}
+		
+		$other_articles = \R::findAll('articles', 'id != ? ORDER BY id DESC LIMIT 3', [$new->id]);
+		
+		$new['content'] = $this->replaceBlogProducts($new['content']);
+		
+		$this->setMeta($title, $desc);
+		$this->set(compact('new', 'other_articles', 'faq', 'faq_title'));
+	}
 
     private function replaceBlogProducts($content)
     {

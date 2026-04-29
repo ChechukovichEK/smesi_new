@@ -15,7 +15,7 @@ class OrderXml
         $dom->xmlVersion = '1.0';
         $dom->formatOutput = true;
 
-        $xml_file_name = '/home/smesiby/public_html/public/xml_upload/orders/order_'.$cart->order_id.'.xml';
+        $xml_file_name = 'e:/smesi.loc/public/xml_upload/orders/order_'.$cart->order_id.'.xml';
         $dateOrder = new \DateTimeImmutable();
 
         $order = $dom->createElement('OrderList');

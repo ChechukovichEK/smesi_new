@@ -13,7 +13,7 @@ function updateDb($db)
     mysqli_query($db, "COMMIT");
 }
 
-$config = require_once '/home/smesiby/public_html/config/config_db.php';
+$config = require_once 'e:/smesi.loc/config/config_db.php';
 
 $db = @mysqli_connect(
     'localhost',

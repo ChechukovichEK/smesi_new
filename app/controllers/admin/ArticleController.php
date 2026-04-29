@@ -8,8 +8,8 @@ use stroy\App;
 class ArticleController extends AppController{
 
   public function indexAction(){
-    $news = \R::findAll('articles');
-    $this->setMeta('Статьи');
+	  $news = \R::findAll('articles', 'ORDER BY published_at DESC, id DESC');
+	  $this->setMeta('Статьи');
     $this->set(compact('news'));
   }
 
@@ -31,8 +31,12 @@ class ArticleController extends AppController{
     }
       $id = $this->getRequestID();
       $new = \R::load('articles', $id);
-      $this->setMeta("Редактирование статьи {$new->title}");
-      $this->set(compact('new'));
+	  
+	  // 🔥 ДОБАВЛЯЕМ FAQ
+	  $faq = \R::findAll('articlefaq', 'id_article = ? ORDER BY num DESC', [$id]);
+	  
+	  $this->setMeta("Редактирование статьи {$new->title}");
+	  $this->set(compact('new', 'faq'));
   }
 
   public function addAction(){
@@ -73,4 +77,6 @@ class ArticleController extends AppController{
         $new->uploadImg($name);
       }
   }
+  
+  
 }

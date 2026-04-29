@@ -17,6 +17,12 @@
 			<?php foreach ($news as $item): ?>
                 <?php
                 $date = new DateTime($item['date']);
+				
+				if ($item['published_at'] !== '0000-00-00 00:00:00') {
+					$published_at = new DateTime($item['published_at']);
+				}else{
+					$published_at = '';
+				}
 
                 $formatter = new IntlDateFormatter(
                 'ru_RU',
@@ -42,7 +48,14 @@
 
 					<div class="description">
 						<h2 class="title" itemprop="headline"><?=$item['title'];?></h2>
-						<div class="date" itemprop="datePublished"><?= $formatter->format($date); ?></div>
+						<div class="data-block">
+							<div class="date" itemprop="datePublished">Опубликовано: <?= $formatter->format($date); ?></div>
+							
+							<?php if (!empty($published_at) && $published_at !== ''): ?>
+								<div class="date" itemprop="dateModified">Обновлено: <?= $formatter->format($published_at); ?></div>
+							<?php endif; ?>
+							
+						</div>
 						<div class="text" itemprop="description">
 							<?=$item['pre_content'];?>
 						</div>
