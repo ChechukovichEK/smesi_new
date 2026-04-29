@@ -1,0 +1,54 @@
+.btn-wow-wrapper {
+	margin: 0;
+	position: relative;
+	border-radius: 100px;
+	overflow: hidden;
+	
+	&:before {
+		content: "";
+		background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+		height: 80px;
+		width: 50px;
+		position: absolute;
+		top: -8px;
+		left: -75px;
+		transform: skewX(-45deg);
+		transition: all .9s ease;
+		animation-name: btn-wow;
+		animation-duration: 2s;
+		animation-iteration-count: infinite;
+		z-index: 2;
+	}
+	
+	.btn {
+		@include size(100%, 100%);
+		padding: 18px 25px 22px;
+	}
+}
+
+.btn {
+	font-family: "MyriadProSemibold", Arial, sans-serif;
+	font-size: 16px;
+	line-height: 1.2;
+	border-radius: 100px;
+	display: block;
+	padding: 10px 20px;
+	cursor: pointer;
+	@include transition();
+	outline: none;
+
+	&:focus,
+	&:hover,
+	&:active {
+		outline: none;
+	}
+	
+	&-orange {
+		background: $color-orange;
+		color: $color-white;
+		
+		&:hover {
+			background: $color-orange-hover;
+		}
+	}
+}

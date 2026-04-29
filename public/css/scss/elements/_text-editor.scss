@@ -1,0 +1,140 @@
+.text-editor {
+	font-family: "MyriadProRegular", Arial, sans-serif;
+	font-size: 16px;
+	line-height: 1.6;
+	margin: 30px 0;
+	
+	&:first-child {
+		margin-top: 0;
+	}
+	
+	&:last-child {
+		margin-bottom: 0;
+	}
+	
+	h2 {
+		font-size: 24px;
+		margin: 20px 0;
+		
+		&:first-child {
+			margin-top: 0;
+		}
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	
+	a {
+		color: $color-orange;
+		@include transition();
+		
+		&:hover {
+			color: $color-orange-hover;
+		}
+	}
+	
+	p {
+		margin: 10px 0;
+		
+		&:first-child {
+			margin-top: 0;
+		}
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	
+	img {
+		display: block;
+		width: 100%;
+		max-width: 700px;
+		padding: 0;
+		margin: 20px auto;
+	}
+	
+	blockquote {
+		flex-direction: column;
+		padding: 30px 20px;
+		background: $color-gray;
+		font-size: 18px;
+		margin: 20px 0;
+		border-left: 5px solid $color-orange;
+		
+		b {
+			@include font(20px, 400, 1.5);
+		}
+		
+		&:first-child {
+			margin-top: 0;
+		}
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	
+	ul,
+	ol {
+		li {
+			list-style-position: inside;
+		}
+	}
+	
+	.table-wrapper {
+		margin: 20px 0;
+		max-width: 100%;
+		overflow-x: auto;
+	}
+	
+	table {
+		border-collapse: collapse;
+		
+		thead {
+			background: $color-gray;
+		}
+		
+		th,
+		td {
+			text-align: left;
+			padding: 5px 10px;
+			border: 1px solid $color-table-border;
+		}
+	}
+}
+
+@media (max-width: 992px) {
+	.text-editor {
+		h2 {
+			font-size: 22px;
+			margin: 17px 0;
+		}
+		
+		img {
+			margin: 15px auto;
+		}
+		
+		blockquote {
+			padding: 20px 15px;
+			margin: 15px 0;
+			font-size: 16px;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.text-editor {
+		font-size: 14px;
+		
+		h2 {
+			font-size: 20px;
+			margin: 15px 0;
+		}
+		
+		img {
+			max-width: 100%;
+			margin: 10px auto;
+		}
+	}
+}

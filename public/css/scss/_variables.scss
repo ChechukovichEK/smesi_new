@@ -1,0 +1,72 @@
+//
+$imp: !important;
+
+
+/* FONT
+--------------------------------------------------------*/
+
+$font: 'Pluto Sans DPD', 'Open Sans', 'Roboto', 'Arial', sans-serif;
+$font-awesome: 'Font Awesome 6 Pro';
+
+$font-size: 17px;
+$font-h1: 30px;
+$font-h2: 24px;
+$font-h3: 20px;
+$font-h4: 16px;
+$font-h5: 14px;
+$font-h6: 12px;
+$font-small: 0.8em;
+$font-big: 1.2em;
+
+
+/* COLORS
+--------------------------------------------------------*/
+
+$color:				        #383937;
+
+$color-orange:              #F1592A;
+$color-orange-hover:        darken($color-orange, 10%);
+
+$color-light:               #F2F5F8;
+$color-light-hover:         darken($color-light, 10%);
+
+$text-dark:                 #4d4d4d;
+
+$color-white: 				#FFFFFF;
+$color-black: 				#2B2B2B;
+$color-blue:                #3C8DBC;
+$color-green:               #7BAD5B;
+
+$color-gray: 				#F8F9FA;
+$color-gray-border:         #BBBBBE;
+$color-gray-lite: 			#F2F4F6;
+$color-gray-middle:         #F7F6F5;
+$color-table-border:        #E6E7E8;
+
+$color-error: 				#e01e1f;
+$color-success: 			#5DC367;
+$color-success-hover:       darken($color-success, 10%);
+
+$border-color: 				#515155;
+
+$color-bg:					#EFEDEB;
+$color-body:				$color-white;
+
+
+/* FORMS
+--------------------------------------------------------*/
+
+$form-margin: 24px;
+$form-submargin: 10px;
+
+$form-height: 50px;
+$form-height-xl: 60px;
+$form-height-xs: 42px;
+
+
+/* TEMPLATE
+--------------------------------------------------------*/
+
+$container-padding: 40px;
+$row-margin: 20px;
+$cont-width: 1500px;

@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /prodimg/*
+Disallow: /admin/
+Disallow: /order/
+Disallow: /user/
+Disallow: /cart/
+Disallow: /forgot
+Disallow: /search?s=*
+Disallow: /*add?id=*
+Disallow: /prodimg/
+Disallow: /public/prodimg/
+Disallow: /*?_route*
+Disallow: /*?gad_source*
+Disallow: /*?orderby*
+Disallow: /*?order_by*
+Disallow: /*?yprqee*
+Disallow: /*?source*
+Disallow: /*?block*
+Disallow: /*?__im-*
+Disallow: /*?yandex-source*
+Disallow: /*?gtm*
+Disallow: *?sort=*
+Clean-param: from&etext&gbraid&gad_source&gad_campaignid
+
+User-agent: Yandex
+Clean-param: ybaip&region&region_name

@@ -1,0 +1,104 @@
+.pages-contacts {
+	@include flex(flex-start, flex-start, nowrap);
+	gap: 30px;
+	
+	@media (max-width: 992px) {
+		flex-direction: column;
+	}
+	
+	p {
+		margin-bottom: 10px;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	
+	&-left {
+		flex-grow: 1;
+		
+		> h2 {
+			font-size: 22px;
+			margin: 20px 0;
+		}
+		
+		> h3 {
+			font-size: 18px;
+			margin-top: 15px;
+			
+			span {
+				font-weight: 400;
+			}
+		}
+		
+		> p {
+			
+			&.mt-15 {
+				margin-top: 15px;
+			}
+			span {
+				color: #E85628;
+			}
+		}
+	}
+	
+	&-right {
+		flex-shrink: 0;
+		width: 500px;
+		max-width: 100%;
+		
+		h2 {
+			font-size: 30px;
+			color: var(--text-dark);
+			margin-bottom: 20px;
+			
+			span {
+				font-weight: 400;
+			}
+		}
+		
+		form {
+			margin: 30px 0;
+		}
+		
+		input {
+			box-sizing: border-box;
+			display: inline-block;
+			width: 100%;
+			padding: 10px;
+			border-radius: 4px;
+			margin-bottom: 20px;
+			border: 1px solid #888888;
+			background: #F2F2F2;
+			@include font(16px);
+			
+			&:last-child {
+				margin-bottom: 0;
+			}
+			
+			&[type="submit"] {
+				max-width: 240px;
+				color: #fff;
+				background: #E85628;
+				border-color: #E85628;
+			}
+		}
+		
+		.ft-phones {
+			justify-content: flex-start;
+			gap: 12px;
+			a {
+				@include size(40px, 40px);
+				overflow: hidden;
+				&:last-child {
+					width: auto;
+				}
+				
+				img {
+					@include size(100%, 100%);
+					object-fit: contain;
+				}
+			}
+		}
+	}
+}

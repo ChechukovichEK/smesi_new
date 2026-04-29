@@ -1,0 +1,29 @@
+.breadcrumbs {
+	margin: 20px 0 30px;
+}
+.breadcrumbs-content{
+	max-width: $cont-width;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+.breadcrumb {
+	list-style: none;
+	align-items: baseline;
+	display: flex;
+	flex-wrap: wrap;
+}
+.breadcrumb li a {
+	color: #888;
+	font-family: "MyriadProRegular", Arial, sans-serif;
+	font-size: 15px;
+}
+.breadcrumb>li+li:before {
+	padding: 0 5px;
+	color: #ccc;
+	content: "/ "
+}
+.breadcrumb li:last-child {
+	font-family: "MyriadProSemibold", Arial, sans-serif;
+	font-size: 15px;
+	color: var(--text-dark);
+}

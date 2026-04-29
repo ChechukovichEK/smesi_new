@@ -1,0 +1,814 @@
+.wholesale {
+    box-sizing: border-box $imp;
+
+    &-title {
+        @include font(42px, 600, 1, $color-black, "MyriadProSemibold");
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+
+    .container {
+        position: relative;
+        max-width: 1550px;
+        padding: 0 20px;
+        margin: 0 auto;
+        z-index: 10;
+    }
+
+    &-offer {
+        position: relative;
+        padding: 210px 0 90px;
+        
+        &-bg {
+            @include position(absolute, 0, 0, 0, 0, 1);
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &-content {
+            max-width: 1110px;
+
+            .title {
+                @include font(54px, 600, 1, $color-white, "MyriadProSemibold");
+            }
+
+            .text {
+                margin-top: 40px;
+                @include font(24px, 400, 1.6, $color-white, "MyriadProRegular");
+            }
+
+            .btn {
+                margin: 30px 0 0;
+                display: inline-block;
+                background: linear-gradient(180deg, #E95729 13.94%, #E83828 46.63%, #E85B28 100%);
+                border-radius: 100px;
+                padding: 0 15px;
+                height: 60px;
+                font-size: 18px;
+                line-height: 60px;
+                color: #fff;
+                font-family: "MyriadProSemibold", Arial, sans-serif;
+                overflow: hidden;
+                position: relative;
+                text-align: center;
+                min-width: 260px;
+                @include transition;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
+    &-reasons {
+        margin-top: 100px;
+
+        &-container {
+            @include flex(center, flex-start, nowrap);
+            padding: 70px 0;
+            background: #F2F5F8;
+
+            > div {
+                width: 50%;
+                flex-shrink: 0;
+            }
+        }
+
+        &-img {
+            padding: 0 30px;
+
+            img {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        &-content {
+            padding: 0 30px;
+
+            .list {
+                margin: 40px 0 0;
+                list-style: none;
+
+                li + li {
+                    margin: 25px 0 0;
+                }
+
+                li {
+                    @include flex(center, flex-start, nowrap);
+                    column-gap: 20px;
+
+                    .num {
+                        @include size(32px, 32px);
+                        @include flex(center, center, nowrap);
+                        @include font(16px, 600, 1, $color-white, "MyriadProSemibold");
+                        flex-shrink: 0;
+                        border-radius: 100%;
+                        background: $color-orange;
+                    }
+
+                    .text {
+                        display: block;
+                        @include font(20px, 300, 1.6, $color-black);
+                    }
+                }
+            }
+        }
+    }
+
+    &-catalog {
+        margin-top: 100px;
+
+        .title {
+            margin-bottom: 50px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 280px;
+            gap: 30px;
+
+            a {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                padding: 40px;
+                grid-column: span 6;
+                text-decoration: none;
+                @include transition;
+
+                &:hover {
+                    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+                    transform: translateY(-10px);
+                }
+
+                .name {
+                    @include font(32px, 600, 1, $color-white, "MyriadProSemibold");
+                    max-width: 310px;
+                    position: relative;
+                    z-index: 10;
+                }
+
+                .img {
+                    @include position(absolute, 0, 0, 0, 0, 1);
+
+                    img {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+
+                    }
+                }
+
+                &:nth-child(n + 3):nth-child(-n + 5) {
+                    grid-column: span 4;
+                }
+
+                &:nth-child(3n + 1) {
+                    background: #F2F5F8;
+
+                    .name {
+                        color: $color-black;
+                    }
+                }
+
+                &:nth-child(4n + 2) {
+                    background: #35363B;
+                }
+
+                &:nth-child(3),
+                &:nth-child(5) {
+                    background: #739FD3;
+                }
+
+                &:nth-child(2),
+                &:nth-child(3),
+                &:nth-child(4),
+                &:nth-child(6) {
+                    justify-content: flex-end;
+                }
+            }
+        }
+
+        .action {
+            margin-top: 30px;
+            @include flex(center, center, nowrap);
+
+            .btn {
+                margin: 0;
+                display: inline-block;
+                background: linear-gradient(180deg, #E95729 13.94%, #E83828 46.63%, #E85B28 100%);
+                border-radius: 100px;
+                padding: 0 15px;
+                height: 60px;
+                font-size: 18px;
+                line-height: 60px;
+                color: #fff;
+                font-family: "MyriadProSemibold", Arial, sans-serif;
+                overflow: hidden;
+                position: relative;
+                text-align: center;
+                min-width: 260px;
+                @include transition;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
+    &-prices {
+        margin-top: 100px;
+
+        .text {
+            margin-top: 30px;
+            @include font(18px, 300, 1.6, $color-black, "MyriadProLight");
+        }
+
+        .btn {
+            margin: 30px 0 0;
+            display: inline-block;
+            background: linear-gradient(180deg, #E95729 13.94%, #E83828 46.63%, #E85B28 100%);
+            border-radius: 100px;
+            padding: 0 15px;
+            height: 60px;
+            font-size: 18px;
+            line-height: 60px;
+            color: #fff;
+            font-family: "MyriadProSemibold", Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+            min-width: 260px;
+            @include transition;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &-warehouse {
+        margin-top: 100px;
+
+        .text {
+            margin-top: 30px;
+            @include font(18px, 300, 1.6, $color-black, "MyriadProLight");
+        }
+
+        .grid {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 45px;
+        }
+
+        .info {
+            @include flex(center, flex-start, nowpar);
+            column-gap: 25px;
+
+            .text {
+                margin-top: 0;
+                font-size: 20px;
+
+                .bold {
+                    font-weight: 600;
+                    font-family: "MyriadProSemibold", sans-serif;
+                }
+            }
+        }
+    }
+
+    &-instruction {
+        margin-top: 100px;
+
+        &-container {
+            padding: 70px 100px;
+            background: #F2F5F8;
+            @include flex(stretch, flex-start, nowrap);
+            column-gap: 80px;
+        }
+
+        .info {
+            flex-grow: 1;
+            padding-right: 80px;
+            border-right: 1px solid #BDBDBD;
+
+            .list {
+                margin: 40px 0 0;
+                list-style: none;
+
+                li + li {
+                    margin: 25px 0 0;
+                }
+
+                li {
+                    @include flex(center, flex-start, nowrap);
+                    column-gap: 20px;
+
+                    .num {
+                        @include size(32px, 32px);
+                        @include flex(center, center, nowrap);
+                        @include font(16px, 600, 1, $color-white, "MyriadProSemibold");
+                        border-radius: 100%;
+                        flex-shrink: 0;
+                        background: $color-orange;
+                    }
+
+                    .text {
+                        display: block;
+                        @include font(20px, 300, 1.6, $color-black);
+                    }
+                }
+            }
+        }
+
+        .contacts {
+            width: 420px;
+            flex-shrink: 0;
+
+            .title {
+                margin-bottom: 40px;
+            }
+
+            .contact {
+                .label {
+                    @include font(20px, 300, 1, #636363, "MyriadProLight");
+                    margin-bottom: 20px;
+                }
+
+                a {
+                    text-decoration: none;
+                    @include font(34px, 600, 1, $color-orange, "MyriadProSemibold");
+                    @include transition;
+
+                    &:hover {
+                        color: $color-orange-hover;
+                    }
+                }
+            }
+
+            .contact + .contact {
+                margin-top: 30px;
+            }
+        }
+    }
+
+    &-contact-form {
+        position: relative;
+        margin-top: 100px;
+        padding: 120px 0;
+
+        .bg {
+            @include position(absolute, 0, 0, 0, 0, 1);
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        
+        &-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1060px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            @include font(36px, 600, 1, $color-white, "MyriadProSemibold");
+            margin-bottom: 30px;
+        }
+
+        .form {
+            @include flex(center, space-between, nowrap);
+            column-gap: 25px;
+
+            .inputs {
+                list-style: none;
+                @include flex(center, null, nowrap);
+                column-gap: 25px;
+                margin: 0;
+
+                > li {
+                    margin: 0;
+                }
+            }
+
+            &-input {
+                min-width: 360px;
+                box-sizing: border-box;
+                display: inline-block;
+                height: 60px;
+                line-height: 60px;
+                width: 100%;
+                background: $color-white;
+                border-radius: 40px;
+                @include font(16px, 400, 1, $color-black, "MyriadProRegular");
+                padding: 0 25px;
+                border: 1px solid transparent;
+                transition: .3s ease border-color;
+
+                &:focus {
+                    outline: none;
+                    border: 1px solid $color-orange;
+                }
+
+                &::placeholder {
+                    @include font(16px, 400, 1, #7A828C, "MyriadProRegular");
+                }
+            }
+
+            .btn {
+                margin: 0;
+                background: linear-gradient(180deg, #E95729 13.94%, #E83828 46.63%, #E85B28 100%);
+                border-radius: 100px;
+                padding: 0 15px;
+                height: 60px;
+                font-size: 18px;
+                line-height: 60px;
+                color: #fff;
+                font-family: "MyriadProSemibold", Arial, sans-serif;
+                overflow: hidden;
+                position: relative;
+                text-align: center;
+                min-width: 280px;
+                @include transition;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+
+    &-faq {
+        margin-top: 100px;
+
+        .title {
+            margin-bottom: 50px;
+        }
+
+        .faq-list {
+            list-style: none;
+            margin: 0;
+
+            > li {
+                margin: 0;
+            }
+
+            li + li {
+                border-top: 1px solid #D4D4D4;
+            }
+        }
+
+        .faq-item {
+
+            .top {
+                @include flex(center, space-between, nowrap);
+                column-gap: 30px;
+                position: relative;
+                padding: 20px 0;
+                background: $color-white;
+                border-radius: 8px;
+                text-decoration: none;
+            }
+
+            .title {
+                @include font(24px, 600, 1.4, $color-black, "MyriadProSemibold");
+                margin: 0;
+                @include transition();
+
+                &:hover {
+                    color: $color-orange;
+                }
+            }
+
+            .toggle {
+                position: relative;
+                flex-shrink: 0;
+                @include flex(center, center, nowrap);
+                @include size(32px, 32px);
+                @include transition;
+            }
+
+            .text {
+                padding: 15px 0 30px;
+                display: none;
+                @include font(18px, 300, 1.6, $color-black, "MyriadProLight");
+            }
+
+
+            &.open {
+
+                .title {
+                    color: $color-orange;
+                }
+                .toggle {
+                    @include rotate(180deg);
+
+                    &:before {
+                        opacity: 0;
+                    }
+
+                    &:after {
+                        background: #D6D9DD;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1400px) {
+    .wholesale-catalog {
+        .grid {
+            a {
+                padding: 25px;
+            }
+        }
+    }
+
+    .wholesale-warehouse {
+        .info {
+            .img {
+                svg {
+                    max-width: 74px;
+                }
+            }
+
+            .text {
+                font-size: 16px $imp;
+            }
+        }
+    }
+
+    .wholesale-instruction {
+        &-container {
+            padding: 70px;
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .wholesale-offer {
+        padding: 140px 0 60px;
+    }
+
+    .wholesale-catalog {
+        .grid {
+            a {
+                .name {
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+
+    .wholesale-warehouse {
+        .grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .wholesale-title {
+        font-size: 36px;
+    }
+
+    .wholesale-faq {
+        .title {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .wholesale-offer {
+        padding: 100px 0 40px;
+
+        &-content {
+            .title {
+                font-size: 46px;
+            }
+
+            .text {
+                margin-top: 20px;
+                font-size: 20px;
+            }
+        }
+    }
+
+    .wholesale-reasons {
+        margin-top: 60px;
+
+        &-container {
+            padding: 40px 0;
+        }
+
+        &-img {
+            display: none;
+        }
+
+        &-content {
+            width: 100% $imp;
+        }
+    }
+
+    .wholesale-title {
+        font-size: 32px;
+    }
+
+    .wholesale-catalog {
+        margin-top: 60px;
+
+        .title {
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            a {
+                grid-column: span 6 $imp;
+
+                .name {
+                    font-size: 20px;
+                    max-width: 250px;
+                }
+
+                .img {
+                    img {
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+    }
+
+    .wholesale-prices {
+        margin-top: 60px;
+    }
+
+    .wholesale-warehouse {
+        margin-top: 60px;
+    }
+
+    .wholesale-instruction {
+        margin-top: 60px;
+
+        &-container {
+            padding: 55px;
+            column-gap: 50px;
+        }
+
+        .info {
+            padding-right: 50px;
+        }
+
+        .contacts {
+            width: 260px;
+
+            .contact {
+                a {
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+
+    .wholesale-contact-form {
+        margin-top: 60px;
+        padding: 50px 0;
+
+        .title {
+            font-size: 32px;
+        }
+        .form-input {
+            min-width: 200px;
+        }
+    }
+
+    .wholesale-faq {
+        margin-top: 60px;
+
+        .faq-item {
+            .title {
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .wholesale-offer {
+        &-content {
+            .title {
+                font-size: 38px;
+            }
+
+            .text {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .wholesale-title {
+        font-size: 26px;
+    }
+
+    .wholesale-catalog {
+        margin-top: 60px;
+
+        .title {
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            a {
+                grid-column: span 12 $imp;
+            }
+        }
+    }
+
+    .wholesale-warehouse {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .wholesale-instruction {
+
+        &-container {
+            padding: 40px;
+            row-gap: 40px;
+            flex-direction: column;
+        }
+
+        .info {
+            padding-right: 0;
+            border: none;
+        }
+
+        .contacts {
+            width: 100%;
+
+            .contact {
+                a {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    .wholesale-contact-form {
+        margin-top: 60px;
+        padding: 50px 0;
+
+        .title {
+            font-size: 22px;
+        }
+
+        .form {
+            flex-direction: column;
+            row-gap: 20px;
+
+            .inputs {
+                flex-direction: column;
+                row-gap: 20px;
+                align-items: stretch;
+                width: 100%;
+            }
+
+            .btn {
+               width: 100%;
+            }
+        }
+
+        .form-input {
+            min-width: 100%;
+        }
+    }
+
+    .wholesale-faq {
+        margin-top: 60px;
+
+        .faq-item {
+            .title {
+                font-size: 20px;
+            }
+        }
+    }
+}

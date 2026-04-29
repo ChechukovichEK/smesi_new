@@ -1,0 +1,119 @@
+.filter-category {
+	&-list {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 10px;
+		margin-bottom: 30px;
+		
+		@media (max-width:1360px) {
+			grid-template-columns: repeat(4, 1fr);
+		}
+		
+		@media (max-width:1200px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+		
+		@media (max-width: 992px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		
+		@media (max-width: 768px) {
+			grid-template-columns: 1fr;
+		}
+	}
+	
+	&-item {
+		@include flex(center, center);
+		background: #F2F5F8;
+		border-radius: 20px;
+		@include transition();
+
+		&:hover {
+			transform: scale(1.05);
+		}
+	}
+	
+	&-title {
+		font-family: "MyriadProSemibold", Arial, sans-serif;
+		text-align: center;
+		color: $color-black;
+		font-size: 16px;
+		padding: 10px 10px;
+	}
+}
+
+.sort {
+	@include flex(baseline, flex-end);
+	margin-bottom: 30px;
+	gap: 20px 10px;
+	
+	p:first-child {
+		font-family: "MyriadProSemibold", Arial, sans-serif;
+		font-size: 16px;
+		color: $text-dark;
+	}
+	
+	.sort-item {
+		font-family: "MyriadProRegular", Arial, sans-serif;
+		color: $color-orange;
+		font-size: 14px;
+	}
+}
+
+.pages-content {
+	.pagination {
+		margin: 30px auto;
+		
+		&:last-child {
+			margin-bottom: 0;
+		}
+		
+		& > li {
+			margin-bottom: 0;
+		}
+	}
+}
+.pagination {
+	@include flex(center, center, nowrap);
+	max-width: $cont-width;
+	width: 100%;
+	
+	& > li {
+		display: inline;
+		
+		&:first-child {
+			a,
+			span{
+				margin-left: 0;
+				border-top-left-radius: 4px;
+				border-bottom-left-radius: 4px;
+			}
+		}
+	}
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	z-index: 3;
+	color: #fff;
+	cursor: default;
+	background-color: var(--orange);
+	border-color: var(--orange);
+}
+.pagination>li>a, .pagination>li>span {
+	font-family: "Roboto-Regular", Arial, sans-serif;
+	font-size: 15px;
+	position: relative;
+	padding: 5px 10px;
+	margin-left: -1px;
+	line-height: 1.42857143;
+	color: #7b7b7b;
+	text-decoration: none;
+	background-color: #fff;
+	border: 1px solid #ddd;
+}
+.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
+	z-index: 2;
+	color: #23527c;
+	background-color: #eee;
+	border-color: #ddd;
+}

@@ -1,0 +1,99 @@
+.home-offer-slider {
+	position: relative;
+	height: 0;
+	padding-bottom: 400px;
+	overflow: hidden;
+	margin-bottom: 70px;
+	
+	img,
+	picture {
+		display: block;
+		margin: 0 auto;
+		height: auto;
+	}
+	
+	.slider-item {
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: 50% 50%;
+	}
+	
+	.swiper-button-prev,
+	.swiper-button-next {
+		@include size(60px, 60px);
+		border-radius: 50%;
+		background: $color-white;
+		
+		&:after {
+			font-size: 30px;
+			color: #7A828C;
+		}
+	}
+	
+	.swiper-button-prev {
+		left: 50px;
+	}
+	
+	.swiper-button-next {
+		right: 50px;
+	}
+}
+
+@media (max-width: 1500px) {
+	.home-offer-slider {
+		padding-bottom: 26.6%;
+	}
+}
+
+@media (max-width: 899px) {
+	.home-offer-slider {
+		height: 0;
+		padding-bottom: 66.6%;
+		margin-bottom: 30px;
+		
+		.slider-item {
+			background-image: none !important;
+		}
+		
+		.swiper-button-prev,
+		.swiper-button-next {
+			@include size(40px, 40px);
+			
+			&:after {
+				font-size: 20px;
+			}
+		}
+		
+		.swiper-button-prev {
+			left: 20px;
+		}
+		
+		.swiper-button-next {
+			right: 20px;
+		}
+	}
+}
+
+@media (max-width: 599px) {
+	.home-offer-slider {
+		height: 0;
+		padding-bottom: 100%;
+		
+		.swiper-button-prev,
+		.swiper-button-next {
+			@include size(30px, 30px);
+			
+			&:after {
+				font-size: 15px;
+			}
+		}
+		
+		.swiper-button-prev {
+			left: 10px;
+		}
+		
+		.swiper-button-next {
+			right: 10px;
+		}
+	}
+}

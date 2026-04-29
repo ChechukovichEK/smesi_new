@@ -1,0 +1,17 @@
+.cr {
+	background: #131a22;
+}
+.cr-content {
+	max-width: $cont-width;
+	margin: 0 auto;
+	padding: 30px 20px;
+	font-family: "MyriadProRegular", Arial, sans-serif;
+	font-size: 20px;
+	color: $color-white;
+}
+
+@media (max-width: 768px) {
+	.cr-content {
+		text-align: center;
+	}
+}

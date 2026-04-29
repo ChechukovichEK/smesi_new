@@ -1,0 +1,117 @@
+.map-block {
+	padding: 70px 0;
+	
+	.container {
+		max-width: $cont-width;
+		margin: 0 auto;
+		padding: 0 20px;
+		position: relative;
+	}
+	
+	.map {
+		height: 580px;
+	}
+	
+	&-info {
+		@include position(absolute, 20px, 20px);
+		width: 400px;
+		background: $color-white;
+		padding: 40px 30px;
+		z-index: 1;
+		box-sizing: border-box;
+	}
+	
+	&-title {
+		font-family: "MyriadProSemibold", Arial, sans-serif;
+		font-size: 26px;
+		margin-bottom: 10px;
+	}
+	
+	&-text {
+		font-family: "MyriadProRegular", Arial, sans-serif;
+		font-size: 16px;
+		margin-bottom: 5px;
+	}
+	
+	&-link {
+		font-family: "MyriadProRegular", Arial, sans-serif;
+		font-size: 16px;
+		color: $color-orange;
+		text-decoration: none;
+		@include transition();
+		
+		&:hover {
+			color: $color-orange-hover;
+		}
+	}
+	
+	&-line {
+		height: 1px;
+		background: #E5E9ED;
+		margin: 30px 0;
+	}
+}
+
+@media (max-width: 992px) {
+	.map-block {
+		padding: 50px 0;
+		
+		&-info {
+			position: static;
+			padding: 0 0 20px;
+			top: 0;
+			left: 0;
+			width: 100%;
+		}
+		
+		&-title {
+			font-size: 24px;
+			margin-bottom: 8px;
+		}
+		
+		&-text {
+			font-size: 15px;
+			margin-bottom: 5px;
+		}
+		
+		&-link {
+			font-size: 15px;
+		}
+		
+		&-line {
+			margin: 20px 0;
+		}
+		
+		.map {
+			height: 400px;
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.map-block {
+		padding: 30px 0;
+		
+		&-title {
+			font-size: 18px;
+			margin-bottom: 5px;
+		}
+		
+		&-text {
+			font-size: 14px;
+			margin-bottom: 3px;
+		}
+		
+		&-link {
+			font-size: 14px;
+		}
+		
+		&-line {
+			margin: 15px 0;
+		}
+		
+		.map {
+			height: 350px;
+		}
+	}
+}

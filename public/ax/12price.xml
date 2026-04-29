@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><PriceList xmlns="Vershina" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<PriceListHead xsi:type="PriceListHead">
+		<Link xsi:type="xs:string">514b80e6-6d1a-11ee-8ff0-5800e3d6a3fa</Link>
+		<DocDate xsi:type="xs:dateTime">2023-10-17T21:23:55</DocDate>
+		<DocNumber xsi:type="xs:string">000000001</DocNumber>
+	</PriceListHead>
+	<PriceListRows xsi:type="PriceListRows">
+		<PriceListRow xsi:type="PriceListRow">
+			<Good xsi:type="Good">
+				<Good_id xsi:type="xs:string">106245058</Good_id>
+				<Good_name xsi:type="xs:string">Фасадная краска Baumit SilikonColor GMWF 14л./25 кг АВСТРИЯ</Good_name>
+			</Good>
+			<Priceretail xsi:type="xs:decimal">242.73</Priceretail>
+			<PriceretailWholesale xsi:type="xs:decimal">197.43</PriceretailWholesale>
+			<PriceretailDiscount xsi:type="xs:decimal">226.55</PriceretailDiscount>
+			<PriceretailMaster xsi:type="xs:decimal">216.85</PriceretailMaster>
+		</PriceListRow>
+		<PriceListRow xsi:type="PriceListRow">
+			<Good xsi:type="Good">
+				<Good_id xsi:type="xs:string">106245455</Good_id>
+				<Good_name xsi:type="xs:string">Декоративноя штукатурка Baumit SilikonTop 1,5k /25 кг АВСТРИЯ</Good_name>
+			</Good>
+			<Priceretail xsi:type="xs:decimal">207.92</Priceretail>
+			<PriceretailWholesale xsi:type="xs:decimal">169.12</PriceretailWholesale>
+			<PriceretailDiscount xsi:type="xs:decimal">194.06</PriceretailDiscount>
+			<PriceretailMaster xsi:type="xs:decimal">185.75</PriceretailMaster>
+		</PriceListRow>
+		<PriceListRow xsi:type="PriceListRow">
+			<Good xsi:type="Good">
+				<Good_id xsi:type="xs:string">90219198</Good_id>
+				<Good_name xsi:type="xs:string">ГКЛ   (6,5*1,2*2,6) арочный      Norgips</Good_name>
+			</Good>
+			<Priceretail xsi:type="xs:decimal">40.49</Priceretail>
+			<PriceretailWholesale xsi:type="xs:decimal">33.74</PriceretailWholesale>
+			<PriceretailDiscount xsi:type="xs:decimal">38.08</PriceretailDiscount>
+			<PriceretailMaster xsi:type="xs:decimal">36.63</PriceretailMaster>
+		</PriceListRow>
+		<PriceListRow xsi:type="PriceListRow">
+			<Good xsi:type="Good">
+				<Good_id xsi:type="xs:string">94038455</Good_id>
+				<Good_name xsi:type="xs:string">ГКЛВ   12,5*1200*2600        Norgips</Good_name>
+			</Good>
+			<Priceretail xsi:type="xs:decimal">26.76</Priceretail>
+			<PriceretailWholesale xsi:type="xs:decimal">23.48</PriceretailWholesale>
+			<PriceretailDiscount xsi:type="xs:decimal">25.59</PriceretailDiscount>
+			<PriceretailMaster xsi:type="xs:decimal">24.89</PriceretailMaster>
+		</PriceListRow>
+		<PriceListRow xsi:type="PriceListRow">
+			<Good xsi:type="Good">
+				<Good_id xsi:type="xs:string">94038510</Good_id>
+				<Good_name xsi:type="xs:string">ГКЛВ   12,5*1200*3000         Norgips</Good_name>
+			</Good>
+			<Priceretail xsi:type="xs:decimal">31.27</Priceretail>
+			<PriceretailWholesale xsi:type="xs:decimal">27.44</PriceretailWholesale>
+			<PriceretailDiscount xsi:type="xs:decimal">29.9</PriceretailDiscount>
+			<PriceretailMaster xsi:type="xs:decimal">29.08</PriceretailMaster>
+		</PriceListRow>
+		<PriceListRow xsi:type="PriceListRow">
+			<Good xsi:type="Good">
+				<Good_id xsi:type="xs:string">66661767</Good_id>
+				<Good_name xsi:type="xs:string">ГВЛВ 10*1,2*2,5                       Knauf</Good_name>
+			</Good>
+			<Priceretail xsi:type="xs:decimal">28.49</Priceretail>
+			<PriceretailWholesale xsi:type="xs:decimal">24.83</PriceretailWholesale>
+			<PriceretailDiscount xsi:type="xs:decimal">27.18</PriceretailDiscount>
+			<PriceretailMaster xsi:type="xs:decimal">26.4</PriceretailMaster>
+		</PriceListRow>
+		<PriceListRow xsi:type="PriceListRow">
+			<Good xsi:type="Good">
+				<Good_id xsi:type="xs:string">67824283</Good_id>
+				<Good_name xsi:type="xs:string">ГВЛВ 12*1,2*2,5                       Knauf</Good_name>
+			</Good>
+			<Priceretail xsi:type="xs:decimal">34.52</Priceretail>
+			<PriceretailWholesale xsi:type="xs:decimal">29.68</PriceretailWholesale>
+			<PriceretailDiscount xsi:type="xs:decimal">32.79</PriceretailDiscount>
+			<PriceretailMaster xsi:type="xs:decimal">31.75</PriceretailMaster>
+		</PriceListRow>
+	</PriceListRows>
+</PriceList>
