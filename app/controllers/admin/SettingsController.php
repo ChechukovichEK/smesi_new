@@ -48,9 +48,87 @@ class SettingsController extends AppController
 			'address_office',
 			'schedule',
 			'additional_phones',
+			'name_site',
+			'description_site',
+			'address_street',
+			'address_locality',
+			'postal_code',
+			'name_organization',
+			'phone_store_1',
+			'phone_store_2',
+			'phone_manager_1',
+			'phone_manager_2',
+			'phone_office',
+			'phone_general',
+			'copyright',
 		];
 		
+		// === Обработка логотипов ===
+		$uploadDir = WWW . '/img/';
+		
+		if (!empty($_FILES['logo_header']['name'])) {
+			$name = uniqid() . '_' . $_FILES['logo_header']['name'];
+			move_uploaded_file($_FILES['logo_header']['tmp_name'], $uploadDir . $name);
+			
+			$row = \R::findOne('settings', 'name = ?', ['logo_header']);
+			if ($row) {
+				$row->value = $name;
+				\R::store($row);
+			}
+		}
+		
+		if (!empty($_FILES['logo_footer']['name'])) {
+			$name = uniqid() . '_' . $_FILES['logo_footer']['name'];
+			move_uploaded_file($_FILES['logo_footer']['tmp_name'], $uploadDir . $name);
+			
+			$row = \R::findOne('settings', 'name = ?', ['logo_footer']);
+			if ($row) {
+				$row->value = $name;
+				\R::store($row);
+			}
+		}
+		
 		foreach ($fields as $name) {
+			
+			$uploadDir = WWW . '/img/';
+
+			// === logo_header ===
+			if (!empty($_FILES['logo_header']['name'])) {
+				$name = $_FILES['logo_header']['name'];
+				move_uploaded_file($_FILES['logo_header']['tmp_name'], $uploadDir . $name);
+				
+				$row = \R::findOne('settings', 'name = ?', ['logo_header']);
+				if ($row) {
+					$row->value = $name;
+					\R::store($row);
+				}
+			} else {
+				// если файл не загружен — оставить старый
+				$row = \R::findOne('settings', 'name = ?', ['logo_header']);
+				if ($row) {
+					$row->value = $_POST['logo_header_old'];
+					\R::store($row);
+				}
+			}
+
+			// === logo_footer ===
+			if (!empty($_FILES['logo_footer']['name'])) {
+				$name = $_FILES['logo_footer']['name'];
+				move_uploaded_file($_FILES['logo_footer']['tmp_name'], $uploadDir . $name);
+				
+				$row = \R::findOne('settings', 'name = ?', ['logo_footer']);
+				if ($row) {
+					$row->value = $name;
+					\R::store($row);
+				}
+			} else {
+				$row = \R::findOne('settings', 'name = ?', ['logo_footer']);
+				if ($row) {
+					$row->value = $_POST['logo_footer_old'];
+					\R::store($row);
+				}
+			}
+			
 			$value = $_POST[$name] ?? '';
 			
 			$row = \R::findOne('settings', 'name = ?', [$name]);
@@ -74,7 +152,7 @@ class SettingsController extends AppController
 		// Текущее время в ISO 8601
 		$now = date('Y-m-d\TH:i:sP');
 		
-		$xml  = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
+		$xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
 		$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
 		
 		// Главная

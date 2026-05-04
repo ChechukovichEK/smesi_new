@@ -12,7 +12,7 @@ class Navigation extends AppModel
 	{
 		return \R::findAll(
 			$this->table,
-			"position = ? AND visibility = 1 ORDER BY num ASC",
+			"position = ? AND visibility = 1 ORDER BY num desc",
 			[$position]
 		);
 	}

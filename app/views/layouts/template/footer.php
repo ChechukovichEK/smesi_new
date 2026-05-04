@@ -1,8 +1,9 @@
+<?php $email = \ishop\App::$app->getProperty('email')['text'] ?>
 <footer>
 	<div class="footer" itemscope itemtype="http://schema.org/Organization">
 		<meta itemprop="name" content="ЧПТУП Вершина-строй">
 		<meta itemprop="telephone" content="<?= \ishop\App::$app->getProperty('phone')['link'] ?>">
-		<meta itemprop="email" content="vershina_stroi@mail.ru">
+		<meta itemprop="email" content="<?= $email ?>">
 		<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
 			<meta itemprop="streetAddress" content="ул.Лопатина, д.6-6А">
 			<meta itemprop="postalCode" content="220125">
@@ -14,7 +15,8 @@
 				
 				<div class="logo-ft">
 					<a href="/" class="logo">
-						<img loading="lazy" src="img/logo-light.svg" alt="Smesi.by - Интернет-гипермаркет строительных материалов">
+						<img loading="lazy" src="img/logo-light.svg"
+							 alt="Smesi.by - Интернет-гипермаркет строительных материалов">
 					</a>
 				</div>
 				
@@ -35,18 +37,14 @@
 					</div>
 					
 					<nav>
-						<a class="nav-item-ft hover" href="sale">
-							Скидки и акции
-						</a>
-						<a class="nav-item-ft hover" href="article">
-							Школа ремонта
-						</a>
-						<?php new \app\widgets\pages\Pages([
-							'tpl' => WWW . '/pages/pages_bottom.php',
-						]); ?>
-						<!--<a class="nav-item-ft hover" href="/vendors">
-							Бренды
-						</a>-->
+						<?php $menu_footer = \ishop\App::$app->getProperty('nav_footer');
+						if ($menu_footer): ?>
+							<?php foreach ($menu_footer as $item): ?>
+								<a class="nav-item-ft hover" href="<?= PATH ?><?= $item['link'] ?>">
+									<?= $item['title'] ?>
+								</a>
+							<?php endforeach; ?>
+						<?php endif; ?>
 					</nav>
 				</div>
 			</div>
@@ -113,7 +111,7 @@
 					</a>
 				</div>
 				<div class="ft-email">
-					<a href="mailto:vershina_stroi@mail.ru">vershina_stroi@mail.ru</a>
+					<a href="mailto:<?= $email ?>"><?= $email ?></a>
 				</div>
 				<div class="ft-btn">
 					<p>Перезвони мне</p>
@@ -138,7 +136,8 @@
 									alt="Сообщество ВКонтакте"
 							>
 						</a>
-						<a class="nav-item-ft hover" href="https://www.facebook.com/profile.php?id=61573075610960" target="_blank" rel="nofollow">
+						<a class="nav-item-ft hover" href="https://www.facebook.com/profile.php?id=61573075610960"
+						   target="_blank" rel="nofollow">
 							<img
 									loading="lazy"
 									src="img/icons/social/facebook.svg"
@@ -154,7 +153,7 @@
 	
 	<div class="cr">
 		<div class="cr-content">
-			© <?= date("Y")?> Smesi.by Все права защищены
+			© <?= date("Y") ?> Smesi.by Все права защищены
 		</div>
 	</div>
 </footer>
