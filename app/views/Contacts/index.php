@@ -31,7 +31,8 @@
 				<h2>Наша почта:</h2>
 	
 				<ul>
-					<li id="cont-mail"><a  rel="nofollow" href="mailto:vershina_stroi@mail.ru">vershina_stroi@mail.ru</a></li>
+					<?php $email = \ishop\App::$app->getProperty('email')['text']; ?>
+					<li id="cont-mail"><a  rel="nofollow" href="mailto:<?= $email ?>"><?= $email ?></a></li>
 				</ul>
 	
 				<h2>Время работы:</h2>

@@ -19,6 +19,11 @@
 		<a href="<?= ADMIN ?>/article-faq/index?id=<?= $new->id ?>" class="btn btn-default">
 			FAQ для статьи
 		</a>
+		
+		<a href="<?= PATH ?>/article/<?= $new->alias ?>" target="_blank" class="btn btn-info">
+			Просмотреть статью
+		</a>
+	
 	</div>
 	
 	
@@ -87,8 +92,9 @@
 						
 						<div class="form-group has-feedback">
 							<label for="content">Основное содержание</label>
-							<textarea name="content" id="editor1" rows="10"
-									  cols="80"><?= $new->content; ?></textarea>
+							<textarea name="content" id="editor1" rows="10" cols="80">
+								<?= $new->content; ?>
+							</textarea>
 							<div class="help-block with-errors"></div>
 						</div>
 						

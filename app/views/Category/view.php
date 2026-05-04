@@ -18,20 +18,24 @@
 		<?php else: ?>
 			<h1><?=$category->title;?></h1>
 		<?php endif; ?>
-
-        <?php if ($category->short_text): ?>
-        <div><?=$category->short_text?></div>
-        <?php endif; ?>
+		
+		<?php if ($category->short_text): ?>
+			<div style="margin-bottom: 30px;"><?=$category->short_text?></div>
+		<?php endif; ?>
 		
 		<?php if ($children_cats): ?>
-			<div class="filter-category-list">
-				<?php foreach ($children_cats as $item): ?>
-					<a href="category/<?=$item['alias'];?>" class="filter-category-item">
-						<h4 class="filter-category-title"><?=$item['title'];?></h4>
-					</a>
-				<?php endforeach;?>
+			<div class="filter-category">
+				<div class="filter-category-list">
+					<?php foreach ($children_cats as $item): ?>
+						<a href="<?= PATH ?>/category/<?=$item['alias'];?>" class="filter-category-item">
+							<h4><?=$item['title'];?></h4>
+						</a>
+					<?php endforeach;?>
+				</div>
 			</div>
+			
 		<?php endif; ?>
+		
 		<?php if($groupes): ?>
 			<div class="groups">
 				<div class="groups-content">
@@ -40,8 +44,11 @@
 					<?php endforeach; ?>
 				</div>
 			</div>
+			
 		<?php endif; ?>
-        <button class="filter-toggle">Фильтры</button>
+		
+		<button class="filter-toggle">Фильтры</button>
+        
 
         <div class="filter-modal">
             <div class="filter-modal-content">

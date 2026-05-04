@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\AppModel;
+use app\models\Navigation;
 use app\widgets\currency\Currency;
 use ishop\App;
 use ishop\base\Controller;
@@ -23,6 +24,8 @@ class AppController extends Controller {
 		}
 		
 		self::getSettings();
+		
+		$this->loadNavigation();
 	}
 	
 	/**
@@ -54,6 +57,33 @@ class AppController extends Controller {
 				'link' => $this->cleanPhone($settings['phone']),
 			];
 			App::$app->setProperty('phone', $phone);
+		}
+		
+		//email
+		if (!empty($settings['email'])) {
+			$email = [
+				'text' => $settings['email'],
+			];
+			
+			App::$app->setProperty('email', $email);
+		}
+		
+		//address_store
+		if (!empty($settings['address_store'])) {
+			$address_store = [
+				'text' => $settings['address_store'],
+			];
+			
+			App::$app->setProperty('address_store', $address_store);
+		}
+		
+		//address_office
+		if (!empty($settings['address_office'])) {
+			$address_office = [
+				'text' => $settings['address_office'],
+			];
+			
+			App::$app->setProperty('address_office', $address_office);
 		}
 		
 		// Дополнительные телефоны
@@ -148,4 +178,43 @@ class AppController extends Controller {
 		
 		return $id;
 	}
+	
+	private function loadNavigation()
+	{
+		$nav = new \app\models\Navigation();
+		
+		$header = $nav->getAll('top');
+		$footer = $nav->getAll('bottom');
+		$mobile = $nav->getAll('mobile');
+		//$terms  = $nav->getAll('terms');
+		
+		App::$app->setProperty('nav_header', $this->buildTree($header));
+		App::$app->setProperty('nav_footer', $this->buildTree($footer));
+		App::$app->setProperty('nav_mobile', $this->buildTree($mobile));
+		//App::$app->setProperty('nav_terms',  $this->buildTree($terms));
+	}
+	
+	private function buildTree($items)
+	{
+		$tree = [];
+		$refs = [];
+		
+		foreach ($items as $item) {
+			$item->children = [];
+			$refs[$item->id] = $item;
+			
+			if ($item->id_parent == 0) {
+				$tree[$item->id] = $item;
+			}
+		}
+		
+		foreach ($items as $item) {
+			if ($item->id_parent != 0 && isset($refs[$item->id_parent])) {
+				$refs[$item->id_parent]->children[$item->id] = $item;
+			}
+		}
+		
+		return $tree;
+	}
+	
 }

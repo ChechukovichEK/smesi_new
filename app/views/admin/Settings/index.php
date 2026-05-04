@@ -1,63 +1,35 @@
 <section class="content-header">
 	<h1>Настройки сайта</h1>
-	<ol class="breadcrumb">
-		<li><a href="<?=ADMIN?>"><i class="fa fa-dashboard"></i>Главная</a></li>
-		<li class="active">Настройки</li>
-	</ol>
 </section>
 
-<!-- Main content -->
 <section class="content">
-	<!-- Small boxes (Stat box) -->
-	<div class="row">
-		<div class="col-md-12">
-			<div class="box">
-				<form action="<?=ADMIN;?>/settings/edit" method="post" data-toggle="validator">
-					<div class="box-body">
-
-                        <div class="form-group has-feedback">
-                            <label for="phone">Телефон</label>
-                            <input type="text" name="phone" class="form-control" id="phone" placeholder="Телефона" value="<?=$settings['phone']?>" required>
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-
-                        <div class="form-group has-feedback">
-                            <label for="additional_phones">Дополнительные номера (разделять через |)</label>
-                            <input type="text" name="additional_phones" class="form-control" id="additional_phones" placeholder="Телефона" value="<?=$settings['additional_phones']?>">
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-
-						<div class="form-group has-feedback">
-							<label for="legal_entity">Юр.лицо</label>
-							<textarea name="legal_entity" id="legal_entity" rows="10" cols="80"><?=$settings['legal_entity']?></textarea>
-							<div class="help-block with-errors"></div>
-						</div>
-
-						<div class="form-group has-feedback">
-							<label for="header_scripts">Скрипт в head</label>
-							<textarea name="header_scripts" id="header_scripts" rows="10" cols="80"><?=$settings['header_scripts']?></textarea>
-							<div class="help-block with-errors"></div>
-						</div>
-
-                        <div class="form-group has-feedback">
-                            <label for="body_scripts">Скрипт в body</label>
-                            <textarea name="body_scripts" id="body_scripts" rows="10" cols="80"><?=$settings['body_scripts']?></textarea>
-                            <div class="help-block with-errors"></div>
-                        </div>
-
-                        <div class="form-group has-feedback">
-                            <label for="footer_scripts">Скрипт в footer</label>
-                            <textarea name="footer_scripts" id="footer_scripts" rows="10" cols="80"><?=$settings['footer_scripts']?></textarea>
-                            <div class="help-block with-errors"></div>
-                        </div>
-
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-success">Сохранить</button>
-                        </div>
-
-					</div>
-				</form>
-			</div>
+	
+	<div class="box">
+		<div class="box-body">
+			
+			<table class="table table-bordered">
+				<tr>
+					<th>Название</th>
+					<th>Значение</th>
+				</tr>
+				
+				<?php foreach ($settings as $name => $value): ?>
+					<tr>
+						<td><?= $name ?></td>
+						<td><?= nl2br(htmlspecialchars($value)) ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</table>
+			
+			<a href="<?= ADMIN ?>/settings/edit" class="btn btn-primary">
+				Редактировать настройки
+			</a>
+			
+			<a href="<?= ADMIN ?>/settings/sitemap" class="btn btn-success" style="margin-left:10px;">
+				Сгенерировать sitemap.xml
+			</a>
+		
 		</div>
 	</div>
+
 </section>
