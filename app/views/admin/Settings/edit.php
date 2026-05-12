@@ -180,7 +180,7 @@
 						
 						<div class="row">
 							<div class="col-md-6">
-								<h2>Логотип в футаре</h2>
+								<h2>Логотип в футере</h2>
 								<input type="hidden" name="logo_footer_old" value="<?= $settings['logo_footer'] ?>">
 								
 								<?php if (!empty($settings['logo_footer'])): ?>

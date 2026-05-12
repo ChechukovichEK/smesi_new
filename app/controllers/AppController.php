@@ -59,34 +59,7 @@ class AppController extends Controller {
 			App::$app->setProperty('phone', $phone);
 		}
 		
-		//email
-		if (!empty($settings['email'])) {
-			$email = [
-				'text' => $settings['email'],
-			];
-			
-			App::$app->setProperty('email', $email);
-		}
-		
-		//address_store
-		if (!empty($settings['address_store'])) {
-			$address_store = [
-				'text' => $settings['address_store'],
-			];
-			
-			App::$app->setProperty('address_store', $address_store);
-		}
-		
-		//address_office
-		if (!empty($settings['address_office'])) {
-			$address_office = [
-				'text' => $settings['address_office'],
-			];
-			
-			App::$app->setProperty('address_office', $address_office);
-		}
-		
-		// Дополнительные телефоны
+		// Дополнительные телефоны (после переделки удалить!!!!)
 		if (!empty($settings['additional_phones'])) {
 			$phones = explode('|', $settings['additional_phones']);
 			$additional = [];

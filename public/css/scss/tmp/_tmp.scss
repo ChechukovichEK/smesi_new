@@ -870,18 +870,7 @@ input::-webkit-inner-spin-button {
 	}
 
 	.schedule {
-		list-style: none;
-
-		> li {
-			display: block;
-			font-size: 14px;
-			font-family: "MyriadProRegular", sans-serif;
-			color: white;
-		}
-
-		li + li {
-			margin-top: 15px;
-		}
+		color: white;
 	}
 }
 

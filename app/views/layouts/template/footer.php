@@ -1,39 +1,43 @@
-<?php $email = \ishop\App::$app->getProperty('email')['text'] ?>
+<?php $email = \ishop\App::$app->getProperty('settings')['email'] ?>
 <footer>
 	<div class="footer" itemscope itemtype="http://schema.org/Organization">
-		<meta itemprop="name" content="ЧПТУП Вершина-строй">
+		<meta itemprop="name" content="<?= \ishop\App::$app->getProperty('settings')['name_organization'] ?>">
 		<meta itemprop="telephone" content="<?= \ishop\App::$app->getProperty('phone')['link'] ?>">
 		<meta itemprop="email" content="<?= $email ?>">
 		<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-			<meta itemprop="streetAddress" content="ул.Лопатина, д.6-6А">
-			<meta itemprop="postalCode" content="220125">
-			<meta itemprop="addressLocality" content="Минский район, д.Копище">
+			<meta itemprop="streetAddress" content="<?= \ishop\App::$app->getProperty('settings')['address_street'] ?>">
+			<meta itemprop="postalCode" content="<?= \ishop\App::$app->getProperty('settings')['postal_code'] ?>">
+			<meta itemprop="addressLocality" content="<?= \ishop\App::$app->getProperty('settings')['address_locality'] ?>">
 		</span>
 		<div class="footer-content">
 			
 			<div class="logo-nav">
 				
-				<div class="logo-ft">
-					<a href="/" class="logo">
-						<img loading="lazy" src="img/logo-light.svg"
-							 alt="Smesi.by - Интернет-гипермаркет строительных материалов">
-					</a>
-				</div>
+				<?php if (!empty(\ishop\App::$app->getProperty('settings')['logo_footer'])): ?>
+					
+					<div class="logo-ft">
+						<a href="<?= PATH ?>" class="logo">
+							<img loading="lazy"
+								 src="<?= PATH ?>/img/<?= \ishop\App::$app->getProperty('settings')['logo_footer'] ?>"
+								 alt="Smesi.by - Интернет-гипермаркет строительных материалов">
+						</a>
+					</div>
+				
+				<?php endif; ?>
 				
 				<div class="nav-gamb-ft hover">
 					<p>МЕНЮ</p>
 					<div class="nav-gamb">
-						<img loading="lazy" src="images/gamburger.svg" alt="Каталог">
+						<img loading="lazy" src="<?= PATH ?>/images/gamburger.svg" alt="Каталог">
 					</div>
 				</div>
 				
 				<div class="nav-gor-ft">
 					<div class="nav-schedule">
 						<div class="title">Время работы склада</div>
-						<ul class="schedule">
-							<li>ПН-ПТ с 9:30 до 17:30</li>
-							<li>СБ-ВС выходной</li>
-						</ul>
+						<div class="schedule">
+							<?= \ishop\App::$app->getProperty('settings')['schedule'] ?>
+						</div>
 					</div>
 					
 					<nav>
@@ -54,7 +58,7 @@
 					<div>
 						<p>КАТАЛОГ</p>
 						<div class="cat-gamb">
-							<img loading="lazy" src="images/gamburger.svg" alt="Каталог">
+							<img loading="lazy" src="<?= PATH ?>/images/gamburger.svg" alt="Каталог">
 						</div>
 					</div>
 				</div>
@@ -122,10 +126,9 @@
 				</div>
 				<div class="nav-schedule-mobile">
 					<div class="title">Время работы склада</div>
-					<ul class="schedule">
-						<li>ПН-ПТ с 9:30 до 17:30</li>
-						<li>СБ-ВС выходной</li>
-					</ul>
+					<div class="schedule">
+						<?= \ishop\App::$app->getProperty('settings')['schedule'] ?>
+					</div>
 				</div>
 				<div class="nav-gor-ft nav-groups">
 					<nav>
@@ -146,14 +149,26 @@
 						</a>
 					</nav>
 				</div>
+				<div class="footer-pay">
+					<div class="footer-pay-block">
+						<div class="text">Мы принимаем</div>
+						<div class="footer-pay-list">
+							<img src="<?= PATH ?>/img/icons/pay/visa.svg" class="item item-visa" alt="visa">
+							<img src="<?= PATH ?>/img/icons/pay/master.svg" class="item" alt="MasterCard">
+							<img src="<?= PATH ?>/img/icons/pay/erip.svg" class="item" alt="ЕРИП">
+							<img src="<?= PATH ?>/img/icons/pay/epos.svg" class="item" alt="E-POS">
+						</div>
+					</div>
+				</div>
 			</div>
 			<?= \ishop\App::$app->getProperty('settings')['legal_entity'] ?>
 		</div>
+		
 	</div>
 	
 	<div class="cr">
 		<div class="cr-content">
-			© <?= date("Y") ?> Smesi.by Все права защищены
+			<?= !empty(\ishop\App::$app->getProperty('settings')['copyright']) ? \ishop\App::$app->getProperty('settings')['copyright'] : '' ?>
 		</div>
 	</div>
 </footer>

@@ -99,7 +99,7 @@
                         <img src="../img/wholesale/wholesale-catalog-6.png">
                     </div>
                 </a>
-                <a href="/category/sistema-vyravnivaniya-plitki" class="catalog-card">
+                <a href="<?= PATH ?>/page/stat-dilerom-svp-ot-tls-profi" class="catalog-card">
                     <div class="name">Система выравнивания плитки</div>
                     <div class="img">
                         <img src="../img/wholesale/wholesale-catalog-7.png">
@@ -207,7 +207,7 @@
                     </ul>
                 </div>
                 <div class="contacts">
-                    <div class="title wholesale-title">Контакты отдела опта</div>
+                    <div class="title wholesale-title">Контакты отдела продаж</div>
                     <div class="contact">
                         <div class="label">Мобильный телефон</div>
                         <a href="tel:+375172344018">+375 (17) 234-40-18</a>

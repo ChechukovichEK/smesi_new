@@ -254,18 +254,18 @@
                 </li>
 				
 				<li class="treeview">
-					<a><i class="fa fa-cogs"></i> <span>Упавление сайта</span>
+					<a><i class="fa fa-cogs"></i> <span>Управление сайта</span>
 						<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
 					</a>
 					<ul class="treeview-menu">
 						<li><a href="<?= ADMIN ?>/navigation">Навигация</a></li>
 						<li><a href="<?= ADMIN ?>/navigation_footer">Футер</a></li>
 						<li><a href="<?= ADMIN ?>/navigation_mobile">Мобильное меню</a></li>
+						<li><a href="<?= ADMIN ?>/socials">Социальные сети</a></li>
 						<li><a href="<?= ADMIN ?>/settings">Настройки</a></li>
 					</ul>
 				</li>
-
-                <!--<li><a href="<?php /*= ADMIN */?>/settings"><i class="fa fa-cogs" aria-hidden="true"></i> <span>Настройки</span></a>
+				
                 </li>-->
             </ul>
         </section>

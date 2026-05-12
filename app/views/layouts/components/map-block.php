@@ -9,11 +9,11 @@ $url = $url[0];
 		<div class="container">
 			<div class="map-block-info">
 				<div class="map-block-title">Склад</div>
-				<div class="map-block-text"><?= \ishop\App::$app->getProperty('address_store')['text']; ?></div>
-				<a class="map-block-link" rel="nofollow" target="_blank" href="https://yandex.by/maps/-/CHC3zRn5">Показать на карте</a>
+				<div class="map-block-text"><?= \ishop\App::$app->getProperty('settings')['address_store']; ?></div>
+				<a class="map-block-link" rel="nofollow" target="_blank" href="https://yandex.by/maps/org/smesi_by/66884555107/?ll=27.736355%2C53.946191&z=17">Показать на карте</a>
 				<div class="map-block-line"></div>
 				<div class="map-block-title">Офис</div>
-				<div class="map-block-text"><?= \ishop\App::$app->getProperty('address_office')['text']; ?></div>
+				<div class="map-block-text"><?= \ishop\App::$app->getProperty('settings')['address_office']; ?></div>
 				<a class="map-block-link" rel="nofollow" target="_blank" href="https://yandex.by/maps/-/CHC37U5S">Показать на карте</a>
 			</div>
 			<div class="map" id="map"></div>

@@ -246,3 +246,19 @@ $(document).ready(function () {
         );
     });
 });
+
+$(document).ready(function () {
+	$('[data-toggle="svpForm"]').on('click', function (e){
+		e.preventDefault();
+		
+		const formOffset = $('#svpForm').offset().top;
+		
+		$('html, body').animate(
+			{
+				scrollTop: formOffset - 50,
+			},
+			800
+		);
+		
+	});
+});

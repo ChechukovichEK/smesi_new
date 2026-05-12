@@ -31,6 +31,10 @@ class PageController extends AppController
         if ($alias === 'opt') {
             $this->view = 'wholesale';
         }
+		
+		if ($alias === 'stat-dilerom-svp-ot-tls-profi') {
+			$this->view = 'svp';
+		}
 
         $this->setMeta($title, $desc, $title, 'og_pages.jpg');
         $this->set(compact('page'));

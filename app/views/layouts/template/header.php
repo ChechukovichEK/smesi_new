@@ -100,7 +100,7 @@
 					</a>
 				</div>
 				<div class="email">
-					<?php $email = \ishop\App::$app->getProperty('email')['text']; ?>
+					<?php $email = \ishop\App::$app->getProperty('settings')['email']; ?>
 					<a href="mailto:<?= $email ?>"><?= $email ?></a>
 				</div>
 			</div>

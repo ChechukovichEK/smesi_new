@@ -1,3 +1,27 @@
+.footer-pay {
+	width: 100%;
+	@include flex(center, flex-start);
+	
+	.text {
+		margin: 30px 0 5px;
+		color: $color-white;
+	}
+	
+	&-list {
+		@include flex(center, flex-start);
+		gap: 10px;
+		
+		.item {
+			max-height: 30px;
+			
+			&-visa {
+				max-height: 20px;
+			}
+		}
+	}
+	
+}
+
 .cr {
 	background: #131a22;
 }
@@ -11,6 +35,10 @@
 }
 
 @media (max-width: 768px) {
+	.footer-pay {
+		justify-content: center;
+	}
+	
 	.cr-content {
 		text-align: center;
 	}
