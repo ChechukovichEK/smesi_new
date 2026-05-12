@@ -1,0 +1,947 @@
+.svp {
+    box-sizing: border-box $imp;
+	padding-bottom: 0;
+
+    &-title {
+        @include font(40px, 600, 1, $color-black, "MyriadProSemibold");
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+
+    .container {
+        position: relative;
+        max-width: 1550px;
+        padding: 0 20px;
+        margin: 0 auto;
+        z-index: 10;
+    }
+
+    &-offer {
+        position: relative;
+        padding: 110px 0 80px;
+        
+        &-bg {
+            @include position(absolute, 0, 0, 0, 0, 1);
+
+            img {
+				@include size(100%, 100%);
+                display: block;
+                object-fit: cover;
+            }
+        }
+
+        &-content {
+
+            .title {
+				max-width: 1000px;
+                @include font(54px, 600, 1.2, $color-white, "MyriadProSemibold");
+            }
+
+            .text {
+                margin-top: 40px;
+                @include font(24px, 400, 1.6, $color-white, "MyriadProRegular");
+            }
+			
+			.list {
+				margin-left: 0;
+				margin-top: 25px;
+				list-style: none;
+				@include flex(center, flex-start);
+				gap: 14px;
+				
+				.item {
+					position: relative;
+					margin: 0;
+					padding: 10px 20px 10px 56px;
+					border-radius: 100px;
+					background: rgba($color-white, 0.2);
+					@include font(18px, 400, 1.6, $color-white, "MyriadProRegular");
+					@include transition;
+					
+					&:before {
+						content: '';
+						@include size(26px, 26px);
+						background-image: url("../img/icons/check.svg");
+						background-repeat: no-repeat;
+						background-size: contain;
+						@include position(absolute, 20px, 50%);
+						transform: translateY(-50%);
+						@include transition;
+					}
+					
+					&:hover {
+						background: rgba($color-white, 0.3);
+						&::before {
+							background: url("../img/icons/check-hover.svg");
+						}
+					}
+					
+				}
+			}
+			
+			.btn-svp {
+				height: $form-height-xl;
+				position: relative;
+				overflow: hidden;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				margin-top: 50px;
+				padding: 15px 35px;
+				@include font(18px, 600, 1.4, $color-white, "MyriadProSemibold");
+				background: linear-gradient(180deg, #E95729 13.94%, #E83828 46.63%, #E85B28 100%);
+				border-radius: 100px;
+				@include transition(all .35s ease);
+				
+				&::before {
+					content: "";
+					background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+					height: 80px;
+					width: 50px;
+					position: absolute;
+					top: -8px;
+					left: -75px;
+					transform: skewX(-45deg);
+					transition: all .9s ease;
+					animation: blick 2s infinite;
+				}
+				
+				&:hover {
+					color: $color-white;
+					background: linear-gradient(180deg, #E94A32 10%, #F04333 55%, #E94F2F 100%);
+					box-shadow: 0 0 16px rgba(232, 56, 40, 0.32);
+					filter: brightness(1.02);
+				}
+			}
+        }
+    }
+	
+	&-cooperation {
+		margin: 100px 0;
+		
+		.title {
+			text-align: center;
+			margin-bottom: 55px;
+		}
+		
+		.list {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			column-gap: 30px;
+			
+			.item {
+				position: relative;
+				margin: 0;
+				padding: 25px 25px 25px 110px;
+				border-radius: 100px;
+				@include font(22px, 300, 1.4, $color-black, "MyriadProLight");
+				box-shadow: 0 0 60px rgba(181, 188, 199, 0.25);
+				@include transition;
+				
+				&::before {
+					content: '';
+					@include size(60px, 60px);
+					border-radius: 50%;
+					background: #4BAE00 url("../img/icons/check.svg") no-repeat center;
+					box-shadow: 0 0 40px rgba(255, 255, 255, 0.7) inset;
+					background-size: 26px 26px;
+					@include position(absolute, 25px, 50%);
+					transform: translateY(-50%);
+					@include transition;
+				}
+				
+				&:hover {
+					box-shadow: 20px 20px 50px rgba($color, 0.16), -20px -20px 45px rgba($color-white, 1);
+					
+					&::before {
+						box-shadow: 0 0 40px rgba(255, 255, 255, 0.4) inset;
+					}
+				}
+			}
+		}
+	}
+	
+	&-edge {
+		margin-bottom: 100px;
+		
+		.title {
+			text-align: center;
+			margin-bottom: 40px;
+		}
+		
+		.list {
+			display: grid;
+			grid-template-columns: repeat( 3, 1fr);
+			gap: 30px;
+			
+			.item {
+			
+				.description {
+					height: 120px;
+					@include flex(flex-star, center, nowrap);
+					flex-direction: column;
+					margin-top: 20px;
+					border-left: 3px solid $color-orange;
+					
+					.title {
+						@include font(26px, 600, 1.2, $color-black, "MyriadProSemibold");
+						text-align: left;
+						margin-left: 20px;
+						margin-bottom: 15px;
+					}
+					
+					.text {
+						@include font(16px, 300, 1.6, $color-black, "MyriadProLight");
+						margin-left: 20px;
+					}
+				}
+			}
+		}
+	}
+	
+	&-catalog {
+		position: relative;
+		padding: 65px 0;
+		background: #F5F6F8;
+		
+		.text {
+			margin-bottom: 40px;
+		}
+		
+		.swiper-wrapper {
+			align-items: stretch;
+		}
+		
+		.swiper-slide {
+			width: calc(33.33% - 20px) !important;
+			height: auto !important;
+			display: flex;
+		}
+		
+		
+		.swiper-button-prev,
+		.swiper-button-next {
+			@include size(42px, 42px);
+			border-radius: 50%;
+			background: $color-white;
+			
+			&:after {
+				font-size: 16px;
+				color: #7A828C;
+			}
+		}
+		
+		.swiper-button-prev {
+			left: 3%;
+		}
+		
+		.swiper-button-next {
+			right: 3%;
+		}
+	}
+	
+	&-product {
+		display: flex;
+		flex-direction: column;
+		@include size(100%, 100%);
+		position: relative;
+		overflow: hidden;
+		background: $color-white;
+		border-radius: 20px;
+		padding: 16px;
+		
+		&-sale {
+			@include position(absolute, 16px, 16px, null, null, 10);
+			@include font(16px, 400, 1.4, $color-white, "MyriadProRegular");
+			border-radius: 10px;
+			padding: 5px 10px;
+			background: #71BF36;
+		}
+		
+		&-card-image {
+			position: relative;
+			overflow: hidden;
+			
+			.image-container {
+				position: relative;
+				padding-bottom: 80%;
+				overflow: hidden;
+			}
+			
+			.image-hover {
+				@include position(absolute, 0, 0, 0, 0, 5);
+				@include size(100%, 100%);
+				@include flex;
+				
+				> span {
+					display: block;
+					flex-grow: 1;
+					height: 100%;
+				}
+			}
+			.image-dots {
+				@include position(absolute, null, null, null, 10px, 100);
+				width: 100%;
+				@include flex(center, center, nowrap);
+				gap: 5px;
+				
+				span {
+					display: block;
+					@include size(12px, 12px);
+					border-radius: 100%;
+					background: #D9D9D9;
+					cursor: pointer;
+					@include transition;
+					
+					&.current {
+						background: $color-orange;
+					}
+				}
+			}
+			.image {
+				overflow: hidden;
+				@include flex(flex-start, center);
+				@include position(absolute, 0, 0, 0, 0);
+				@include size(100%, 100%);
+				opacity: 0;
+				@include transition(all 0.5s linear 0s);
+				
+				picture {
+					@include flex(center, center);
+					@include position(absolute, 0, 0, 0, 0);
+					@include size(100%, 100%);
+				}
+				
+				&.current {
+					opacity: 1;
+					z-index: 2;
+				}
+				
+				img {
+					border-radius: 10px;
+					display: block;
+					@include size(100%, 100%);
+					object-fit: cover;
+				}
+			}
+		}
+		
+		&-description {
+			padding: 20px 15px 15px 15px;
+			flex: 1 1 auto;
+			display: flex;
+			flex-direction: column;
+			
+			.title {
+				font-size: 30px;
+				margin-bottom: 10px;
+			}
+			
+			.text {
+				@include font(16px, 300, 1.6, $color-black, "MyriadProLight");
+				margin-bottom: 6px;
+			}
+			
+			.list-size {
+				list-style: none;
+				margin: 0 0 15px;
+				@include flex(center, flex-start);
+				gap: 5px;
+				
+				.item {
+					@include flex(center, center, nowrap);
+					column-gap: 4px;
+					margin: 0;
+					padding: 1px 15px 1px 5px;
+					border-radius: 20px;
+					border: 1px solid #D0D0D0;
+					@include font(16px, 300, 1.6, $color-black, "MyriadProLight");
+				
+					.color {
+						display: block;
+						border-radius: 8px;
+						@include size(16px, 16px);
+					}
+				}
+			}
+			
+			.list-quantity {
+				list-style: none;
+				margin: 0;
+				@include flex(center, flex-start);
+				gap: 5px;
+				
+				.item {
+					margin: 0;
+					padding: 2px 15px;
+					border-radius: 20px;
+					border: 1px solid #D0D0D0;
+					@include font(16px, 300, 1.6, $color-black, "MyriadProLight");
+				}
+			}
+			
+			.action {
+				margin-top: auto;
+				.btn-svp {
+					height: $form-height;
+					position: relative;
+					overflow: hidden;
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					margin-top: 25px;
+					padding: 15px 40px;
+					@include font(18px, 600, 1.4, $color-white, "MyriadProSemibold");
+					background: linear-gradient(180deg, #E95729 13.94%, #E83828 46.63%, #E85B28 100%);
+					border-radius: 100px;
+					@include transition(all .35s ease);
+					
+					&::before {
+						content: "";
+						background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+						height: 80px;
+						width: 50px;
+						position: absolute;
+						top: -8px;
+						left: -75px;
+						transform: skewX(-45deg);
+						transition: all .9s ease;
+						animation: blick 2s infinite;
+					}
+					
+					&:hover {
+						color: $color-white;
+						background: linear-gradient(180deg, #E94A32 10%, #F04333 55%, #E94F2F 100%);
+						box-shadow: 0 0 16px rgba(232, 56, 40, 0.32);
+						filter: brightness(1.02);
+					}
+				}
+			}
+		}
+	}
+	
+	&-why {
+		margin: 100px 0;
+		
+		.title {
+			margin-bottom: 36px;
+		}
+		
+		.list {
+			display: grid;
+			grid-template-columns: repeat( 3, 1fr);
+			gap: 30px;
+			
+			.item {
+				display: block;
+				border: 1px solid #E8EBEE;
+				padding: 35px;
+				@include transition;
+				
+				img {
+					@include size(110px, 110px);
+					object-fit: cover;
+					@include transition;
+				}
+				
+				.title {
+					@include font(26px, 600, 1.2, $color-black, "MyriadProSemibold");
+					margin-bottom: 0;
+					@include transition;
+				}
+				
+				.line {
+					margin: 25px 0;
+					@include size(170px, 3px);
+					background: $color-orange;
+					@include transition;
+				}
+				
+				.text {
+					@include font(16px, 300, 1.6, $color-black, "MyriadProLight");
+				}
+				
+				&:hover {
+					transform: translateY(-6px);
+					box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+					
+					img {
+						transform: scale(1.05);
+						opacity: .9;
+					}
+					
+					.line {
+						width: 300px;
+					}
+				}
+			}
+		}
+	}
+
+    &-contact-form {
+        position: relative;
+        margin-top: 100px;
+        padding: 120px 0;
+
+        .bg {
+            @include position(absolute, 0, 0, 0, 0, 1);
+
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        
+        &-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1060px;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: center;
+            @include font(36px, 600, 1.2, $color-white, "MyriadProSemibold");
+            margin-bottom: 30px;
+        }
+
+        .form {
+            @include flex(center, space-between, nowrap);
+            column-gap: 25px;
+
+            .inputs {
+                list-style: none;
+                @include flex(center, null, nowrap);
+                column-gap: 25px;
+                margin: 0;
+
+                > li {
+                    margin: 0;
+                }
+            }
+
+            &-input {
+                min-width: 360px;
+                box-sizing: border-box;
+                display: inline-block;
+                height: 60px;
+                line-height: 60px;
+                width: 100%;
+                background: $color-white;
+                border-radius: 40px;
+                @include font(16px, 400, 1, $color-black, "MyriadProRegular");
+                padding: 0 25px;
+                border: 1px solid transparent;
+                transition: .3s ease border-color;
+
+                &:focus {
+                    outline: none;
+                    border: 1px solid $color-orange;
+                }
+
+                &::placeholder {
+                    @include font(16px, 400, 1, #7A828C, "MyriadProRegular");
+                }
+            }
+			
+			.btn-svp {
+				height: $form-height-xl;
+				position: relative;
+				overflow: hidden;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				min-width: 280px;
+				padding: 15px 35px;
+				@include font(18px, 600, 1.4, $color-white, "MyriadProSemibold");
+				background: linear-gradient(180deg, #E95729 13.94%, #E83828 46.63%, #E85B28 100%);
+				border-radius: 100px;
+				@include transition(all .35s ease);
+				
+				&::before {
+					content: "";
+					background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+					height: 80px;
+					width: 50px;
+					position: absolute;
+					top: -8px;
+					left: -75px;
+					transform: skewX(-45deg);
+					transition: all .9s ease;
+					animation: blick 2s infinite;
+				}
+				
+				&:hover {
+					color: $color-white;
+					background: linear-gradient(180deg, #E94A32 10%, #F04333 55%, #E94F2F 100%);
+					box-shadow: 0 0 16px rgba(232, 56, 40, 0.32);
+					filter: brightness(1.02);
+				}
+			}
+			
+        }
+    }
+}
+
+//RESPONSIVE
+
+@media (max-width: 1400px) {
+	
+	.svp-cooperation {
+		
+		.list {
+			display: grid;
+			grid-template-columns: repeat(1, 1fr);
+			row-gap: 20px;
+			justify-items: center;
+			
+			.item {
+				width: 650px;
+				padding-left: 100px;
+				
+				& br {
+					display: none;
+				}
+				
+				&:before {
+					left: 15px;
+				}
+			}
+		}
+	}
+	
+	.svp-cooperation {
+		margin: 80px 0;
+		
+		.title {
+			font-size: 36px;
+			margin-bottom: 40px;
+		}
+	}
+	
+    .svp-edge {
+		margin-bottom: 80px;
+		
+		.list {
+			gap: 15px;
+			
+			.item {
+				.description {
+					height: auto;
+					
+					.title {
+						font-size: 20px;
+					}
+				}
+			}
+		}
+	}
+	
+	.svp-catalog {
+		.swiper-slide {
+			width: calc(33.33% - 15px) !important;
+		}
+	}
+	
+	.svp-why {
+		margin: 80px 0;
+		
+		.list {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+}
+
+@media (max-width: 1200px) {
+    .svp-offer {
+        padding: 100px 0 80px;
+		
+		.title {
+			font-size: 40px;
+		}
+		
+		.text {
+			font-size: 20px;
+			br {
+				display: none;
+			}
+		}
+		
+		.list {
+			.item {
+				font-size: 18px;
+			}
+		}
+    }
+	
+	.svp-contact-form {
+		padding: 100px 0;
+		
+		.form {
+			
+			&-input {
+				min-width: 300px;
+			}
+			
+		}
+	}
+}
+
+@media (max-width: 992px) {
+    .svp-offer {
+        padding: 40px 0 40px;
+
+        &-content {
+            .title {
+                font-size: 36px;
+            }
+
+            .text {
+                margin-top: 20px;
+                font-size: 20px;
+            }
+        }
+    }
+	
+	.svp-cooperation {
+		margin: 40px 0;
+		
+		.title {
+			font-size: 36px;
+			margin-bottom: 30px;
+		}
+		
+		.list {
+			.item {
+				width: 100%;
+				padding: 20px 20px 20px 70px;
+				font-size: 20px;
+				
+				&:before {
+					@include size(40px, 40px);
+					background-size: 20px 20px;
+				}
+			}
+		}
+	}
+	
+	.svp-edge {
+		margin-bottom: 40px;
+		
+		.list {
+			gap: 15px;
+			
+			.item {
+				.description {
+					border-left: none;
+					
+					.title {
+						margin-left: 10px;
+						font-size: 20px;
+					}
+					
+					.text {
+						margin-left: 10px;
+					}
+				}
+			}
+		}
+	}
+	
+	.svp-catalog {
+		.swiper-slide {
+			width: calc(50% - 12px) !important;
+		}
+	}
+	
+	.svp-why {
+		
+		margin: 40px 0;
+		
+		.title {
+			font-size: 36px;
+		}
+		
+		.list {
+			grid-template-columns: repeat(1 , 1fr);
+			
+			.item {
+				padding: 20px;
+				img {
+					@include size(80px, 80px);
+				}
+				
+				.title {
+					font-size: 24px;
+				}
+				
+				.line {
+					margin: 15px 0;
+				}
+			}
+		}
+	}
+	
+	.svp-contact-form {
+		margin-top: 60px;
+		padding: 50px 0;
+		
+		.title {
+			font-size: 32px;
+		}
+		.form-input {
+			min-width: 200px;
+		}
+		
+		.form {
+			.btn-svp {
+				min-width: 220px;
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+    .svp-offer {
+        &-content {
+            .text {
+                font-size: 16px;
+            }
+			
+			.list {
+				width: 100%;
+				
+				.item {
+					width: 100%;
+					font-size: 16px;
+				}
+			}
+			
+			.btn-svp {
+				height: $form-height;
+				margin-top: 30px;
+				display: flex;
+			}
+        }
+    }
+	
+	.svp-cooperation {
+		
+		.list {
+			.item {
+				padding: 15px 15px 15px 70px;
+				font-size: 16px;
+			}
+		}
+	}
+	
+	.svp-edge {
+		
+		.title {
+			font-size: 36px;
+		}
+		
+		.list {
+			grid-template-columns: repeat(1, 1fr);
+			gap: 30px;
+			
+			.item {
+				.description {
+					border-left: 3px solid $color-orange;
+					
+					.title {
+					
+					}
+					
+					.text {
+					
+					}
+				}
+			}
+		}
+	}
+	
+	.svp-catalog {
+		.swiper-slide {
+			width: 100% !important;
+		}
+	}
+	
+	.svp-why {
+	
+		.list {
+			.item {
+				padding: 15px;
+				img {
+					@include size(60px, 60px);
+				}
+				
+				.title {
+					font-size: 18px;
+				}
+				
+				.line {
+					width: 100%;
+				}
+				
+				.text {
+					font-size: 14px;
+				}
+				
+				&:hover {
+					transform: translateY(-6px);
+					box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+					
+					img {
+						transform: scale(1.05);
+						opacity: .9;
+					}
+					
+					.line {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+	
+	.svp-contact-form {
+		margin-top: 60px;
+		padding: 50px 0;
+		
+		.title {
+			font-size: 22px;
+		}
+		
+		.form {
+			flex-direction: column;
+			row-gap: 20px;
+			
+			.inputs {
+				flex-direction: column;
+				row-gap: 20px;
+				align-items: stretch;
+				width: 100%;
+			}
+			
+			.action {
+				width: 100%;
+				
+				.btn-svp {
+					display: flex;
+					width: 100%;
+				}
+			}
+		}
+		
+		.form-input {
+			min-width: 100%;
+		}
+	}
+}
