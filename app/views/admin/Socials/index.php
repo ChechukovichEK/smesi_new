@@ -30,7 +30,9 @@
 				<?php foreach ($socials as $item): ?>
 					<tr>
 						<td style="width: 50px;"><?= $item->sort ?></td>
-						<td style="width: 80px;"><?= $item->key ?></td>
+						<td style="width: 80px;">
+							<img src="<?= PATH ?>/socials/<?= $item->key ?>.svg" class="img-circle">
+						</td>
 						
 						<td>
 							<a href="<?= $item->link ?>" target="_blank" class="btn btn-default">

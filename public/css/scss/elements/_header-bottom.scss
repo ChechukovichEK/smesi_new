@@ -1,7 +1,7 @@
 .header-bottom {
 	
 	.container {
-		@include flex(center, flex-start, nowrap);
+		@include flex(center, space-between, nowrap);
 		max-width: $cont-width;
 		margin: 0 auto;
 		gap: 24px;
@@ -10,30 +10,23 @@
 	
 	.logo {
 		width: 220px;
-		margin-right: 60px;
+		
 		img {
 			display: block;
 			width: 100%;
-			max-width: 100%;
+			object-fit: cover;
+			
 		}
 	}
 	
 	.phones {
-		margin-right: auto;
 		display: flex;
 		align-items: center;
 		column-gap: 20px;
-
-		.email {
-			a {
-				@include font(18px, 400, 1, $color-black, "MyriadProRegular");
-				@include transition;
-
-				&:hover {
-					color: $color-orange;
-				}
-			}
-
+		
+		.socials {
+			@include flex(center, flex-start, nowrap);
+			gap: 10px;
 		}
 	}
 	
@@ -50,6 +43,7 @@
 			border-radius: 50%;
 		}
 	}
+	
 	.phone-top-all {
 		display: flex;
 		justify-content: center;
@@ -69,17 +63,20 @@
 			height: 26px;
 		}
 	}
-	.phone-top a:first-child,
-	.phone-top-all a:last-child {
+	
+	.phone-top a,
+	.phone-top-all a {
 		font-family: "MyriadProSemibold", Arial, sans-serif;
 		font-size: 17px;
 		color: var(--text-dark);
 	}
+	
 	.all-open,
 	.open-item h3 {
 		display: flex;
 		align-items: center;
 	}
+	
 	.all-open {
 		position: relative;
 		padding-right: 20px;
@@ -91,11 +88,13 @@
 			background: url('../img/icons/arrow-down-dark.svg') no-repeat 50% 50% /contain;
 		}
 	}
+	
 	.all-open p {
 		font-family: "MyriadProRegular", Arial, sans-serif;
 		color: var(--text-dark);
 		font-size: 14px;
 	}
+	
 	.all-contacts {
 		display: none;
 		@include position(absolute, 0, calc(100% + 10px), 0);
@@ -104,6 +103,29 @@
 		box-shadow: 0 0 10px rgba(192, 192, 192, .5);
 		padding: 15px;
 		border-radius: 10px;
+		
+		.link {
+			text-decoration: none;
+			padding: 5px 0;
+			@include flex(center, flex-start);
+			gap: 10px;
+			
+			&:hover {
+				opacity: 0.7;
+			}
+		}
+	}
+	
+	.email {
+		a {
+			@include font(18px, 400, 1, $color-black, "MyriadProRegular");
+			@include transition;
+			
+			&:hover {
+				color: $color-orange;
+			}
+		}
+		
 	}
 	
 	.delivery {
@@ -121,103 +143,153 @@
 		}
 	}
 	
-	.enter {
-		position: relative;
-	}
-	.enter-button {
-		background: $color-orange url('../img/icons/enter-btn.svg') no-repeat 24px 50% / 24px 24px;
-		font-family: "MyriadProSemibold", Arial, sans-serif;
-		color: $color-white;
-		font-size: 16px;
-		padding: 15px 35px 12px 60px;
-		border-radius: 30px;
-		@include transition();
-		cursor: pointer;
-		max-width: 200px;
-		box-sizing: border-box;
-		@include ellipsis();
+	&-actions {
+		@include flex(center, flex-end, nowrap);
+		gap: 5px;
 		
-		&:hover {
-			background-color: $color-orange-hover;
+		.enter {
+			position: relative;
 		}
 		
-		&:before {
-			content: '';
-			@include position(absolute, null, 50%, 20px, null);
-			@include size(12px, 8px);
-			background: url('../img/icons/arrow-down-light.svg') no-repeat 50% 50% /contain;
-			transform: translateY(-50%);
-		}
-	}
-	.enter-open {
-		text-align: center;
-		display: none;
-		@include position(absolute, 0, null, 0);
-		z-index: 1000;
-		box-shadow: 0 0 10px rgba(192, 192, 192, .5);
-		padding: 55px 10px 10px;
-		border-radius: 10px;
-		background: $color-white url('../img/icons/open-img.svg') no-repeat 50% 10px /35px 35px;
-	}
-	.open-enter,
-	.open-reg {
-		font-size: 15px;
-		display: block;
-		border-radius: 10px;
-		padding: 5px;
-		background: $color-black;
-		color: $color-white;
-		border: 1px solid $color-black;
-		@include transition();
-		&:hover {
-			opacity: .7;
-		}
-	}
-	
-	.open-enter {
-		margin-bottom: 10px;
-	}
-	
-	.open-reg {
-		color: $color-black;
-		background: $color-white;
-		border: 1px solid $color-black;
-	}
-	.cart {
-		background: $color-light url('../img/icons/cart-btn.svg') no-repeat 24px 50% / 24px 24px;
-		font-family: "MyriadProSemibold", Arial, sans-serif;
-		color: $color-black;
-		font-size: 16px;
-		padding: 15px 24px 12px 60px;
-		border-radius: 30px;
-		@include transition();
-		cursor: pointer;
-		position: relative;
-		
-		& > span {
-			@include position(absolute, null, -15px, -15px);
-			background: $color-orange;
+		.enter-button {
+			background: $color-orange url('../img/icons/enter-btn.svg') no-repeat 24px 50% / 24px 24px;
+			font-family: "MyriadProSemibold", Arial, sans-serif;
 			color: $color-white;
-			font-family: "Roboto-Medium", Arial, sans-serif;
-			padding: 5px 10px;
+			font-size: 16px;
+			padding: 15px 35px 12px 60px;
 			border-radius: 30px;
+			@include transition();
+			cursor: pointer;
+			max-width: 200px;
+			box-sizing: border-box;
+			@include ellipsis();
+			
+			&:hover {
+				background-color: $color-orange-hover;
+			}
+			
+			&:before {
+				content: '';
+				@include position(absolute, null, 50%, 20px, null);
+				@include size(12px, 8px);
+				background: url('../img/icons/arrow-down-light.svg') no-repeat 50% 50% /contain;
+				transform: translateY(-50%);
+			}
 		}
 		
-		&:hover {
-			background-color: $color-light-hover;
+		.enter-open {
+			text-align: center;
+			display: none;
+			@include position(absolute, 0, null, 0, null, 2000);
+			box-shadow: 0 0 10px rgba(192, 192, 192, .5);
+			padding: 55px 10px 10px;
+			border-radius: 10px;
+			background: $color-white url('../img/icons/open-img.svg') no-repeat 50% 10px /35px 35px;
+		}
+		
+		.open-enter,
+		.open-reg {
+			font-size: 15px;
+			display: block;
+			border-radius: 10px;
+			padding: 5px;
+			background: $color-black;
+			color: $color-white;
+			border: 1px solid $color-black;
+			@include transition();
+			
+			&:hover {
+				opacity: .7;
+			}
+		}
+		
+		.open-enter {
+			margin-bottom: 10px;
+		}
+		
+		.open-reg {
+			color: $color-black;
+			background: $color-white;
+			border: 1px solid $color-black;
+		}
+		
+		.cart {
+			background: $color-light url('../img/icons/cart-btn.svg') no-repeat 24px 50% / 24px 24px;
+			font-family: "MyriadProSemibold", Arial, sans-serif;
+			color: $color-black;
+			font-size: 16px;
+			padding: 15px 24px 12px 60px;
+			border-radius: 30px;
+			@include transition();
+			cursor: pointer;
+			position: relative;
+			
+			& > span {
+				@include position(absolute, null, -15px, -15px);
+				background: $color-orange;
+				color: $color-white;
+				font-family: "Roboto-Medium", Arial, sans-serif;
+				padding: 5px 10px;
+				border-radius: 30px;
+			}
+			
+			&:hover {
+				background-color: $color-light-hover;
+			}
+		}
+		
+		.phones {
+			display: none;
+		}
+		
+		.search {
+			display: none;
 		}
 	}
 }
 
-@media (max-width: 1200px) {
+//RESPONSIVE
+
+@media (max-width: 1400px) {
+	
 	.header-bottom {
+		
+		.container {
+			gap: 20px;
+			justify-content: space-between;
+		}
+		
 		.logo {
-			width: 180px;
-			margin: 0;
+			width: 160px;
+			margin-right: 0;
+		}
+		
+		.phones {
+			margin-right: 0;
+			display: flex;
+			align-items: center;
+			column-gap: 20px;
 		}
 		
 		.delivery {
 			display: none;
+		}
+		
+		.email {
+			a {
+				font-size: 16px;
+			}
+			
+		}
+	}
+	
+}
+
+@media (max-width: 1200px) {
+	.header-bottom {
+		
+		.logo {
+			width: 140px;
 		}
 	}
 }
@@ -225,7 +297,7 @@
 @media (max-width: 992px) {
 	.header-bottom {
 		.logo {
-			width: 150px;
+			width: 120px;
 		}
 		
 		.cart,
@@ -255,30 +327,79 @@
 	}
 }
 
-
 @media (max-width: 768px) {
 	.header-bottom {
 		.container {
 			flex-wrap: wrap;
-			padding: 15px 20px;
+			padding: 15px;
 			gap: 15px 10px;
 		}
 		
 		.logo {
-			margin-right: auto;
+			max-width: 120px;
 		}
 		
 		.phones {
-			display: flex;
-			justify-content: center;
-			width: 100%;
-			border-top: 1px solid #F2F5F8;
-			padding-top: 15px;
-			margin: 0 auto;
-			order: 10;
-			align-items: center;
-			flex-wrap: wrap;
-			row-gap: 20px;
+			display: none;
+		}
+		
+		.email {
+			display: none;
+		}
+		
+		&-actions {
+			flex-direction: row-reverse;
+		
+			.enter {
+				&-button {
+					@include size(40px, 40px);
+				}
+				
+				&-open {
+					top: 45px;
+					right: -70px;
+					left: auto;
+				}
+			}
+			
+			.cart {
+				@include size(40px, 40px);
+				
+				span {
+					font-size: 10px;
+					top: -10px;
+					right: -10px;
+					padding: 2px 5px;
+				}
+			}
+			
+			.phones {
+				display: block;
+				background: url('../img/icons/call.svg') no-repeat;
+				@include size(40px, 40px);
+				@include transition();
+				cursor: pointer;
+				
+				&.active {
+					background: url('../img/icons/social/phone.svg') no-repeat;
+					@include size(40px, 40px);
+				}
+			}
+			
+			.search {
+				display: block;
+				background: $color-light url('../img/icons/search-dark.svg') no-repeat 50% 50% / 22px 22px;
+				@include size(40px, 40px);
+				border-radius: 50%;
+				@include transition();
+				cursor: pointer;
+				
+				&:hover {
+					background-color: $color-light-hover;
+				}
+			}
+			
 		}
 	}
+	
 }

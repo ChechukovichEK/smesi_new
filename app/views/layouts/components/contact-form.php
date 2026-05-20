@@ -4,7 +4,7 @@ $url = explode('?', $url);
 $url = $url[0];
 ?>
 
-<?php if ($url != '/page/svp'): ?>
+<?php if ($url != '/page/stat-dilerom-svp-ot-tls-profi'): ?>
 <div class="contact-form">
 	<div class="container">
 		<div class="contact-form-title">Свяжитесь с&nbsp;нами! Мы&nbsp;гарантируем Специальные&nbsp;цены и&nbsp;Бонусы!</div>

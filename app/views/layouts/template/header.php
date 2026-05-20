@@ -4,7 +4,7 @@
 	
 	<div class="header-bottom">
 		<div class="container">
-			<a href="/" class="logo">
+			<a href="<?= PATH ?>" class="logo">
 				<img src="<?= PATH ?>/img/logo-dark.svg" alt="Smesi.by - Интернет-гипермаркет строительных материалов">
 			</a>
 			
@@ -13,132 +13,99 @@
 					<div class="phone-bottom">
 						<div class="all-open hover">
 							<div class="phone-conv hover" title="Все контакты">
-								<?= \ishop\App::$app->getProperty('phone')['text'] ?>
+								<?= \ishop\App::$app->getProperty('settings')['phone_office']; ?>
 							</div>
 						</div>
 						<div class="all-contacts">
-							<div class="phone-top-all">
-								<a
-										class="phone-conv cont-icon hover"
-										href="tel:<?= \ishop\App::$app->getProperty('phone')['link'] ?>"
-										rel="nofollow"
-								>
-									<img
-											loading="lazy"
-											src="img/icons/social/phone.svg"
-											alt="Вы можете связаться с нами по телефону - <?= \ishop\App::$app->getProperty('phone')['text'] ?>"
-									>
-								</a>
-								<a
-										class="phone-conv hover"
-										href="tel:<?= \ishop\App::$app->getProperty('phone')['link'] ?>"
-										rel="nofollow"
-								>
-									<?= \ishop\App::$app->getProperty('phone')['text'] ?>
-								</a>
-							</div>
+							<?php $phones = \ishop\App::$app->getProperty('phones'); ?>
 							
-							<? foreach (\ishop\App::$app->getProperty('additional_phones') as $additional_phone): ?>
-								<div class="phone-top-all">
-									<a
-											class="phone-conv cont-icon hover"
-											href="tel:<?= $additional_phone['link'] ?>"
-											rel="nofollow"
-									>
-										<img
-												loading="lazy"
-												src="img/icons/social/phone.svg"
-												alt="Вы можете связаться с нами по телефону - <?= $additional_phone['text'] ?>"
-										>
-									</a>
-									<a
-											class="phone-conv hover"
-											href="tel:<?= $additional_phone['link'] ?>"
-											rel="nofollow"
-									>
-										<?= $additional_phone['text'] ?>
-									</a>
-								</div>
-							<? endforeach; ?>
+							<?php if(!empty($phones)): ?>
+								
+								<?php foreach ( $phones as $phone): ?>
+								
+										<a class="link" href="tel:<?= $phone['link'] ?>" onclick="gtag('event', 'call_click'); return true;"
+										   rel="nofollow" >
+										<?php if ($phone['link'] != '+375172344018'):?>
+												<img src="<?= PATH ?>/img/icons/social/phone.svg">
+										<?php else: ?>
+												<img src="<?= PATH ?>/images/old-tel.svg">
+										<?php endif; ?>
+											<?= $phone['title'] ?>
+										</a>
+									
+								<?php endforeach; ?>
 							
-							<div class="phone-top-all">
-								<a
-										class="phone-conv cont-icon hover"
-										href="tel:+375172344018"
-										rel="nofollow"
-								>
-									<img loading="lazy" src="images/old-tel.svg"
-										 alt="Вы можете связаться с нами по телефону - +375172344018">
-								</a>
-								<a
-										class="phone-conv hover"
-										href="tel:+375172344018"
-										rel="nofollow"
-								>
-									+375 (17) 234-40-18
-								</a>
-							</div>
+							<?php endif; ?>
 						</div>
 					</div>
-					<a class="viber cont-icon hover" href="viber://chat?number=%2B375445920533"
-					   onclick="ym(98576053,'reachGoal','social_click');gtag('event', 'social_click'); return true;"
-					   rel="nofollow">
-						<img
-								src="img/icons/social/viber.svg"
-								alt="Вы можете связаться с нами по Viber">
-					</a>
-					<a
-							class="tg cont-icon hover"
-							href="https://t.me/+375445920533"
-							onclick="ym(98576053,'reachGoal','social_click');gtag('event', 'social_click'); return true;"
-							rel="nofollow"
-					>
-						<img
-								src="img/icons/social/telegram.svg"
-								alt="Вы можете связаться с нами в Telegram"
-						>
-					</a>
+					
+					
+					<?php $socials = \ishop\App::$app->getProperty('socials') ?>
+					
+					<?php if (!empty($socials)): ?>
+						
+						<div class="socials">
+							<?php foreach ($socials as $social): ?>
+								<?php if (in_array($social['key'], ['viber', 'telegram'])): ?>
+									<a href="<?= $social['link'] ?>" target="_blank"
+									   onclick="ym(98576053,'reachGoal','social_click');gtag('event', 'social_click'); return true;"
+									   rel="nofollow" class="social-icon social-icon-<?= $social['key'] ?>"></a>
+								<?php endif; ?>
+							<?php endforeach; ?>
+						</div>
+					
+					<?php endif; ?>
+					
 				</div>
-				<div class="email">
-					<?php $email = \ishop\App::$app->getProperty('settings')['email']; ?>
-					<a href="mailto:<?= $email ?>"><?= $email ?></a>
-				</div>
+			</div>
+			
+			<div class="email">
+				<?php $email = \ishop\App::$app->getProperty('settings')['email']; ?>
+				<a href="mailto:<?= $email ?>"><?= $email ?></a>
 			</div>
 			
 			<a class="delivery" href="<?= PATH ?>/page/dostavka-i-oplata">Доставка и самовывоз!</a>
 			
-			<div class="enter">
-				<div class="enter-button">
+			<div class="header-bottom-actions">
+				<div class="enter">
+					<div class="enter-button">
+						<?php if (!empty($_SESSION['user'])): ?>
+							<?= $_SESSION['user']['name']; ?>
+						<?php else: ?>
+							Аккаунт
+						<?php endif; ?>
+					</div>
+					
 					<?php if (!empty($_SESSION['user'])): ?>
-						<?= $_SESSION['user']['name']; ?>
+						<div class="enter-open">
+							<a class="open-enter" href="<?= PATH ?>/user/logout">Выход</a>
+							<a class="open-reg" href="<?= PATH ?>/user/cabinet">Личный кабинет</a>
+						</div>
 					<?php else: ?>
-						Аккаунт
+						<div class="enter-open">
+							<a class="open-enter" href="<?= PATH ?>/user/login">Вход</a>
+							<a class="open-reg" href="<?= PATH ?>/user/signup">Регистрация</a>
+						</div>
 					<?php endif; ?>
 				</div>
 				
-				<?php if (!empty($_SESSION['user'])): ?>
-					<div class="enter-open">
-						<a class="open-enter" href="<?= PATH ?>/user/logout">Выход</a>
-						<a class="open-reg" href="<?= PATH ?>/user/cabinet">Личный кабинет</a>
-					</div>
-				<?php else: ?>
-					<div class="enter-open">
-						<a class="open-enter" href="<?= PATH ?>/user/login">Вход</a>
-						<a class="open-reg" href="<?= PATH ?>/user/signup">Регистрация</a>
-					</div>
-				<?php endif; ?>
-			</div>
+				<a href="cart/view" class="cart">
+					<?php if (isset($_SESSION['cart.qty']) && !empty($_SESSION['cart.qty']) && !isset($_SESSION['user'])): ?>
+						<span><?= ($_SESSION['cart.qty'] > 99) ? '+99' : $_SESSION['cart.qty']; ?></span>
+					<?php endif; ?>
+					<?php if (!empty($_SESSION['user'])): ?>
+						<?php $cart_qtytop = \ishop\App::$app->getProperty('cart_qtytop'); ?>
+						<span><?= ($cart_qtytop > 99) ? '+99' : $cart_qtytop; ?></span>
+					<?php endif; ?>
+					Корзина
+				</a>
+				
+				
+				<a href="#modalPhone" class="phones" data-toggle="modal-new"></a>
+				
+				<a href="#modalSearch" class="search" data-toggle="modal-new"></a>
 			
-			<a href="cart/view" class="cart">
-				<?php if (isset($_SESSION['cart.qty']) && !empty($_SESSION['cart.qty']) && !isset($_SESSION['user'])): ?>
-					<span><?= $_SESSION['cart.qty']; ?></span>
-				<?php endif; ?>
-				<?php if (!empty($_SESSION['user'])): ?>
-					<?php $cart_qtytop = \ishop\App::$app->getProperty('cart_qtytop'); ?>
-					<span><?= $cart_qtytop; ?></span>
-				<?php endif; ?>
-				Корзина
-			</a>
+			</div>
 		</div>
 	</div>
 </header>

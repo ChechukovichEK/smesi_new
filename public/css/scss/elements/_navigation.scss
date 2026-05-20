@@ -35,7 +35,7 @@
 	
 	.cat-all-open,
 	.nav-all-open {
-		padding: 16px 20px 12px;
+		padding: 10px 20px 10px;
 		align-items: center;
 		justify-content: center;
 		position: relative;
@@ -164,15 +164,32 @@
 	display: block;
 }
 
+//RESPONSIVE
+
+@media (max-width: 1400px) {
+	
+	.navigation {
+		
+		&-main {
+			gap: 10px;
+		}
+	}
+	
+}
+
 @media (max-width: 1200px) {
 	.navigation {
 		
 		.container {
-			gap: 30px;
+			gap: 10px;
 		}
 		
 		&-main {
-			gap: 10px 5px;
+			gap: 5px;
+			
+			&-link {
+				padding: 10px 5px;
+			}
 		}
 	}
 }

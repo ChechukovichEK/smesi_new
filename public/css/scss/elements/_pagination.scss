@@ -14,7 +14,7 @@
 		@include transition;
 		border-radius: 40px;
 		
-		h4 {
+		span {
 			color: $color-black;
 		}
 		
@@ -22,7 +22,7 @@
 			background: $color-orange;
 			color: #fff;
 			
-			h4 {
+			span {
 				color: $color-white;
 			}
 		}
@@ -50,6 +50,15 @@
 	}
 }
 
+/*.sort {
+	@include flex(center, flex-end);
+	margin-bottom: 10px;
+	gap: 10px;
+	
+	.label {
+		margin: 0;
+	}
+}*/
 
 .sort {
 	@include flex(baseline, flex-end);

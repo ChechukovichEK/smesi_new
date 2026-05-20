@@ -1,4 +1,4 @@
-<?
+<?php
 
 // включение буферизации вывода
 ob_start();
@@ -12,12 +12,13 @@ ob_start();
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://smesi.by<?= $_SERVER['REQUEST_URI'] ?>">
 	<meta property="og:site_name" content="Smesi.by">
-	<meta property="og:logo" content="https://smesi.by/images/logo-map.jpg">
-	<meta property="og:image:type" content="image/jpeg">
+	<meta property="og:logo" content="https://smesi.by/favicon.svg">
+	<?= $this->getMeta(); ?>
+	<meta property="og:image:type" content="image/jpg">
 	<meta property="og:image:width" content="1200">
-	<meta property="og:image:height" content="600">
+	<meta property="og:image:height" content="630">
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="<?= $_SERVER['REQUEST_URI'] ?>"/>
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="google-site-verification" content="AwuIjIZIy3uFn8Y_74PlH8WNOdrIdwxTWg0yYPQEc-s">
 	<!-- Google NV -->
@@ -27,8 +28,8 @@ ob_start();
 	
 	<link rel="shortcut icon" href="https://smesi.by/favicon.svg" type="image/x-icon">
 	
-	
 	<base href="<?php PATH?>/">
+	
 	<?php
 	$request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 	$base_url = 'https://smesi.by';
@@ -63,8 +64,6 @@ ob_start();
 	<?php if ($show_canonical): ?>
 		<link rel="canonical" href="<?= $canonical_url ?>"/>
 	<?php endif; ?>
-	
-	<?= $this->getMeta(); ?>
 	
 	<?php if (isset($_GET['page'])): ?>
 		<meta name="robots" content="noindex"/>

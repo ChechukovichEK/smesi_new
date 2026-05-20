@@ -37,12 +37,11 @@
         &-content {
 
             .title {
-				max-width: 1000px;
                 @include font(54px, 600, 1.2, $color-white, "MyriadProSemibold");
+				margin-bottom: 40px;
             }
 
             .text {
-                margin-top: 40px;
                 @include font(24px, 400, 1.6, $color-white, "MyriadProRegular");
             }
 			
@@ -60,7 +59,6 @@
 					border-radius: 100px;
 					background: rgba($color-white, 0.2);
 					@include font(18px, 400, 1.6, $color-white, "MyriadProRegular");
-					@include transition;
 					
 					&:before {
 						content: '';
@@ -70,14 +68,6 @@
 						background-size: contain;
 						@include position(absolute, 20px, 50%);
 						transform: translateY(-50%);
-						@include transition;
-					}
-					
-					&:hover {
-						background: rgba($color-white, 0.3);
-						&::before {
-							background: url("../img/icons/check-hover.svg");
-						}
 					}
 					
 				}
@@ -102,9 +92,7 @@
 					background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
 					height: 80px;
 					width: 50px;
-					position: absolute;
-					top: -8px;
-					left: -75px;
+					@include position(absolute, -75px, -8px);
 					transform: skewX(-45deg);
 					transition: all .9s ease;
 					animation: blick 2s infinite;
@@ -153,14 +141,7 @@
 					transform: translateY(-50%);
 					@include transition;
 				}
-				
-				&:hover {
-					box-shadow: 20px 20px 50px rgba($color, 0.16), -20px -20px 45px rgba($color-white, 1);
-					
-					&::before {
-						box-shadow: 0 0 40px rgba(255, 255, 255, 0.4) inset;
-					}
-				}
+
 			}
 		}
 	}
@@ -593,7 +574,34 @@
 
 @media (max-width: 1400px) {
 	
+	.svp-offer {
+		&-content {
+			
+			.title {
+				margin-bottom: 20px;
+			}
+			
+			.list {
+				.item {
+					padding: 10px 20px 10px 50px;
+					font-size: 16px;
+					
+					&:before {
+						@include size(20px, 20px);
+					}
+				}
+			}
+		}
+	}
+	
 	.svp-cooperation {
+		
+		margin: 80px 0;
+		
+		.title {
+			font-size: 36px;
+			margin-bottom: 40px;
+		}
 		
 		.list {
 			display: grid;
@@ -616,17 +624,13 @@
 		}
 	}
 	
-	.svp-cooperation {
-		margin: 80px 0;
+    .svp-edge {
+		margin-bottom: 80px;
 		
 		.title {
 			font-size: 36px;
 			margin-bottom: 40px;
 		}
-	}
-	
-    .svp-edge {
-		margin-bottom: 80px;
 		
 		.list {
 			gap: 15px;
@@ -652,6 +656,11 @@
 	.svp-why {
 		margin: 80px 0;
 		
+		.title {
+			font-size: 36px;
+			margin-bottom: 40px;
+		}
+		
 		.list {
 			grid-template-columns: repeat(2, 1fr);
 		}
@@ -668,15 +677,6 @@
 		
 		.text {
 			font-size: 20px;
-			br {
-				display: none;
-			}
-		}
-		
-		.list {
-			.item {
-				font-size: 18px;
-			}
 		}
     }
 	
@@ -699,13 +699,13 @@
 
         &-content {
             .title {
-                font-size: 36px;
+                font-size: 30px;
             }
-
-            .text {
-                margin-top: 20px;
-                font-size: 20px;
-            }
+			
+			.btn-svp {
+				height: $form-height;
+				font-size: 16px;
+			}
         }
     }
 	
@@ -734,8 +734,12 @@
 	.svp-edge {
 		margin-bottom: 40px;
 		
+		.title {
+			font-size: 30px;
+		}
+		
 		.list {
-			gap: 15px;
+			gap: 10px;
 			
 			.item {
 				.description {
@@ -743,11 +747,12 @@
 					
 					.title {
 						margin-left: 10px;
-						font-size: 20px;
+						font-size: 18px;
 					}
 					
 					.text {
 						margin-left: 10px;
+						font-size: 14px;
 					}
 				}
 			}
@@ -766,23 +771,36 @@
 		
 		.title {
 			font-size: 36px;
+			margin-bottom: 30px;
 		}
 		
 		.list {
 			grid-template-columns: repeat(1 , 1fr);
+			gap: 15px;
 			
 			.item {
 				padding: 20px;
+				display: flex;
+				flex-direction: column;
+				
+				.top {
+					display: flex;
+					align-items: center;
+					gap: 5px;
+					margin-bottom: 5px;
+				}
+				
 				img {
 					@include size(80px, 80px);
 				}
 				
 				.title {
+					margin-top: 0;
 					font-size: 24px;
 				}
 				
 				.line {
-					margin: 15px 0;
+					display: none;
 				}
 			}
 		}
@@ -793,7 +811,7 @@
 		padding: 50px 0;
 		
 		.title {
-			font-size: 32px;
+			font-size: 20px;
 		}
 		.form-input {
 			min-width: 200px;
@@ -809,34 +827,55 @@
 
 @media (max-width: 768px) {
     .svp-offer {
+		padding: 30px 0 40px;
+		
         &-content {
+			
+			.title {
+				font-size: 25px;
+				margin-bottom: 10px;
+				max-width: 320px;
+			}
+			
             .text {
-                font-size: 16px;
+				max-width: 300px;
+                font-size: 14px;
             }
 			
 			.list {
-				width: 100%;
+				margin-top: 15px;
+				gap: 10px;
 				
 				.item {
-					width: 100%;
-					font-size: 16px;
+					font-size: 14px;
 				}
 			}
 			
 			.btn-svp {
 				height: $form-height;
-				margin-top: 30px;
-				display: flex;
+				margin-top: 20px;
 			}
         }
     }
 	
 	.svp-cooperation {
 		
+		.title {
+			font-size: 24px;
+			line-height: 1.2;
+			margin-bottom: 20px;
+		}
+		
 		.list {
+			gap: 10px;
+			
 			.item {
-				padding: 15px 15px 15px 70px;
-				font-size: 16px;
+				height: 55px;
+				padding: 10px 15px 10px 70px;
+				font-size: 14px;
+				display: flex;
+				align-items: center;
+				background: $color-white;
 			}
 		}
 	}
@@ -844,23 +883,21 @@
 	.svp-edge {
 		
 		.title {
-			font-size: 36px;
+			font-size: 24px;
+			margin-bottom: 20px;
 		}
 		
 		.list {
 			grid-template-columns: repeat(1, 1fr);
-			gap: 30px;
+			gap: 15px;
 			
 			.item {
 				.description {
-					border-left: 3px solid $color-orange;
+					margin-top: 15px;
+					border-left: 1px solid $color-orange;
 					
 					.title {
-					
-					}
-					
-					.text {
-					
+						margin-bottom: 10px;
 					}
 				}
 			}
@@ -868,55 +905,101 @@
 	}
 	
 	.svp-catalog {
+		padding: 30px 0;
+		
+		.text {
+			font-size: 14px;
+			margin-bottom: 20px;
+		}
+		
 		.swiper-slide {
 			width: 100% !important;
 		}
 	}
 	
+	.svp-product {
+		
+		&-sale {
+			font-size: 14px;
+		}
+		
+		&-description {
+			padding: 20px 0 0 0;
+			
+			.title {
+				font-size: 22px;
+			}
+			
+			.text {
+				font-size: 14px;
+			}
+			
+			.list-size {
+				list-style: none;
+				margin: 0 0 15px;
+				@include flex(center, flex-start);
+				gap: 5px;
+				
+				.item {
+					font-size: 14px;
+					line-height: 1.4;
+				}
+			}
+			
+			.list-quantity {
+				
+				.item {
+					font-size: 16px;
+					line-height: 1.4;
+				}
+			}
+			
+			.action {
+				
+				.btn-svp {
+					font-size: 16px;
+				}
+			}
+		}
+	}
+	
 	.svp-why {
+		
+		.title {
+			font-size: 24px;
+			line-height: 1.2;
+		}
 	
 		.list {
 			.item {
 				padding: 15px;
 				img {
-					@include size(60px, 60px);
+					@include size(50px, 50px);
+				}
+				
+				.top {
+					margin: 0;
 				}
 				
 				.title {
-					font-size: 18px;
-				}
-				
-				.line {
-					width: 100%;
+					font-size: 16px;
+					margin-bottom: 10px;
 				}
 				
 				.text {
 					font-size: 14px;
-				}
-				
-				&:hover {
-					transform: translateY(-6px);
-					box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-					
-					img {
-						transform: scale(1.05);
-						opacity: .9;
-					}
-					
-					.line {
-						width: 100%;
-					}
 				}
 			}
 		}
 	}
 	
 	.svp-contact-form {
-		margin-top: 60px;
+		margin-top: 50px;
 		padding: 50px 0;
 		
 		.title {
-			font-size: 22px;
+			font-size: 16px;
+			line-height: 1.3;
 		}
 		
 		.form {

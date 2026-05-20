@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\AppModel;
 use app\models\Navigation;
 use app\widgets\currency\Currency;
+use app\models\Socials;
 use ishop\App;
 use ishop\base\Controller;
 use ishop\Cache;
@@ -25,7 +26,14 @@ class AppController extends Controller {
 		
 		self::getSettings();
 		
+		self::getSettingsNew();
+		
 		$this->loadNavigation();
+		
+		$socialsModel = new \app\models\Socials();
+		$socials = $socialsModel->getPublished();
+		
+		App::$app->setProperty('socials', $socials);
 	}
 	
 	/**
@@ -46,6 +54,81 @@ class AppController extends Controller {
 		App::$app->setProperty('settings', $settings);
 	}
 	
+	private function getSettingsNew() {
+		$_settings = \R::findAll('settings');
+		$settings = [];
+		
+		foreach ($_settings as $setting) {
+			$settings[$setting->name] = $setting->value;
+		}
+		
+		// Формируем телефоны
+		$this->preparePhonesNew($settings);
+		
+		// Сохраняем настройки в контейнер
+		App::$app->setProperty('settings', $settings);
+	}
+	
+	//Функция валидации для телефона
+	private function phoneToLink(string $phone): string
+	{
+		$digits = preg_replace('/\D+/', '', $phone);
+		
+		if (strpos($digits, '375') === 0) {
+			return '+' . $digits;
+		}
+		
+		if (strpos($digits, '80') === 0) {
+			return '+375' . substr($digits, 2);
+		}
+		
+		if (strlen($digits) === 9) {
+			return '+375' . $digits;
+		}
+		
+		return '+' . $digits;
+	}
+	
+	private function addPhone(array &$phones, $raw)
+	{
+		if (empty($raw)) return;
+		
+		$phones[] = [
+			'title' => $raw,
+			'link'  => $this->phoneToLink($raw),
+		];
+	}
+	
+	//Собираем все телефоны
+	private function preparePhonesNew(array $settings)
+	{
+		$phones = [];
+		
+		// Основной телефон
+		$this->addPhone($phones, $settings['phone'] ?? null);
+		
+		// Магазины
+		foreach (['phone_store_1', 'phone_store_2'] as $key) {
+			$this->addPhone($phones, $settings[$key] ?? null);
+		}
+		
+		// Менеджеры
+		foreach (['phone_manager_1', 'phone_manager_2'] as $key) {
+			$this->addPhone($phones, $settings[$key] ?? null);
+		}
+		
+		// Офис
+		$this->addPhone($phones, $settings['phone_office'] ?? null);
+		
+		// Общий
+		$this->addPhone($phones, $settings['phone_general'] ?? null);
+		
+		// Удаляем дубли по link
+		$phones = array_values(array_unique($phones, SORT_REGULAR));
+		
+		App::$app->setProperty('phones', $phones);
+	}
+	
 	/**
 	 * Обрабатывает основной и дополнительные телефоны
 	 */
@@ -59,7 +142,34 @@ class AppController extends Controller {
 			App::$app->setProperty('phone', $phone);
 		}
 		
-		// Дополнительные телефоны (после переделки удалить!!!!)
+		//email
+		if (!empty($settings['email'])) {
+			$email = [
+				'text' => $settings['email'],
+			];
+			
+			App::$app->setProperty('email', $email);
+		}
+		
+		//address_store
+		if (!empty($settings['address_store'])) {
+			$address_store = [
+				'text' => $settings['address_store'],
+			];
+			
+			App::$app->setProperty('address_store', $address_store);
+		}
+		
+		//address_office
+		if (!empty($settings['address_office'])) {
+			$address_office = [
+				'text' => $settings['address_office'],
+			];
+			
+			App::$app->setProperty('address_office', $address_office);
+		}
+		
+		// Дополнительные телефоны
 		if (!empty($settings['additional_phones'])) {
 			$phones = explode('|', $settings['additional_phones']);
 			$additional = [];
