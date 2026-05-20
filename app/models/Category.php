@@ -71,32 +71,48 @@ class Category extends AppModel {
     }
     return $cat_values;
   }
-
-    public function getFilter($_filter = null){
-        $filter = null;
-		if ($_filter) {
-			$_GET['filter'] .= $_filter;
-//			$filter = preg_replace("#[^\d,]+#", '', $_filter);
-//			$filter = trim($filter, ',');
+	
+	public function getFilter($_filter = null)
+	{
+		$filter = [];
+		
+		// Фильтр из лендинга
+		if (!empty($_filter)) {
+			$clean = trim(preg_replace("#[^\d,]+#", '', $_filter), ',');
+			if ($clean !== '') {
+				$filter = array_merge($filter, explode(',', $clean));
+			}
 		}
-
-		if(!empty($_GET['filter'])){
-			$filter = preg_replace("#[^\d,]+#", '', $_GET['filter']);
-			$filter = trim($filter, ',');
+		
+		// Фильтр из GET
+		if (!empty($_GET['filter'])) {
+			
+			// Если вдруг прилетел массив — склеиваем
+			$get_filter = $_GET['filter'];
+			if (is_array($get_filter)) {
+				$get_filter = implode(',', $get_filter);
+			}
+			
+			$clean = trim(preg_replace("#[^\d,]+#", '', $get_filter), ',');
+			if ($clean !== '') {
+				$filter = array_merge($filter, explode(',', $clean));
+			}
 		}
-
-        return $filter;
-    }
-
-    public function getSort(){
-        $sort = null;
-        if(!empty($_GET['sort'])){
-            $sort = $_GET['sort'];
-        }
-        return $sort;
-    }
-
-    public function getFilterValues($filter_names){
+		
+		// Убираем пустые значения и дубли
+		$filter = array_unique(array_filter($filter));
+		
+		return !empty($filter) ? $filter : null;
+	}
+	
+	public function getSort(){
+		if (isset($_GET['sort']) && $_GET['sort'] !== '' && $_GET['sort'] !== 'default') {
+			return $_GET['sort'];
+		}
+		return null;
+	}
+	
+	public function getFilterValues($filter_names){
     $filter_values = '';
     foreach ($filter_names as $item) {
       $filter_values .=$item->value . ', ';
@@ -104,23 +120,38 @@ class Category extends AppModel {
       $filter_values = trim($filter_values, ', ');
       return $filter_values;
     }
-
-    public static function getCountGroups($filter){
-        $filters = explode(',', $filter);
-        $attrs = self::getAttrs();
-        $data = [];
-        foreach($attrs as $key => $item){
-            foreach($item as $k => $v){
-                if(in_array($k, $filters)){
-                    $data[] = $key;
-                    break;
-                }
-            }
-        }
-        return count($data);
-    }
-
-    public function getImg(){
+	
+	public static function getCountGroups($filter)
+	{
+		// Если фильтра нет — 0 групп
+		if (empty($filter)) {
+			return 0;
+		}
+		
+		// Если вдруг прилетела строка — превращаем в массив
+		if (!is_array($filter)) {
+			$filter = explode(',', $filter);
+		}
+		
+		$filter = array_filter($filter);
+		
+		$attrs = self::getAttrs();
+		$data = [];
+		
+		foreach ($attrs as $groupId => $items) {
+			foreach ($items as $attrId => $value) {
+				if (in_array($attrId, $filter)) {
+					$data[] = $groupId;
+					break;
+				}
+			}
+		}
+		
+		return count($data);
+	}
+	
+	
+	public function getImg(){
       if(!empty($_SESSION['base-img'])){
           $this->attributes['img'] = $_SESSION['base-img'];
           unset($_SESSION['base-img']);

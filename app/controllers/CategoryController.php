@@ -9,199 +9,417 @@ use ishop\libs\Pagination;
 
 class CategoryController extends AppController
 {
-
 	public function viewAction()
 	{
-		$curpath = trim(CURPATH, ',\%2C');
-		//debug($curpath);
-		$unic_text = \R::findOne('url_text', 'url = ?', [$curpath]);
 		$alias = $this->route['alias'];
+		
+		/* --- 1. Категория или лендинг --- */
 		$category = \R::findOne('category', 'alias = ?', [$alias]);
+		$landing = null;
 		$_filter = null;
 		$landing_pages_checker = false;
+		
 		if (!$category) {
-			$landing_pages = \R::findOne('landing_pages', 'alias = ?', [$alias]);
-			if (!$landing_pages) {
+			$landing = \R::findOne('landing_pages', 'alias = ?', [$alias]);
+			if (!$landing) {
 				throw new \Exception('Страница не найдена', 404);
-			} else {
-				$landing_pages_checker = true;
-				$category = \R::findOne('category', 'alias = ?', [$landing_pages->category_alias]);
-				$category->title = $landing_pages->title;
-				$category->content = $landing_pages->content;
-				$category->meta_title = $landing_pages->meta_title;
-				$category->meta_desc = $landing_pages->meta_desc;
-				$category->short_text = $landing_pages->short_text;
-				$_filter = $landing_pages->filter;
-				if (!$category) {
-					throw new \Exception('Страница не найдена', 404);
-				}
 			}
+			
+			$landing_pages_checker = true;
+			$category = \R::findOne('category', 'alias = ?', [$landing->category_alias]);
+			
+			if (!$category) {
+				throw new \Exception('Страница не найдена', 404);
+			}
+			
+			foreach (['title', 'content', 'meta_title', 'meta_desc', 'short_text'] as $f) {
+				$category->$f = $landing->$f;
+			}
+			
+			$_filter = $landing->filter;
 		} else {
-			if(!empty($_GET['filter'])){
-				$landing_pages = \R::findOne('landing_pages', 'category_alias = ? AND filter = ?', [$alias, $_GET['filter']]);
-				if ($landing_pages) {
+			
+			// Редирект на лендинг только при первом заходе (без реферера)
+			if (!empty($_GET['filter']) && !$this->isAjax() && empty($_SERVER['HTTP_REFERER'])) {
+				
+				$getFilter = $_GET['filter'];
+				if (is_array($getFilter)) {
+					$getFilter = implode(',', $getFilter);
+				}
+				
+				$landing = \R::findOne(
+					'landing_pages',
+					'category_alias = ? AND filter = ?',
+					[$alias, $getFilter]
+				);
+				
+				if ($landing) {
 					header('HTTP/1.1 301 Moved Permanently');
-					header('Location: ' . PATH . '/category/' . $landing_pages->alias);
+					header('Location: ' . PATH . '/category/' . $landing->alias);
 					exit;
 				}
 			}
 		}
-
-		//категории - прямые потомки
+		
+		
+		/* --- 2. Хлебные крошки + дочерние категории --- */
 		$children_cats = \R::find('category', "parent_id = ? AND show_cat = '1' ORDER BY position", [$category->id]);
 		$breadcrumbs = Breadcrumbs::getBreadcrumbs($category->id, $category->alias);
-
+		
+		/* --- 3. ID товаров категории --- */
 		$cat_model = new Category();
 		$ids = $cat_model->getIds($category->id);
-		$ids = !$ids ? $category->id : $ids . $category->id;
-
-		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-		$perpage = App::$app->getProperty('pagination_new');
-		$sql_part = '';
-		$sql_part_tot = '';
-		$filter = $cat_model->getFilter($_filter);
-		$sort = $cat_model->getSort();
-		if ($sort == 'price' || $sort == 'discount') {
-			$_SESSION['sort'] = $sort;
-		}
-		if ($filter) {
-			$cnt = $cat_model->getCountGroups($filter);
-			$sql_part .= "AND id IN (SELECT product_id FROM attribute_product WHERE attr_id IN ($filter) GROUP BY product_id HAVING COUNT(product_id) >= $cnt)";
-			$sql_part_tot .= "AND prod_id IN (SELECT product_id FROM attribute_product WHERE attr_id IN ($filter) GROUP BY product_id HAVING COUNT(product_id) >= $cnt)";
-			$filter_names = \R::find('attribute_value', "id IN ($filter)");
-			$filter_meta = $cat_model->getFilterValues($filter_names);
-			if ($landing_pages_checker) {
-				$filter_meta = null;
-			}
-		}
-//        $total = count(\R::find('cat_product', "cat_id IN ($ids) $sql_part_tot GROUP BY prod_id"));
-		$total = count(\R::find('cat_product', "cat_id IN ($ids) $sql_part_tot AND prod_id IN (SELECT id FROM product WHERE status = 1) GROUP BY prod_id"));
-//        $total = count(\R::findMulti('cat_product, product', "SELECT * FROM `cat_product` LEFT JOIN product ON cat_product.prod_id = product.id WHERE `cat_id` IN ($ids) $sql_part_tot AND product.status = 1 GROUP BY `prod_id`;"));
-		$pagination = new Pagination($page, $perpage, $total);
-		$start = $pagination->getStart();
+		$ids = $ids ? $ids . $category->id : $category->id;
+		
 		$ids_products = \R::find('cat_product', "cat_id IN ($ids) GROUP BY prod_id");
 		$ids_prod = $cat_model->getprodIds($ids_products);
-		if ($ids_prod) {
-			if (isset($sort) && !empty($sort)) {
-				if ($sort == 'price') {
-					$products = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY $sort LIMIT $start, $perpage");
-					$products_flt = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY $sort");
-				} elseif ($sort == 'discount') {
-					$products = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY $sort DESC, position LIMIT $start, $perpage");
-					$products_flt = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY $sort DESC, position");
-				} else {
-					if ($category->parent_id == 0) {
-						$products = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY all_position LIMIT $start, $perpage");
-						$products_flt = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY all_position");
-					} else {
-						$products = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY position LIMIT $start, $perpage");
-						$products_flt = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY position");
-					}
-				}
-			} elseif (!$sort) {
-				if (isset($_SESSION['sort']) && !empty($_SESSION['sort'])) {
-					$sort_ord = $_SESSION['sort'];
-					if ($sort_ord == 'price') {
-						$products = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY $sort_ord LIMIT $start, $perpage");
-						$products_flt = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY $sort_ord");
-					} elseif ($sort_ord == 'discount') {
-						$products = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY $sort_ord DESC, position LIMIT $start, $perpage");
-						$products_flt = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY $sort_ord DESC, position");
-					} else {
-						if ($category->parent_id == 0) {
-							$products = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY all_position LIMIT $start, $perpage");
-							$products_flt = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY all_position");
-						} else {
-							$products = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY position LIMIT $start, $perpage");
-							$products_flt = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY position");
-						}
-					}
-					unset($_SESSION['sort']);
-				} else {
-					if ($category->parent_id == 0) {
-						$products = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY all_position LIMIT $start, $perpage");
-						$products_flt = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY all_position");
-					} else {
-						$products = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY position LIMIT $start, $perpage");
-						$products_flt = \R::find('product', "status = '1' AND id IN ($ids_prod) $sql_part ORDER BY position");
-					}
-				}
+		
+		/* --- ДЕФОЛТНЫЕ ПЕРЕМЕННЫЕ --- */
+		$products = [];
+		$filter_group = [];
+		$attrs = [];
+		$cat_values = [];
+		$groupes = [];
+		$params_array = [];
+		$unic_text = null;
+		$filter_meta = null;
+		$no_products_message = null;
+		
+		/* --- Cортировка --- */
+		
+		$sortList = [
+			['title' => 'Цена ↑', 'value' => 'price_asc'],
+			['title' => 'Цена ↓', 'value' => 'price_desc'],
+			['title' => 'Сначала со скидкой', 'value' => 'discount_desc'],
+			['title' => 'Популярные', 'value' => 'hit'],
+			//['title' => 'Новинки', 'value' => 'new'],
+			//['title' => 'В наличии', 'value' => 'have'],
+			//['title' => 'По умолчанию', 'value' => ''],
+		];
+		
+		/* --- 4. Если в категории нет товаров --- */
+		if (empty($ids_prod)) {
+			
+			$no_products_message = "В данной категории товары отсутствуют";
+			
+			if ($this->isAjax()) {
+				$this->layout = false;
+				$this->loadView('sort', compact(
+					'products',
+					'no_products_message',
+					'breadcrumbs',
+					'category',
+					'children_cats',
+					'filter_group',
+					'attrs',
+					'cat_values',
+					'groupes',
+					'params_array',
+					'unic_text',
+					'landing_pages_checker',
+					'sortList'
+				));
+				return;
 			}
-
-			/*неактивные фильтры - массив*/
-			$ids_prods = [];
-			foreach ($products_flt as $value) {
-				$ids_prods[] = $value['id'];
+			
+			$this->set(compact(
+				'products',
+				'no_products_message',
+				'breadcrumbs',
+				'category',
+				'children_cats',
+				'filter_group',
+				'attrs',
+				'cat_values',
+				'groupes',
+				'params_array',
+				'unic_text',
+				'landing_pages_checker',
+				'sortList'
+			));
+			return;
+		}
+		
+		/* --- 5. Фильтры --- */
+		
+		// getFilter() теперь возвращает МАССИВ ID или null
+		$filterIds = $cat_model->getFilter($_filter);          // array|null
+		$filterCsv = $filterIds ? implode(',', $filterIds) : ''; // строка "1,2,3" или ""
+		
+		$sql_filter = '';
+		$sql_filter_total = '';
+		$filter = $filterIds; // для передачи во view (как есть, массив)
+		
+		if (!empty($filterIds)) {
+			
+			$cnt = $cat_model->getCountGroups($filterIds);
+			
+			$sql_filter = "AND id IN (
+                SELECT product_id FROM attribute_product
+                WHERE attr_id IN ($filterCsv)
+                GROUP BY product_id
+                HAVING COUNT(product_id) >= $cnt
+            )";
+			
+			$sql_filter_total = "AND prod_id IN (
+                SELECT product_id FROM attribute_product
+                WHERE attr_id IN ($filterCsv)
+                GROUP BY product_id
+                HAVING COUNT(product_id) >= $cnt
+            )";
+			
+			if (!$landing_pages_checker) {
+				$filter_names = \R::find('attribute_value', "id IN ($filterCsv)");
+				$filter_meta = $cat_model->getFilterValues($filter_names);
 			}
-			$ids_prods = implode(',', $ids_prods);
-
-			$params_array = [];
-			$prods_params = \R::getAll("SELECT attr_id FROM attribute_product WHERE product_id IN ($ids_prods)");
-			foreach ($prods_params as $value) {
-				$params_array[] = $value['attr_id'];
+		}
+		
+		/* --- 6. Пагинация --- */
+		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+		$perpage = App::$app->getProperty('pagination_new');
+		
+		$total = count(\R::find(
+			'cat_product',
+			"cat_id IN ($ids) $sql_filter_total AND prod_id IN (SELECT id FROM product WHERE status = 1) GROUP BY prod_id"
+		));
+		
+		$pagination = new Pagination($page, $perpage, $total);
+		$start = $pagination->getStart();
+		
+		/* --- 7. Сортировка --- */
+		$sort = $cat_model->getSort();
+		if ($sort === 'price' || $sort === 'discount') {
+			$_SESSION['sort'] = $sort;
+		}
+		
+		$order_sql = $this->getSortSQL($sort, $category);
+		
+		/* --- 8. Получение товаров --- */
+		$products = \R::find(
+			'product',
+			"status = '1' AND id IN ($ids_prod) $sql_filter $order_sql LIMIT $start, $perpage"
+		);
+		
+		$products_flt = \R::find(
+			'product',
+			"status = '1' AND id IN ($ids_prod) $sql_filter $order_sql"
+		);
+		
+		/* --- 9. Если фильтры дали пустой результат --- */
+		if (empty($products)) {
+			
+			$no_products_message = "По выбранным фильтрам товаров не найдено";
+			
+			$filter_group = $cat_model->getGroups($category->id);
+			$cat_values = $cat_model->getCatValues($filter_group);
+			$attrs = $cat_model->getAttrs();
+			$groupes = \R::find('groupes', 'category_id = ?', [$category->id]);
+			
+			if ($this->isAjax()) {
+				$this->layout = false;
+				$this->loadView('sort', compact(
+					'products',
+					'no_products_message',
+					'breadcrumbs',
+					'category',
+					'children_cats',
+					'pagination',
+					'filter_meta',
+					'filter_group',
+					'attrs',
+					'cat_values',
+					'groupes',
+					'params_array',
+					'unic_text',
+					'landing_pages_checker',
+					'filter',
+					'sortList'
+				));
+				return;
+			}
+			
+			$this->set(compact(
+				'products',
+				'no_products_message',
+				'breadcrumbs',
+				'category',
+				'children_cats',
+				'pagination',
+				'filter_meta',
+				'filter_group',
+				'attrs',
+				'cat_values',
+				'groupes',
+				'params_array',
+				'unic_text',
+				'landing_pages_checker',
+				'filter',
+				'sortList'
+			));
+			return;
+		}
+		
+		/* --- 10. Параметры фильтров --- */
+		$ids_prods = array_column($products_flt, 'id');
+		if ($ids_prods) {
+			$ids_str = implode(',', $ids_prods);
+			$prods_params = \R::getAll("SELECT attr_id FROM attribute_product WHERE product_id IN ($ids_str)");
+			foreach ($prods_params as $v) {
+				$params_array[] = $v['attr_id'];
 			}
 			$params_array = array_unique($params_array);
-			/*неактивные фильтры - массив*/
-
 		}
-
-
-		if ($products && $filter) {
-			foreach ($products as $key => $product) {
-				$prod_id = $product['id'];
-				$attr_ids = '';
-				$prod = \R::find('attribute_product', "product_id = $prod_id AND attr_id IN ($filter)");
-				foreach ($prod as $item) {
-					$attr_ids .= $item['attr_id'] . ',';
-				}
-				$attr_ids = trim($attr_ids, ', ');
-				$prod_gr = \R::find('attribute_value', "id IN ($attr_ids)");
-				$groupes = [];
-				foreach ($prod_gr as $item) {
-					$groupes[] = $item['attr_group_id'];
-				}
-				$count_gr = count(array_unique($groupes));
-				if ($count_gr < $cnt) {
-					unset($products[$key]);
-				}
-			}
-		}
+		
 		$filter_group = $cat_model->getGroups($category->id);
 		$cat_values = $cat_model->getCatValues($filter_group);
 		$attrs = $cat_model->getAttrs();
 		$groupes = \R::find('groupes', 'category_id = ?', [$category->id]);
-
-		if (($filter && $sort) || $filter && !$sort) {
-			if ($this->isAjax()) {
-				$this->loadView('filter', compact('unic_text', 'params_array', 'products', 'total', 'pagination', 'filter_meta', 'category', 'filter_group', 'attrs', 'cat_values', 'children_cats', 'sort', 'landing_pages_checker', '_filter'));
-			}
+		
+		/* --- 11. AJAX: фильтры --- */
+		if ($this->isAjax() && !empty($filterIds) && !isset($_GET['sort'])) {
+			$this->layout = false;
+			$this->loadView('filter', compact(
+				'products',
+				'pagination',
+				'total',
+				'params_array',
+				'filter_meta',
+				'category',
+				'filter_group',
+				'attrs',
+				'cat_values',
+				'children_cats',
+				'landing_pages_checker',
+				'unic_text',
+				'filter',
+				'sortList'
+			));
+			return;
 		}
-
-		if (!$filter) {
-			if ($this->isAjax()) {
-				$this->loadView('sort', compact('unic_text', 'params_array', 'products', 'breadcrumbs', 'pagination', 'total', 'category', 'filter_group', 'attrs', 'filter', 'cnt', 'filter_meta', 'cat_values', 'children_cats', 'groupes', 'landing_pages_checker', '_filter'));
-			}
+		
+		/* --- 12. AJAX: сортировка --- */
+		if ($this->isAjax() && array_key_exists('sort', $_GET)) {
+			$this->layout = false;
+			$this->loadView('sort', compact(
+				'products',
+				'breadcrumbs',
+				'pagination',
+				'total',
+				'category',
+				'filter_group',
+				'attrs',
+				'filter',
+				'filter_meta',
+				'cat_values',
+				'children_cats',
+				'groupes',
+				'params_array',
+				'landing_pages_checker',
+				'unic_text',
+				'sortList'
+			));
+			return;
 		}
-
-		if (isset($_GET['filter']) && !$landing_pages_checker) {
-			$this->setMeta($category->title . ' ' . $filter_meta . ' купить в Минске - ' . App::$app->getProperty('shop_name'), 'Купить ' . $category->title . ' ' . $filter_meta . ' в Минске и по всей Беларуси. Бесплатная доставка, официальная гарантия', $category->title . ' ' . $filter_meta, $category->img);
+		
+		/* --- 12. Глобальная AJAX-ветка --- */
+		if ($this->isAjax()) {
+			$this->layout = false;
+			$this->loadView('components/ajcont', compact(
+				'products',
+				'breadcrumbs',
+				'pagination',
+				'total',
+				'category',
+				'filter_group',
+				'attrs',
+				'filter',
+				'filter_meta',
+				'cat_values',
+				'children_cats',
+				'groupes',
+				'params_array',
+				'landing_pages_checker',
+				'unic_text',
+				'no_products_message',
+				'sortList'
+			));
+			return;
+		}
+		
+		
+		/* --- 13. Meta --- */
+		if (!empty($filterIds) && !$landing_pages_checker) {
+			$this->setMeta(
+				$category->title . ' ' . $filter_meta . ' купить в Минске - ' . App::$app->getProperty('shop_name'),
+				'Купить ' . $category->title . ' ' . $filter_meta . ' в Минске и по всей Беларуси. Бесплатная доставка, официальная гарантия',
+				$category->title . ' ' . $filter_meta,
+				$category->img
+			);
 		} else {
-
-			if (empty($category->meta_title) && !$landing_pages_checker) {
-				$title = $category->title . ' купить в Минске - ' . App::$app->getProperty('shop_name');
-			} else {
-				$title = $category->meta_title;
-			}
-
-			if (empty($category->meta_desc)) {
-				$desc = 'Купить ' . $category->title . ' в Минске и по всей Беларуси. Бесплатная доставка, официальная гарантия';
-			} else {
-				$desc = $category->meta_desc;
-			}
-
+			$title = empty($category->meta_title)
+				? $category->title . ' купить в Минске - ' . App::$app->getProperty('shop_name')
+				: $category->meta_title;
+			
+			$desc = empty($category->meta_desc)
+				? 'Купить ' . $category->title . ' в Минске и по всей Беларуси. Бесплатная доставка, официальная гарантия'
+				: $category->meta_desc;
+			
 			$this->setMeta($title, $desc, $title, $category->img);
 		}
-		$this->set(compact('unic_text', 'params_array', 'products', 'breadcrumbs', 'pagination', 'total', 'category', 'filter_group', 'attrs', 'filter', 'cnt', 'filter_meta', 'cat_values', 'children_cats', 'groupes', 'landing_pages_checker', '_filter'));
+		
+		/* --- 14. Вывод --- */
+		$this->set(compact(
+			'products',
+			'breadcrumbs',
+			'pagination',
+			'total',
+			'category',
+			'filter_group',
+			'attrs',
+			'filter',
+			'filter_meta',
+			'cat_values',
+			'children_cats',
+			'groupes',
+			'params_array',
+			'landing_pages_checker',
+			'unic_text',
+			'no_products_message',
+			'sortList'
+		));
 	}
-
+	
+	private function getSortSQL($sort, $category)
+	{
+		switch ($sort) {
+			
+			case 'price_asc':
+				return "ORDER BY price ASC";
+			
+			case 'price_desc':
+				return "ORDER BY price DESC";
+			
+			case 'discount':
+			case 'discount_desc':
+				return "ORDER BY discount DESC, price ASC";
+			
+			case 'new':
+				return "ORDER BY new DESC, position ASC";
+			
+			case 'hit':
+				return "ORDER BY hit DESC, position ASC";
+			
+			case 'have':
+				return "ORDER BY is_have DESC, position ASC";
+			
+			case 'position':
+				return "ORDER BY position ASC";
+		}
+		
+		if ($category->parent_id == 0) {
+			return "ORDER BY all_position ASC";
+		}
+		
+		return "ORDER BY position ASC";
+	}
 }

@@ -1,144 +1,71 @@
 <!--start-breadcrumbs 12-->
 <div class="breadcrumbs">
-  <div class="breadcrumbs-content">
-    <div class="breadcrumbs-main">
-      <ol class="breadcrumb" itemscope itemtype='https://schema.org/BreadcrumbList'>
-        <?=$breadcrumbs;?>
-		  
-		 
-      </ol>
-    </div>
-  </div>
+	<div class="breadcrumbs-content">
+		<div class="breadcrumbs-main">
+			<ol class="breadcrumb" itemscope itemtype='https://schema.org/BreadcrumbList'>
+				<?= $breadcrumbs; ?>
+			</ol>
+		</div>
+	</div>
 </div>
 <!--end-breadcrumbs-->
+
 <div class="pages-content">
 	<div class="container">
+		
+		<!-- Заголовок -->
 		<?php if (!empty($filter_meta)): ?>
-			<h1><?=$category->title . ' ' . $filter_meta;?></h1>
+			<h1><?= $category->title . ' ' . $filter_meta; ?></h1>
 		<?php else: ?>
-			<h1><?=$category->title;?></h1>
+			<h1><?= $category->title; ?></h1>
 		<?php endif; ?>
 		
+		<!-- Короткий текст -->
 		<?php if ($category->short_text): ?>
-			<div style="margin-bottom: 30px;"><?=$category->short_text?></div>
+			<div style="margin-bottom: 30px;"><?= $category->short_text ?></div>
 		<?php endif; ?>
 		
+		<!-- Дочерние категории -->
 		<?php if ($children_cats): ?>
 			<div class="filter-category">
 				<div class="filter-category-list">
 					<?php foreach ($children_cats as $item): ?>
-						<a href="<?= PATH ?>/category/<?=$item['alias'];?>" class="filter-category-item">
-							<h4><?=$item['title'];?></h4>
+						<a href="<?= PATH ?>/category/<?= $item['alias']; ?>" class="filter-category-item">
+							<span><?= $item['title']; ?></span>
 						</a>
-					<?php endforeach;?>
+					<?php endforeach; ?>
 				</div>
 			</div>
-			
 		<?php endif; ?>
 		
-		<?php if($groupes): ?>
+		<!-- Группы -->
+		<?php if ($groupes): ?>
 			<div class="groups">
 				<div class="groups-content">
-					<?php foreach($groupes as $groupe): ?>
-						<a class="group-item hover" href="group/<?=$groupe['alias'];?>"><?=$groupe['title'];?></a>
+					<?php foreach ($groupes as $groupe): ?>
+						<a class="group-item hover" href="group/<?= $groupe['alias']; ?>"><?= $groupe['title']; ?></a>
 					<?php endforeach; ?>
 				</div>
 			</div>
-			
 		<?php endif; ?>
 		
-		<button class="filter-toggle">Фильтры</button>
-        
-
-        <div class="filter-modal">
-            <div class="filter-modal-content">
-                <span class="filter-close">&times;</span>
-                <div class="filter-modal-body"></div>
-            </div>
-        </div>
-
-		<div class="aj-cont" itemscope itemtype="https://schema.org/OfferCatalog">
-            <meta itemprop="name" content="<?= $category->title ?>">
-
-            <div class="sort">
-				<p>Сортировка:</p>
-				<p class="sort-item hover" data-sort="price">По цене ↑</p>
-				<p class="sort-item hover" data-sort="discount">Сначала со скидкой</p>
+		<!-- Кнопка фильтров -->
+		<?php if (!empty($filter_group)) : ?>
+			<button class="filter-toggle">Фильтры</button>
+		<?php endif; ?>
+		
+		<!-- Модальное окно фильтров -->
+		<div class="filter-modal">
+			<div class="filter-modal-content">
+				<span class="filter-close">&times;</span>
+				<div class="filter-modal-body"></div>
 			</div>
-			<?php if ($filter_group): ?>
-				<div class="card-list-with-filter">
-					<div class="flt">
-						<p>Фильтры</p>
-						<div class="flt-sections">
-							<?php foreach($filter_group as $group_id => $group_item): ?>
-								<section  class="sky-form">
-									<div class="sky_title"><?=$group_item;?><span class="caret"></span></div>
-									<div class="row1 scroll-pane">
-										<div class="col col-4">
-											<?php if(isset($attrs[$group_id])): ?>
-												<?php foreach($attrs[$group_id] as $attr_id => $value): ?>
-													<?php
-													if(!empty($_GET['filter'])){
-														trim($_GET['filter'], ',');
-														$filter = explode(',', $_GET['filter']);
-													}
-													if((!empty($filter) && is_array($filter)) && in_array($attr_id, $filter)){
-														$checked = 'checked';
-													} else {
-														$checked = null;
-													}
-													?>
-													<?php if (!in_array($attr_id, $params_array)): ?>
-														<label class="checkbox" style="opacity:0.5;">
-															<input type="checkbox" disabled name="checkbox" value="<?=$attr_id;?>" <?=$checked;?>><i></i><?=$value;?>
-														</label>
-													<?php else: ?>
-														<label class="checkbox">
-															<input type="checkbox" name="checkbox" value="<?=$attr_id;?>" <?=$checked;?>><i></i><?=$value;?>
-														</label>
-													<?php endif; ?>
-												<?php endforeach; ?>
-											<?php endif; ?>
-										</div>
-									</div>
-								</section>
-							<?php endforeach; ?>
-						</div>
-						<div class="sbros">
-							<a class="hover" href="category/<?=$category['alias'];?>">Сбросить фильтры</a>
-						</div>
-					</div>
-					<?php if(!empty($products)): ?>
-						<div class="card-list">
-							<?php foreach ($products as $item): ?>
-								<?php require APP . '/views/components/card.php'; ?>
-							<?php endforeach; ?>
-						</div>
-					<?php endif; ?>
-				</div>
-			<?php else: ?>
-				<div class="card-list">
-                    <?php foreach ($products as $item): ?>
-						<?php require APP . '/views/components/card.php'; ?>
-					<?php endforeach; ?>
-				</div>
-			<?php endif; ?>
-			<?php if($pagination->countPages > 1): ?>
-				<?=$pagination;?>
-			<?php endif; ?>
-			
-			
-			<?php if ($unic_text): ?>
-				<div class="text-editor">
-					<?=$unic_text->content?>
-				</div>
-			<?php else: ?>
-				<?php if (!empty($category->content)): ?>
-					<div class="text-editor">
-						<?=$category->content?>
-					</div>
-				<?php endif; ?>
-			<?php endif; ?>
 		</div>
+		
+		<!-- AJAX-контейнер -->
+		<div id="ajax-container">
+			<?php require APP . '/views/Category/components/ajcont.php'; ?>
+		</div>
+	
 	</div>
 </div>
