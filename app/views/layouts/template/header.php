@@ -13,7 +13,7 @@
 					<div class="phone-bottom">
 						<div class="all-open hover">
 							<div class="phone-conv hover" title="Все контакты">
-								<?= \ishop\App::$app->getProperty('settings')['phone_office']; ?>
+								<?= \ishop\App::$app->getProperty('settings')['phone']; ?>
 							</div>
 						</div>
 						<div class="all-contacts">

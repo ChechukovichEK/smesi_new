@@ -1,45 +1,405 @@
-.footer-pay {
-	width: 100%;
-	@include flex(center, flex-start);
+.footer {
+	background: #2b2b2b;
 	
-	.text {
-		margin: 30px 0 5px;
-		color: $color-white;
+	*,
+	*::before,
+	*::after {
+		box-sizing: inherit;
 	}
 	
-	&-list {
-		@include flex(center, flex-start);
-		gap: 10px;
+	.container {
+		position: relative;
+		max-width: 1550px;
+		padding: 0 20px;
+		margin: 0 auto;
+		z-index: 10;
+	}
+	
+	&-top {
+		padding: 70px 0;
+		@include flex(flex-start, space-between, nowrap);
+		gap: 40px;
+	}
+	
+	&-info {
+		flex-shrink: 0;
 		
-		.item {
-			max-height: 30px;
+		.logo {
+			max-width: 165px;
+			margin-bottom: 40px;
+		}
+		
+		.law {
+			display: none;
+		}
+		
+		.schedule {
+			margin-bottom: 40px;
+			.title {
+				@include font(16px, 600, 1.2, $color-white, "MyriadProSemibold");
+				margin-bottom: 20px;
+			}
 			
-			&-visa {
-				max-height: 20px;
+			.text {
+				@include font(16px, 400, 1.4, $color-white, "MyriadProRegular");
+			}
+		}
+		
+		.nav {
+			@include flex(flex-start, center);
+			flex-direction: column;
+			column-gap: 20px;
+			
+			.link {
+				@include font(16px, 400, 1.4, $color-white, "MyriadProRegular");
+				padding: 5px 0;
+				color: $color-white;
+				text-decoration: none;
+				@include transition;
+				
+				&:hover {
+					color: $color-orange;
+				}
 			}
 		}
 	}
 	
+	&-catalog {
+		flex-grow: 1;
+		
+		.title {
+			@include font(32px, 600, 1.4, $color-white, "MyriadProRegular");
+			margin-bottom: 30px;
+		}
+		
+		&-list {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			align-items: center;
+			column-gap: 30px;
+			
+			.link {
+				@include font(16px, 400, 1.4, $color-white, "MyriadProRegular");
+				padding: 5px 0;
+				color: $color-white;
+				text-decoration: none;
+				@include transition;
+				
+				&:hover {
+					color: $color-orange;
+				}
+			}
+		}
+	}
+	
+	&-contacts {
+		flex-shrink: 0;
+		margin-top: 80px;
+		max-width: 280px;
+		
+		.phones {
+			display: flex;
+			align-items: center;
+			column-gap: 20px;
+			
+			margin-bottom: 20px;
+			
+			.socials {
+				@include flex(center, flex-start, nowrap);
+				gap: 10px;
+			}
+		}
+		
+		.phone-top {
+			position: relative;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+		
+		.phone-top-all {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+			margin-bottom: 10px;
+			white-space: nowrap;
+			
+			&:last-child {
+				margin-bottom: 0;
+			}
+			
+			img {
+				display: block;
+				min-width: 26px;
+				width: 26px;
+				height: 26px;
+			}
+		}
+		
+		.phone-top a,
+		.phone-top-all a {
+			font-family: "MyriadProSemibold", Arial, sans-serif;
+			font-size: 17px;
+			color: var(--text-dark);
+		}
+		
+		.all-open {
+			position: relative;
+			padding-right: 20px;
+			display: flex;
+			align-items: center;
+			color: $color-white;
+			@include transition();
+			
+			&:before {
+				content: '';
+				@include position(absolute, null, 6px, 5px, null);
+				@include size(8px, 10px);
+				background: url('../img/icons/arrow-down-light.svg') no-repeat 50% 50% /contain;
+			}
+			
+			&:hover {
+				opacity: 0.9;
+			}
+		}
+		
+		.all-contacts {
+			display: none;
+			@include position(absolute, 0, calc(100% + 10px), 0);
+			z-index: 1000;
+			background: $color-white;
+			padding: 15px;
+			border-radius: 10px;
+			
+			.link {
+				text-decoration: none;
+				padding: 5px 0;
+				@include flex(center, flex-start);
+				gap: 10px;
+				
+				img	{
+					@include size(26px, 26px);
+					display: block;
+					object-fit: contain;
+				}
+				
+				&:hover {
+					opacity: 0.7;
+				}
+			}
+		}
+		
+		.email {
+			margin-bottom: 30px;
+			
+			a {
+				list-style: none;
+				@include font(18px, 400, 1.4, $color-white, "MyriadProRegular");
+				padding: 5px 0;
+				color: $color-white;
+				text-decoration: none;
+				@include transition;
+				
+				&:hover {
+					color: $color-orange;
+				}
+			}
+		}
+		
+		.ft-btn {
+			margin-bottom: 30px;
+		}
+		
+		.law {
+			@include font(14px, 400, 1.6, $color-white, "MyriadProRegular");
+			margin-bottom: 30px;
+			opacity: 0.8;
+		}
+		
+		.socials-bottom {
+			@include flex(center, flex-start);
+			gap: 10px;
+			margin-bottom: 30px;
+		}
+		
+		.payment {
+			.text {
+				@include font(16px, 400, 1.4, $color-white, "MyriadProRegular");
+				margin-bottom: 10px;
+			}
+			
+			.list {
+				@include flex(center, space-between, nowrap);
+				gap: 5px;
+				
+				img {
+					@include size(auto, 25px);
+					display: block;
+					object-fit: cover;
+				}
+			}
+		}
+	}
+	
+	&-bottom {
+		padding: 30px 0;
+		color: $color-white;
+		background: #131a22;
+		font-size: 20px;
+	}
 }
 
-.cr {
-	background: #131a22;
+//RESPONSIVE
+@media (max-width: 1400px) {
+	.footer {
+		
+		&-catalog {
+			&-list {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+		
+		&-bottom {
+			padding: 20px 0;
+			color: $color-white;
+			background: #131a22;
+			font-size: 16px;
+		}
+	}
 }
-.cr-content {
-	max-width: $cont-width;
-	margin: 0 auto;
-	padding: 30px 20px;
-	font-family: "MyriadProRegular", Arial, sans-serif;
-	font-size: 20px;
-	color: $color-white;
+
+@media (max-width: 1200px) {
+	.footer {
+		
+		&-catalog {
+			&-list {
+				grid-template-columns: repeat(1, 1fr);
+			}
+		}
+	}
+}
+
+@media (max-width: 992px) {
+	
+	.footer {
+		
+		&-top {
+			justify-content: center;
+		}
+		
+		&-info {
+			flex-shrink: 1;
+			flex-basis: 40%;
+		}
+		
+		&-contacts {
+			flex-shrink: 1;
+			flex-basis: 40%;
+			max-width: 100%;
+		}
+		
+		&-catalog {
+			display: none;
+		}
+	}
+
 }
 
 @media (max-width: 768px) {
-	.footer-pay {
-		justify-content: center;
-	}
 	
-	.cr-content {
-		text-align: center;
+	.footer {
+		
+		&-top {
+			flex-wrap: wrap;
+			padding: 30px 0;
+			gap: 0;
+		}
+		
+		&-info {
+			flex-basis: 100%;
+			@include flex(center, center);
+			flex-direction: column;
+			
+			.logo {
+				width: 180px;
+				margin-bottom: 20px;
+			}
+			
+			.law {
+				display: block;
+				text-align: center;
+				@include font(14px, 400, 1.6, $color-white, "MyriadProRegular");
+				margin-bottom: 30px;
+				opacity: 0.8;
+			}
+			
+			.schedule {
+				text-align: center;
+				margin-bottom: 30px;
+				
+				.title {
+					margin-bottom: 10px;
+					font-weight: 400;
+					line-height: 1;
+				}
+				
+				.text {
+					font-size: 14px;
+					line-height: 2;
+				}
+			}
+			
+			.nav {
+				display: none;
+			}
+		}
+		
+		&-contacts {
+			flex-basis: 100%;
+			@include flex(center, center);
+			flex-direction: column;
+			margin-top: 0;
+			
+			.phones {
+				margin-bottom: 5px;
+			}
+			
+			.email {
+				display: none;
+			}
+			
+			.law {
+				display: none;
+			}
+			
+			.socials-bottom {
+				display: none;
+			}
+			
+			.ft-btn {
+				order: 0;
+				max-width: 250px;
+			}
+			
+			.payment {
+				.text {
+					display: none;
+				}
+				
+				.list {
+					gap: 10px;
+					}
+			}
+		}
+		
+		&-bottom {
+			text-align: center;
+			font-size: 14px;
+		}
 	}
+
 }
