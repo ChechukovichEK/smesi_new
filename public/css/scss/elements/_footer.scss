@@ -29,12 +29,9 @@
 			margin-bottom: 40px;
 		}
 		
-		.law {
-			display: none;
-		}
-		
 		.schedule {
 			margin-bottom: 40px;
+			
 			.title {
 				@include font(16px, 600, 1.2, $color-white, "MyriadProSemibold");
 				margin-bottom: 20px;
@@ -151,13 +148,14 @@
 			position: relative;
 			padding-right: 20px;
 			display: flex;
+			font-size: 20px;
 			align-items: center;
 			color: $color-white;
 			@include transition();
 			
 			&:before {
 				content: '';
-				@include position(absolute, null, 6px, 5px, null);
+				@include position(absolute, null, 8px, 5px, null);
 				@include size(8px, 10px);
 				background: url('../img/icons/arrow-down-light.svg') no-repeat 50% 50% /contain;
 			}
@@ -181,7 +179,7 @@
 				@include flex(center, flex-start);
 				gap: 10px;
 				
-				img	{
+				img {
 					@include size(26px, 26px);
 					display: block;
 					object-fit: contain;
@@ -306,7 +304,7 @@
 			display: none;
 		}
 	}
-
+	
 }
 
 @media (max-width: 768px) {
@@ -327,14 +325,6 @@
 			.logo {
 				width: 180px;
 				margin-bottom: 20px;
-			}
-			
-			.law {
-				display: block;
-				text-align: center;
-				@include font(14px, 400, 1.6, $color-white, "MyriadProRegular");
-				margin-bottom: 30px;
-				opacity: 0.8;
 			}
 			
 			.schedule {
@@ -365,7 +355,7 @@
 			margin-top: 0;
 			
 			.phones {
-				margin-bottom: 5px;
+				margin-bottom: 20px;
 			}
 			
 			.email {
@@ -373,7 +363,10 @@
 			}
 			
 			.law {
-				display: none;
+				text-align: center;
+				@include font(14px, 400, 1.6, $color-white, "MyriadProRegular");
+				margin-bottom: 30px;
+				opacity: 0.8;
 			}
 			
 			.socials-bottom {
@@ -383,6 +376,8 @@
 			.ft-btn {
 				order: 0;
 				max-width: 250px;
+				width: 100%;
+				margin-top: 0;
 			}
 			
 			.payment {
@@ -392,7 +387,7 @@
 				
 				.list {
 					gap: 10px;
-					}
+				}
 			}
 		}
 		
@@ -401,5 +396,5 @@
 			font-size: 14px;
 		}
 	}
-
+	
 }

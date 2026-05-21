@@ -24,10 +24,6 @@
 					
 					<?php endif; ?>
 					
-					<div class="law">
-						<?= \ishop\App::$app->getProperty('settings')['legal_entity'] ?>
-					</div>
-					
 					<div class="schedule">
 						<div class="title">Время работы склада</div>
 						<div class="text">
