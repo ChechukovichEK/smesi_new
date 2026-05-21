@@ -109,7 +109,7 @@ class Category extends AppModel {
 		if (isset($_GET['sort']) && $_GET['sort'] !== '' && $_GET['sort'] !== 'default') {
 			return $_GET['sort'];
 		}
-		return null;
+		return 'hit';
 	}
 	
 	public function getFilterValues($filter_names){

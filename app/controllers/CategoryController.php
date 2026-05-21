@@ -61,7 +61,6 @@ class CategoryController extends AppController
 			}
 		}
 		
-		
 		/* --- 2. Хлебные крошки + дочерние категории --- */
 		$children_cats = \R::find('category', "parent_id = ? AND show_cat = '1' ORDER BY position", [$category->id]);
 		$breadcrumbs = Breadcrumbs::getBreadcrumbs($category->id, $category->alias);
@@ -86,38 +85,24 @@ class CategoryController extends AppController
 		$no_products_message = null;
 		
 		/* --- Cортировка --- */
-		
 		$sortList = [
 			['title' => 'Цена ↑', 'value' => 'price_asc'],
 			['title' => 'Цена ↓', 'value' => 'price_desc'],
 			['title' => 'Сначала со скидкой', 'value' => 'discount_desc'],
 			['title' => 'Популярные', 'value' => 'hit'],
-			//['title' => 'Новинки', 'value' => 'new'],
-			//['title' => 'В наличии', 'value' => 'have'],
-			//['title' => 'По умолчанию', 'value' => ''],
 		];
 		
-		/* --- 4. Если в категории нет товаров --- */
+		/* --- 4. Если в категории нет товаров вообще --- */
 		if (empty($ids_prod)) {
 			
 			$no_products_message = "В данной категории товары отсутствуют";
 			
 			if ($this->isAjax()) {
 				$this->layout = false;
-				$this->loadView('sort', compact(
+				// ВАЖНО: отдаем только блок товаров
+				$this->loadView('components/product_selection', compact(
 					'products',
-					'no_products_message',
-					'breadcrumbs',
-					'category',
-					'children_cats',
-					'filter_group',
-					'attrs',
-					'cat_values',
-					'groupes',
-					'params_array',
-					'unic_text',
-					'landing_pages_checker',
-					'sortList'
+					'no_products_message'
 				));
 				return;
 			}
@@ -141,14 +126,12 @@ class CategoryController extends AppController
 		}
 		
 		/* --- 5. Фильтры --- */
-		
-		// getFilter() теперь возвращает МАССИВ ID или null
 		$filterIds = $cat_model->getFilter($_filter);          // array|null
-		$filterCsv = $filterIds ? implode(',', $filterIds) : ''; // строка "1,2,3" или ""
+		$filterCsv = $filterIds ? implode(',', $filterIds) : '';
 		
 		$sql_filter = '';
 		$sql_filter_total = '';
-		$filter = $filterIds; // для передачи во view (как есть, массив)
+		$filter = $filterIds;
 		
 		if (!empty($filterIds)) {
 			
@@ -187,7 +170,7 @@ class CategoryController extends AppController
 		$start = $pagination->getStart();
 		
 		/* --- 7. Сортировка --- */
-		$sort = $cat_model->getSort();
+		$sort = $cat_model->getSort(); // тут уже должен возвращаться 'hit' по умолчанию
 		if ($sort === 'price' || $sort === 'discount') {
 			$_SESSION['sort'] = $sort;
 		}
@@ -217,23 +200,10 @@ class CategoryController extends AppController
 			
 			if ($this->isAjax()) {
 				$this->layout = false;
-				$this->loadView('sort', compact(
+				// ВАЖНО: только товары
+				$this->loadView('components/product_selection', compact(
 					'products',
-					'no_products_message',
-					'breadcrumbs',
-					'category',
-					'children_cats',
-					'pagination',
-					'filter_meta',
-					'filter_group',
-					'attrs',
-					'cat_values',
-					'groupes',
-					'params_array',
-					'unic_text',
-					'landing_pages_checker',
-					'filter',
-					'sortList'
+					'no_products_message'
 				));
 				return;
 			}
@@ -278,21 +248,8 @@ class CategoryController extends AppController
 		/* --- 11. AJAX: фильтры --- */
 		if ($this->isAjax() && !empty($filterIds) && !isset($_GET['sort'])) {
 			$this->layout = false;
-			$this->loadView('filter', compact(
-				'products',
-				'pagination',
-				'total',
-				'params_array',
-				'filter_meta',
-				'category',
-				'filter_group',
-				'attrs',
-				'cat_values',
-				'children_cats',
-				'landing_pages_checker',
-				'unic_text',
-				'filter',
-				'sortList'
+			$this->loadView('components/product_selection', compact(
+				'products'
 			));
 			return;
 		}
@@ -300,23 +257,8 @@ class CategoryController extends AppController
 		/* --- 12. AJAX: сортировка --- */
 		if ($this->isAjax() && array_key_exists('sort', $_GET)) {
 			$this->layout = false;
-			$this->loadView('sort', compact(
-				'products',
-				'breadcrumbs',
-				'pagination',
-				'total',
-				'category',
-				'filter_group',
-				'attrs',
-				'filter',
-				'filter_meta',
-				'cat_values',
-				'children_cats',
-				'groupes',
-				'params_array',
-				'landing_pages_checker',
-				'unic_text',
-				'sortList'
+			$this->loadView('components/product_selection', compact(
+				'products'
 			));
 			return;
 		}
@@ -324,28 +266,11 @@ class CategoryController extends AppController
 		/* --- 12. Глобальная AJAX-ветка --- */
 		if ($this->isAjax()) {
 			$this->layout = false;
-			$this->loadView('components/ajcont', compact(
-				'products',
-				'breadcrumbs',
-				'pagination',
-				'total',
-				'category',
-				'filter_group',
-				'attrs',
-				'filter',
-				'filter_meta',
-				'cat_values',
-				'children_cats',
-				'groupes',
-				'params_array',
-				'landing_pages_checker',
-				'unic_text',
-				'no_products_message',
-				'sortList'
+			$this->loadView('components/product_selection', compact(
+				'products'
 			));
 			return;
 		}
-		
 		
 		/* --- 13. Meta --- */
 		if (!empty($filterIds) && !$landing_pages_checker) {
