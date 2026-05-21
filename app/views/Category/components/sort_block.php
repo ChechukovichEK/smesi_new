@@ -24,7 +24,7 @@ foreach ($sortList as $item) {
 					<input type="radio" name="sort" value="<?= $item['value'] ?>"
 						<?= $activeSort == $item['value'] ? 'checked' : '' ?>
 						   data-dropdown-input>
-					<span class="dropdown-item"><?= $item['title'] ?></span>
+					<span class="dropdown-item" data-dropdown-item><?= $item['title'] ?></span>
 				</label>
 			<?php endforeach; ?>
 		</div>

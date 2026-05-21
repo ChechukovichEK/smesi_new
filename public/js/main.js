@@ -339,6 +339,14 @@ $('body').on('change', '.flt-sections input[type=checkbox], [data-dropdown-input
 			// обновляем только товары
 			$('.card-list').html(res);
 			
+			// обновляем текст сортировки
+			let activeSort = $('input[name="sort"]:checked').val();
+			let activeSortText = $('input[name="sort"]:checked')
+				.closest('.dropdown-checker')
+				.find('.dropdown-item')
+				.text();
+			
+			
 			// скрываем прелоадер
 			$('.card-list-preloader').fadeOut(150);
 			
@@ -387,6 +395,14 @@ $('body').on('change', '[data-dropdown-input]', function () {
 			
 			// обновляем только товары
 			$('.card-list').html(res);
+			
+			// обновляем текст сортировки
+			let activeSort = $('input[name="sort"]:checked').val();
+			let activeSortText = $('input[name="sort"]:checked')
+				.closest('.dropdown-checker')
+				.find('.dropdown-item')
+				.text();
+			
 			
 			// обновляем URL
 			history.pushState({}, '', location.pathname + '?' + params.toString());
