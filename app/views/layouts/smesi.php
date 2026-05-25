@@ -228,9 +228,6 @@ function add_feedback($type, $name = null, $phone = null, $text = null)
 <?php require APP . '/views/layouts/template/footer.php'; ?>
 
 <?php require APP . '/views/layouts/template/modals.php'; ?>
-
-<div class="preloader"><img loading="lazy" src="images/ring.svg" alt="Идёт загрузка данных"
-							title="Идёт загрузка данных"></div>
 <script>
 	var path = '<?=PATH;?>';
 </script>

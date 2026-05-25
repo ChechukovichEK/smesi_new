@@ -307,12 +307,12 @@ $(document)
 
 /* PRODUCT FILTER
 ------------------------------------------------------------------------ */
-$('body').on('change', '.flt-sections input[type=checkbox], [data-dropdown-input]', function () {
+$('body').on('change', '.filters-sections input[type=checkbox], [data-dropdown-input]', function () {
 	
 	let params = new URLSearchParams(window.location.search);
 	
 	// фильтры
-	let checked = $('.flt-sections input:checked')
+	let checked = $('.filters-sections input:checked')
 		.map(function () { return this.value })
 		.get()
 		.join(',');
@@ -369,7 +369,7 @@ $('body').on('change', '[data-dropdown-input]', function () {
 	params.set('sort', sort);
 	
 	// сохраняем фильтры
-	let checked = $('.flt-sections input:checked')
+	let checked = $('.filters-sections input:checked')
 		.map(function () { return this.value })
 		.get()
 		.join(',');
@@ -541,51 +541,46 @@ function modal_hide(id) {
 }
 
 
-/* старый вывод фильтров на мобильном
+/* MODAL FILTERS CATEGORY
 ------------------------------------------------------------------------ */
-document.addEventListener("DOMContentLoaded", function () {
-	const modal = document.querySelector(".filter-modal");
-	const modalContent = modal.querySelector(".filter-modal-content");
-	const modalBody = modal.querySelector(".filter-modal-body");
-	const openBtn = document.querySelector(".filter-toggle");
-	const closeBtn = modal.querySelector(".filter-close");
+
+$(document).ready(function () {
 	
-	openBtn.addEventListener("click", () => {
-		const originalFilters = document.querySelector(".flt");
-		modalBody.innerHTML = "";
-		if (originalFilters) {
-			const clone = originalFilters.cloneNode(true);
-			clone.style.display = "block";
-			modalBody.appendChild(clone);
-		}
+	const $modal = $('#modalFilters');
+	const $modalBody = $modal.find('.modal-new-filters');
+	
+	// При открытии модалки "Фильтры"
+	$(document).on('click', '[href="#modalFilters"][data-toggle="modal-new"]', function () {
 		
-		modal.style.display = "block";
-		document.body.style.overflow = "hidden";
+		const $originalFilters = $('.filters');
+		
+		// Переносим оригинальные фильтры в модалку
+		$modalBody.html($originalFilters);
+		
+		// Делаем их видимыми внутри модалки
+		$modalBody.find('.filters').css('display', 'block');
 	});
 	
-	closeBtn.addEventListener("click", closeModal);
-	window.addEventListener("click", (e) => {
-		if (e.target === modal) closeModal();
-	});
+});
+
+
+/* EDITOR
+------------------------------------------------------------------------ */
+
+$(function (){
 	
-	function closeModal() {
-		modal.style.display = "none";
-		document.body.style.overflow = "";
+	let $editorContainer = $('.text-editor'),
+		$editorTables = $('.text-editor table');
+	
+	
+	if($editorContainer)
+	{
+		$editorContainer.addClass('text-editor-loaded');
+		
+		if($editorTables.length)
+		{
+			$editorTables.wrap('<div class="table-overflow"></div>')
+		}
 	}
 	
-	
-	modal.addEventListener("click", (e) => {
-		const btn = e.target.closest("button, input[type=submit]");
-		if (!btn) return;
-		
-		if (btn.textContent.match(/Применить\s*фильтр/i)) {
-			setTimeout(() => closeModal(), 300);
-		}
-	});
-	
-	
-	$(document).ajaxComplete(function () {
-		// При повторной загрузке фильтров, если модалка уже была добавлена — ничего не делаем
-		if (!document.querySelector(".filter-toggle")) return;
-	});
 });

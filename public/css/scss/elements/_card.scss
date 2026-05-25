@@ -82,6 +82,10 @@
 	margin-bottom: 30px;
 	align-self: start;
 	
+	.no-products {
+		width: 100%;
+	}
+	
 	&:last-child {
 		margin-bottom: 0;
 	}
@@ -93,6 +97,10 @@
 	
 	@media(max-width: 992px) {
 		grid-template-columns: repeat(2, 1fr);
+		
+		.no-products {
+			width: auto;
+		}
 	}
 	
 	@media(max-width: 768px) {
@@ -302,6 +310,17 @@
 	}
 }
 
+.no-products {
+	@include flex(center, flex-start);
+	column-gap: 15px;
+	background: rgba($color-orange , 0.8);
+	font-size: 16px;
+	color: $color-white;
+	padding: 0 20px;
+	border-radius: 10px;
+	height: $form-height;
+}
+
 @media (max-width: 992px) {
 	.card {
 		&:hover {
@@ -318,6 +337,19 @@
 	.card {
 		&-img-wrapper {
 			height: 200px;
+		}
+	}
+	
+	.no-products {
+		flex-wrap: nowrap;
+		font-size: 14px;
+		line-height: 1.4;
+		height: $form-height-xl;
+		padding: 0 15px;
+		column-gap: 10px;
+		
+		i {
+			font-size: 20px;
 		}
 	}
 }

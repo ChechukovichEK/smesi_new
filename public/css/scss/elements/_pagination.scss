@@ -50,34 +50,6 @@
 	}
 }
 
-/*.sort {
-	@include flex(center, flex-end);
-	margin-bottom: 10px;
-	gap: 10px;
-	
-	.label {
-		margin: 0;
-	}
-}*/
-
-.sort {
-	@include flex(baseline, flex-end);
-	margin-bottom: 30px;
-	gap: 20px 10px;
-	
-	p:first-child {
-		font-family: "MyriadProSemibold", Arial, sans-serif;
-		font-size: 16px;
-		color: $text-dark;
-	}
-	
-	.sort-item {
-		font-family: "MyriadProRegular", Arial, sans-serif;
-		color: $color-orange;
-		font-size: 14px;
-	}
-}
-
 .pages-content {
 	.pagination {
 		margin: 30px auto;

@@ -2,44 +2,40 @@
 	<div class="card-list-with-filter">
 		
 		<!-- Фильтры -->
-		<div class="flt">
-			<p>Фильтры</p>
+		<div class="filters">
+			<div class="title">Фильтры</div>
 			
-			<div class="flt-sections">
+			<div class="filters-sections">
 				<?php foreach ($filter_group as $group_id => $group_item): ?>
-					<section class="sky-form">
-						<div class="sky_title"><?= $group_item ?><span class="caret"></span></div>
+					<section class="filters-sections-form">
+						<div class="text"><?= $group_item ?></div>
 						
-						<div class="row1 scroll-pane">
-							<div class="col col-4">
-								<?php if (isset($attrs[$group_id])): ?>
-									<?php foreach ($attrs[$group_id] as $attr_id => $value): ?>
-										
-										<?php
-										$filterIds = is_array($filter) ? $filter : explode(',', (string)$filter);
-										$filterIds = array_filter($filterIds);
-										$checked = in_array($attr_id, $filterIds) ? 'checked' : '';
-										?>
-										
-										<label class="checkbox">
-											<input type="checkbox"
-												   class="filter-checkbox"
-												   data-filter
-												   value="<?= $attr_id ?>"
-												<?= $checked ?>>
-											<?= $value ?>
-										</label>
+						<div class="filters-sections-checkbox">
+							<?php if (isset($attrs[$group_id])): ?>
+								<?php foreach ($attrs[$group_id] as $attr_id => $value): ?>
 									
-									<?php endforeach; ?>
-								<?php endif; ?>
-							</div>
+									<?php
+									$filterIds = is_array($filter) ? $filter : explode(',', (string)$filter);
+									$filterIds = array_filter($filterIds);
+									$checked = in_array($attr_id, $filterIds) ? 'checked' : '';
+									?>
+									
+									<label class="label">
+										<input type="checkbox" class="checkbox" data-filter value="<?= $attr_id ?>" <?= $checked ?>>
+										<?= $value ?>
+									</label>
+								
+								<?php endforeach; ?>
+							<?php endif;?>
 						</div>
 					</section>
 				<?php endforeach; ?>
 			</div>
 			
 			<div class="sbros">
-				<a class="hover" href="<?= PATH ?>/category/<?= $category->alias ?>">Сбросить фильтры</a>
+				<a class="btn btn-none" href="javascript:void(0)" data-modal="close">Применить фильтр</a>
+				<a class="btn btn-xs-none" href="<?= PATH ?>/category/<?= $category->alias ?>">Сбросить фильтры</a>
+				<a class="btn-link btn-none" href="<?= PATH ?>/category/<?= $category->alias ?>">Сбросить</a>
 			</div>
 		</div>
 		
@@ -55,7 +51,7 @@
 			</div>
 		<?php else: ?>
 			<div class="no-products">
-				<?= $no_products_message ?: 'В данной категории товары отсутствуют'; ?>
+				<i class="glyphicon glyphicon-info-sign"></i> <?= $no_products_message ?: '1В данной категории товары отсутствуют'; ?>
 			</div>
 		<?php endif; ?>
 	
@@ -72,7 +68,7 @@
 		</div>
 	<?php else: ?>
 		<div class="no-products">
-			<?= $no_products_message ?: 'В данной категории товары отсутствуют'; ?>
+			<i class="glyphicon glyphicon-info-sign"></i> <?= $no_products_message ?: '2В данной категории товары отсутствуют'; ?>
 		</div>
 	<?php endif; ?>
 

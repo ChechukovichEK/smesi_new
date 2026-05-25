@@ -4,6 +4,6 @@
 		<?php endforeach; ?>
 <?php else: ?>
 	<div class="no-products">
-		Товары не найдены
+		<i class="glyphicon glyphicon-info-sign"></i> В данной категории товары отсутствуют
 	</div>
 <?php endif; ?>

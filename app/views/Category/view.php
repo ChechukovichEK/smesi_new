@@ -51,14 +51,15 @@
 		
 		<!-- Кнопка фильтров -->
 		<?php if (!empty($filter_group)) : ?>
-			<button class="filter-toggle">Фильтры</button>
+			<a href="#modalFilters" class="filters-toggle" data-toggle="modal-new">Фильтры</a>
 		<?php endif; ?>
 		
-		<!-- Модальное окно фильтров -->
-		<div class="filter-modal">
-			<div class="filter-modal-content">
-				<span class="filter-close">&times;</span>
-				<div class="filter-modal-body"></div>
+		<div class="modal-new modal-new-padding" id="modalFilters">
+			<div class="modal-new-top modal-new-top-filters">
+				<div class="title">Фильтры</div>
+				<a href="javascript:void(0)" class="modal-new-close" data-modal="close"></a>
+			</div>
+			<div class="modal-new-filters">
 			</div>
 		</div>
 		
