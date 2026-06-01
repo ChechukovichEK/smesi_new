@@ -34,6 +34,12 @@ class AppController extends Controller {
 		$socials = $socialsModel->getPublished();
 		
 		App::$app->setProperty('socials', $socials);
+		
+		if (isset($this->route['alias'])) {
+			\ishop\App::$app->setProperty('page_alias', $this->route['alias']);
+		} else {
+			\ishop\App::$app->setProperty('page_alias', $this->route['controller']);
+		}
 	}
 	
 	/**
@@ -130,7 +136,7 @@ class AppController extends Controller {
 	}
 	
 	/**
-	 * Обрабатывает основной и дополнительные телефоны
+	 * Обрабатывает основной и дополнительные телефоны cтарый код удалить после полной переделки контактов
 	 */
 	private function preparePhones(array $settings) {
 		// Основной телефон
@@ -191,6 +197,8 @@ class AppController extends Controller {
 	private function cleanPhone(string $phone): string {
 		return str_replace([' ', '-', '(', ')'], '', $phone);
 	}
+	
+	//cтарый код удалить после полной переделки контактов
 	
 	/**
 	 * Количество товаров в корзине пользователя

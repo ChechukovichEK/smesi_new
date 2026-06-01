@@ -22,6 +22,12 @@
                                    placeholder="Название новости" required value="<?= h($page->title); ?>">
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
+						
+						<div class="form-group">
+							<label for="alias">ЧПУ</label>
+							<input type="text" class="form-control" id="alias"
+								   value="<?= h($page->alias); ?>" disabled>
+						</div>
 
                         <div class="form-group has-feedback">
                             <label for="position">Позиция</label>

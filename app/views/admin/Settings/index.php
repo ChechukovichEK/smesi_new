@@ -63,7 +63,7 @@
 				<a href="<?= ADMIN ?>/settings/sitemap" class="btn btn-success">
 					<i class="fa fa-fw fa-gears"></i> Сгенерировать sitemap.xml
 				</a>
-				<a href="<?= PATH ?>/sitemap" class="btn btn-primary">
+				<a href="<?= PATH ?>/sitemap.xml" class="btn btn-primary">
 					<i class="fa fa-fw fa-file-text"></i> Открыть sitemap.xml
 				</a>
 			</div>

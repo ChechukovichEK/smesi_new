@@ -120,7 +120,13 @@ ob_start();
 	<?= \ishop\App::$app->getProperty('settings')['header_scripts'] ?>
 
 </head>
-<body>
+
+<?php
+	$alias = \ishop\App::$app->getProperty('page_alias');
+	$alias = $alias ? 'page-' . $alias : '';
+?>
+
+<body class="<?= $alias ?>">
 
 <noscript>
 	<div><img loading="lazy" src="https://mc.yandex.ru/watch/98576053" style="position:absolute; left:-9999px;" alt=""/>

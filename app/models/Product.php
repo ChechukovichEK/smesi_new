@@ -74,5 +74,13 @@ class Product extends AppModel {
       }
       return $param_info;
     }
-
+	
+	public static function getPopularRandom($limit = 12) {
+		$sql = "SELECT * FROM product
+            WHERE hit = 1 AND status = 1
+            ORDER BY RAND()
+            LIMIT {$limit}";
+		return \R::getAll($sql);
+	}
+	
 }

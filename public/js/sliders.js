@@ -75,6 +75,24 @@ $(document).ready(function() {
 		}
 	});
 	
+	const popularSlider = new Swiper('[data-toggle="popular"]', {
+		slidesPerView: 3,
+		spaceBetween: 20,
+		navigation: {
+			nextEl: '.svp-next',
+			prevEl: '.svp-prev',
+		},
+		observer: true,
+		observeParents: true,
+		observeSlideChildren: true,
+		breakpoints: {
+			320: { slidesPerView: 1, spaceBetween: 10 },
+			768: { slidesPerView: 2, spaceBetween: 15 },
+			993: { slidesPerView: 3, spaceBetween: 15 },
+			1399: { slidesPerView: 4, spaceBetween: 30 },
+		}
+	});
+	
 	$(function () {
 		
 		$('.svp-product-card-image').each(function () {

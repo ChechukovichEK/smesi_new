@@ -1,0 +1,153 @@
+.errors {
+	.container {
+		position: relative;
+		max-width: 1500px;
+		padding: 0 20px;
+		margin: 0 auto;
+		z-index: 10;
+	}
+	
+	&-block {
+		padding: 100px 0;
+		@include flex(center, flex-start, nowrap);
+		
+		h1 {
+			flex-basis: 40%;
+			@include font(300px, 600, 1, #D7DBDE, "MyriadProSemibold");
+			text-align: right;
+		}
+		
+		.description {
+			flex-basis: 60%;
+			padding-left: 100px;
+			
+			.title {
+				@include font(32px, 600, 1.2, $color, "MyriadProSemibold");
+			}
+			
+			.text {
+				margin-top: 15px;
+				max-width: 640px;
+				@include font(16px, 300, 1.6, $color-black, "MyriadProLight");
+			}
+			
+			.actions {
+				margin-top: 30px;
+				@include flex(center, flex-start);
+				gap: 20px;
+			}
+		}
+	}
+	
+	&-popular {
+		
+		.container {
+			position: relative;
+			max-width: 1500px;
+			padding: 0 20px;
+			margin: 0 auto;
+			z-index: 10;
+		}
+		
+		.home-title {
+			margin: 0;
+		}
+		
+		.swiper {
+			padding: 30px 10px;
+		}
+		
+		.swiper-nav {
+			@include position(absolute, 50%, 50%);
+			transform: translateX(-50%);
+			width: 95vw;
+			max-width: 1650px;
+			z-index: 100;
+			
+			.swiper-button-prev,
+			.swiper-button-next {
+				@include position(absolute, null, 50%);
+				z-index: 0;
+				@include size(42px, 42px);
+				border-radius: 50%;
+				background: #F2F5F8;
+				
+				&:after {
+					font-size: 16px;
+					color: #7A828C;
+				}
+			}
+		}
+	}
+}
+
+//RESPONSIVE
+
+@media (max-width: 1400px) {
+	.errors {
+		&-block {
+			
+			.description {
+				padding-left: 50px;
+				
+				.text {
+					max-width: 100%;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 1200px) {
+	.errors {
+		
+		&-block {
+			flex-wrap: wrap;
+			
+			h1 {
+				flex-basis: 100%;
+				text-align: center;
+			}
+			
+			.description {
+				text-align: center;
+				flex-basis: 100%;
+				padding-left: 0;
+				
+				.actions {
+					justify-content: center;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 992px) {
+	.errors {
+		&-block {
+			padding: 60px 0;
+			
+			h1 {
+				font-size: 150px;
+			}
+			
+			.description {
+				.title {
+					font-size: 24px;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.errors {
+		&-block {
+			padding: 40px 0;
+			
+			h1 {
+				font-size: 100px;
+			}
+		}
+	}
+}

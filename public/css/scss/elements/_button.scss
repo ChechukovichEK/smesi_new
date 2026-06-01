@@ -52,3 +52,72 @@
 		}
 	}
 }
+
+.btn-gradient {
+	height: $form-height-xl;
+	border-radius: $form-height-xl;
+	position: relative;
+	overflow: hidden;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 35px;
+	@include font(18px, 600, 1.4, $color-white, "MyriadProSemibold");
+	background-image: linear-gradient(180deg, #E95729 0%, #E83828 50%, #E85B28 100%);
+	background-size: 100% 200%;
+	background-position: 0 0;
+	@include transition;
+	
+	&::before {
+		content: "";
+		background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+		height: 80px;
+		width: 50px;
+		@include position(absolute, -75px, -8px);
+		transform: skewX(-45deg);
+		transition: all .9s ease;
+		animation: blick 2s infinite;
+	}
+	
+	&:hover {
+		background-position: 0 100%;
+	}
+}
+
+.btn-gray {
+	height: $form-height-xl;
+	border-radius: $form-height-xl;
+	position: relative;
+	overflow: hidden;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 35px;
+	@include font(18px, 500, 1.4, $color, "MyriadProSemibold");
+	background: #F2F5F8;
+	@include transition;
+	
+	&::before {
+		content: "";
+		background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+		height: 80px;
+		width: 50px;
+		@include position(absolute, -75px, -8px);
+		transform: skewX(-45deg);
+		transition: all .9s ease;
+		animation: blick 2s infinite;
+	}
+	
+	&:hover {
+		background:  #D7DBDE;
+	}
+}
+
+@media (max-width: 992px) {
+	.btn-gradient, .btn-gray {
+		height: $form-height;
+		border-radius: $form-height;
+		font-size: 16px;
+		padding: 0 25px;
+	}
+}
