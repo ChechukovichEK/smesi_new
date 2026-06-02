@@ -1,0 +1,201 @@
+.modal-new {
+	position: relative;
+	z-index: 5;
+	max-width: 100%;
+	width: 450px;
+	padding: 35px 45px;
+	background: #FFFFFF;
+	margin: auto;
+	display: none;
+	opacity: 0;
+	@include transition;
+	
+	&[id="modalPhone"],
+	&[id="modalFilters"] {
+		margin-top: 0;
+		border-top: 1px solid #F4F4F4;
+	}
+	
+	&.show {
+		opacity: 1;
+	}
+	
+	&-container {
+		display: none;
+		@include position(fixed, 0, 0, null, null, 1000);
+		@include size(100%, 100%);
+		padding: 30px 10px;
+		background: rgba(#000, 0.7);
+		overflow: auto;
+		
+		.modal-new {
+			display: block;
+		}
+		
+		&[data-modal-container='#modalPhone'] {
+			top: 70px;
+		}
+		
+		&[data-modal-container='#modalFilters'] {
+			top: 0;
+		}
+	}
+}
+
+.modal-new-close {
+	@include flex(center, center);
+	@include position(absolute, null, 0, 0);
+	@include size(40px, 40px);
+	@include text(center, none);
+	@include transition;
+	
+	&:before {
+		content: "";
+		background-image: url('../img/icons/close-light.svg');
+		background-repeat: no-repeat;
+		@include size(15px, 15px);
+	}
+	
+	&:hover {color: $color;}
+}
+
+.modal-new-top {
+	text-align: left;
+	
+	.title {
+		@include font(24px, 600, 1.2, $color-black, "MyriadProSemibold");
+		margin-bottom: 12px;
+	}
+	
+}
+
+.modal-new-contacts {
+	
+	@include flex(center, flex-start);
+
+	.list {
+		@include flex(center, flex-start);
+		list-style-type: none;
+		padding-left: 0;
+		margin-bottom: 20px;
+		
+		& > li + li {
+			border-top: 1px solid #F4F4F4;
+		}
+		
+		.link {
+			padding: 10px 0;
+			@include flex(center, flex-start, nowrap);
+			@include font(18px, 600, 1, $color-black, "MyriadProRegular");
+			gap: 10px;
+			width: 250px;
+			text-decoration: none;
+			color: $color-black;
+			
+			img	{
+				@include size(26px, 26px);
+			}
+		}
+	}
+	
+	.action {
+		@include flex(center, flex-start, nowrap);
+		gap: 15px;
+		width: 100%;
+		
+		.ft-btn {
+			@include flex(center, center);
+			order: 0;
+			max-width: 180px;
+			height: $form-height;
+			@include font(16px, 600, 1, $color-white, "MyriadProSemibold");
+			margin: 0;
+		}
+		
+		.list-social {
+			@include flex(center, flex-start);
+			gap: 10px;
+			
+			.social-icon {
+				@include size(46px, 46px);
+			}
+		}
+	}
+}
+
+.modal-new-search {
+	width: 100%;
+	
+	&-control {
+		position: relative;
+		@include flex(center, flex-start);
+		height: $form-height;
+		justify-content: space-between;
+		padding: 0 0 0 20px;
+		background: #F5F6F8;
+		border-radius: 30px;
+	}
+	
+	input::placeholder {
+		@include font(14px, 300, 1.6, #9F9F9F, "MyriadProLight");
+	}
+	
+	input[type="text"],
+	span.twitter-typeahead .tt-input {
+		flex: 1;
+		background: transparent;
+		border: none;
+		outline: none;
+	}
+	
+	&-bg {
+		@include position(absolute, null, 6px, 6px, null, 100);
+		display: block;
+		background: $color-orange url('../img/icons/search.svg') no-repeat 50% 50% / 22px 22px;
+		@include size(38px, 38px);
+		border-radius: 50%;
+		@include transition();
+		cursor: pointer;
+		
+		&:hover {
+			background-color: $color-orange-hover;
+		}
+	}
+	
+	span.twitter-typeahead {
+		display: block !important;
+		width: 90%;
+	}
+	
+	span.twitter-typeahead .tt-input,
+	span.twitter-typeahead .tt-hint {
+		width: 90% !important;
+	}
+	
+	span.twitter-typeahead .tt-input:focus,
+	span.twitter-typeahead .tt-hint:focus {
+		outline: none !important;
+		box-shadow: none !important;
+	}
+	
+	span.twitter-typeahead .tt-dropdown-menu, span.twitter-typeahead .tt-menu {
+		top: 40px !important;
+		right: auto;
+	}
+}
+
+
+//RESPONSIVE
+
+@media (max-width: 768px) {
+	
+	.modal-new {
+		
+		padding: 30px 15px;
+		
+		&-container {
+			padding: 0;
+		}
+	}
+
+}

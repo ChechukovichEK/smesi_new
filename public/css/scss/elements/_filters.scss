@@ -1,0 +1,212 @@
+.filters {
+	
+	.title {
+		margin: 5px 0 20px;
+		@include font(20px, 600, 1, #4d4d4d, "MyriadProSemibold");
+	}
+	
+	&-sections-form {
+		.text {
+			@include font(18px, 600, 1, #4d4d4d, "MyriadProRegular");
+			margin-bottom: 20px;
+		}
+	}
+	
+	&-sections-form + .filters-sections-form {
+		border-top: 1px solid #F2F5F8;
+		padding-top: 20px;
+	}
+	
+	&-sections-checkbox {
+		@include flex(flex,center);
+		flex-direction: column;
+		gap: 10px;
+		margin-bottom: 20px;
+		
+		.label {
+			display: flex;
+			align-items: center;
+			column-gap: 10px;
+			@include font(16px, 400, 1, $color-black, "MyriadProRegular");
+		}
+		
+		.checkbox {
+			appearance: none;
+			@include size(24px, 24px);
+			border: 1px solid #D4D7DB;
+			border-radius: 6px;
+			cursor: pointer;
+			position: relative;
+			margin: 0;
+			outline: none;
+			-webkit-tap-highlight-color: transparent;
+			@include transition();
+			
+			&:focus {
+				outline: none;
+			}
+			
+			&:focus-visible {
+				outline: none;
+			}
+			
+			
+			&:hover {
+				border-color: $color-orange;
+			}
+			
+			&:checked {
+				background: $color-orange;
+				border-color: $color-orange;
+			}
+			
+			&:checked::after {
+				content: "";
+				@include size(16px, 16px);
+				@include position(absolute, 50%, 50%);
+				background: url("../img/icons/check.svg") no-repeat center;
+				background-size: contain;
+				transform: translate(-50%, -50%);
+			}
+		}
+		
+	}
+	
+	.sbros {
+		
+		.btn {
+			background: $color-orange;
+			border-radius: 30px;
+			@include font(16px, 600, 1, $color-white, "MyriadProRegular");
+			padding: 15px 30px;
+			@include transition();
+			
+			&:hover {
+				background: $color-orange-hover;
+			}
+		}
+		
+		.btn-link {
+			border-radius: 0;
+			border: none;
+			background: none;
+			color: #7A828C;
+			padding: 10px 0;
+		}
+		
+		.btn-none {
+			display: none;
+		}
+	}
+	
+	&-toggle {
+		@include size(100%, $form-height-xs);
+		@include flex(center, center);
+		margin-bottom: 20px;
+		background: $color-orange;
+		border-radius: 30px;
+		color: #FFFFFF !important;
+		@include font(16px, 600, 1, $color-white, "MyriadProRegular");
+		@include transition();
+		
+		&:hover {
+			color: $color-white;
+			background: $color-orange-hover;
+		}
+	}
+}
+
+.sort {
+	@include flex(center, flex-end);
+	margin-bottom: 10px;
+	gap: 10px;
+	
+	.label {
+		@include font(18px, 600, 1, #4d4d4d, "MyriadProRegular");
+		margin: 0;
+	}
+}
+
+//RESPONSIVE
+
+@media (min-width: 769px) {
+	.filters-toggle {
+		display: none;
+	}
+}
+
+@media (max-width: 768px) {
+	.filters {
+		display: none;
+		
+		overflow: hidden;
+		
+		.title {
+			display: none;
+		}
+	}
+	
+	.modal-new-padding {
+		padding: 0;
+	}
+	
+	.modal-new-top-filters {
+		@include flex(center, space-between, nowrap);
+		background: #F2F5F8;
+		column-gap: 10px;
+		padding: 8px 0 8px 20px;
+		
+		.title {
+			margin: 0;
+			font-size: 20px;
+		}
+		
+		.modal-new-close {
+			position: relative;
+		}
+	}
+	
+	.modal-new-filters {
+		.filters-sections {
+			padding: 20px;
+		}
+		
+		.sbros {
+			background: #F2F5F8;
+			padding: 15px 20px;
+			width: 100%;
+			margin: 0;
+			@include flex(center, flex-start, nowrap);
+			column-gap: 30px;
+			
+			.btn {
+				margin: 0;
+				padding: 0 20px;
+			}
+			
+			.btn-none {
+				@include flex(center, center, nowrap);
+				height: $form-height-xs;
+			}
+			
+			.btn-xs-none {
+				display: none;
+			}
+		}
+	}
+	
+	.sort {
+		
+		.label {
+			font-size: 16px;
+		}
+		
+		.dropdown {
+			font-size: 16px;
+		}
+		
+		.dropdown-label {
+			padding-left: 10px;
+		}
+	}
+}

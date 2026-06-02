@@ -1,0 +1,43 @@
+.social {
+	@include flex(center, flex-start);
+	gap: 10px;
+}
+
+
+.social-label {
+	color: $color-gray;
+}
+
+.social-list {
+	@include flex(center);
+	gap: 5px;
+}
+
+.social-icon {
+	@include flex(center, center);
+	@include size(35px, 35px);
+	border-radius: 100%;
+	background: transparent no-repeat center;
+	background-size: contain;
+	@include transition;
+	
+	&-vk {background-image: url("/socials/vk.svg");}
+	&-facebook {background-image: url("/socials/facebook.svg");}
+	&-twitter {background-image: url("/socials/twitter.svg");}
+	&-instagram {background-image: url("/socials/instagram.svg");}
+	&-ok {background-image: url("/socials/ok.svg");}
+	&-mailru {background-image: url("/socials/mailru.svg");}
+	&-linkedin {background-image: url("/socials/linkedin.svg");}
+	&-whatsapp {background-image: url("/socials/whatsapp.svg");}
+	&-viber {background-image: url("/socials/viber.svg");}
+	&-telegram {background-image: url("/socials/telegram.svg");}
+	&-youtube {background-image: url("/socials/youtube.svg");}
+	&-tiktok {background-image: url("/socials/tiktok.svg");}
+	&-rutube {background-image: url("/socials/rutube.svg");}
+	&-max {background-image: url("/socials/max.svg");}
+	
+	
+	&:hover {
+		opacity: 0.8;
+	}
+}

@@ -1,0 +1,85 @@
+.dropdown {
+	position: relative;
+	color: $color-black;
+	overflow: hidden;
+	
+	&-label {
+		position: relative;
+		z-index: 5;
+		@include flex(center, flex-start);
+		min-width: 150px;
+		padding: 5px 50px 5px 20px;
+		border-radius: 5px;
+		border: 1px solid $color-gray-lite;
+		background: $color-white;
+		cursor: pointer;
+		
+		&:after {
+			content: '\e259';
+			@include position(absolute, null, 0, 0);
+			@include flex(center, center);
+			@include size(40px, 100%);
+			@include font(16px, 400, 1, $color-orange, "Glyphicons Halflings");
+			@include transition;
+		}
+		
+	}
+	
+	&-list {
+		@include position(absolute, 0, 100%, 0);
+		background: #fff;
+		padding: 8px 0;
+		border-radius: 5px;
+		border: 1px solid $color-gray-lite;
+		margin-top: 10px;
+		opacity: 0;
+		z-index: 10;
+		@include transition;
+	}
+	&-checker {
+		display: block;
+		cursor: pointer;
+		
+		input {
+			display: none;
+			
+			&:checked {
+				
+				+ .dropdown-item {
+					font-weight: 400;
+					color: $color-white;
+					background: $color-orange-hover;
+				}
+			}
+		}
+	}
+	&-item {
+		display: block;
+		padding: 8px 15px 8px 20px;
+		@include font(16px, 400, 1.6, $color-black, "MyriadProRegular");
+		@include transition;
+		
+		&:hover {
+			color: $color-white;
+			background: $color-orange-hover;
+		}
+	}
+	
+	
+	
+	&.open {
+		overflow: visible;
+		
+		.dropdown-label {
+			
+			&:after {
+				@include rotate(180deg);
+			}
+		}
+		.dropdown-list {
+			margin-top: 0;
+			opacity: 1;
+		}
+	}
+	
+}
