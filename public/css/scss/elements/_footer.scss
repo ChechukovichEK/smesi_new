@@ -208,8 +208,12 @@
 			}
 		}
 		
-		.ft-btn {
+		.callback {
 			margin-bottom: 30px;
+			.btn-gradient {
+				width: 100%;
+				padding: 0;
+			}
 		}
 		
 		.law {
@@ -373,7 +377,7 @@
 				display: none;
 			}
 			
-			.ft-btn {
+			.callback {
 				order: 0;
 				max-width: 250px;
 				width: 100%;

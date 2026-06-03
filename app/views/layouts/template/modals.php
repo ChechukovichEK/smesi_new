@@ -107,3 +107,72 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal-new" id="modalFeedback">
+	<a href="javascript:void(0)" class="modal-new-close" data-modal="close"></a>
+	<div class="modal-new-top">
+		<div class="title">Заказать звонок</div>
+		<div class="text">Оставьте заявку и наши специалисты свяжутся с Вами в ближайшее время</div>
+	</div>
+	
+	<form action="/feedback/send" method="post" class="modal-new-form" data-ajax-form>
+		
+		<!-- CSRF -->
+		<input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
+		
+		<!-- Honeypot -->
+		<input type="text" name="surname_cent" value="" style="display:none !important;">
+		
+		<ul class="inputs">
+			<li>
+				<input type="text" name="name_cent" class="form-input" placeholder="Ваше Имя" data-input="text" required>
+			</li>
+			<li>
+				<input type="tel" name="tel_cent" class="form-input" placeholder="Телефон" data-input="num" required>
+			</li>
+		</ul>
+		
+		<label class="checker-item form-terms">
+			<div class="checker">
+				<input type="checkbox" data-form-agree value="1" checked>
+				<i class="checker-view"></i>
+			</div>
+			<div class="checker-label">
+				Я даю согласие на обработку персональных данных в соответствии с
+				<a href="<?= PATH ?>/page" target="_blank">политикой конфиденциальности</a>
+			</div>
+		</label>
+		
+		<div class="action">
+			<button class="btn" type="submit">Отправить</button>
+			<input type="hidden" name="prod_title" id="modalFeedbackTask" value="">
+		</div>
+	</form>
+</div>
+
+<div class="modal-new" id="modalThanks">
+	<a href="javascript:void(0)" class="modal-new-close" data-modal="close"></a>
+	<div class="modal-new-top">
+		<div class="title">Спасибо за заявку</div>
+		<div class="text">Мы свяжемся с Вами в ближайшее рабочее время</div>
+	</div>
+</div>
+
+
+
+<?php if($cookieAgree != 'yes'): ?>
+<div class="cookie" id="cookieModal" style="display: none;">
+	<div class="container">
+		<div class="cookie-container">
+			<div class="text">
+				Этот сайт использует файлы cookie. Собранная при помощи cookie информация не может идентифицировать вас,
+				однако может помочь нам улучшить работу нашего сайта. Продолжая использовать сайт, вы даете согласие на
+				<a href="<?= PATH ?>/page" target="_blank">обработку файлов cookie</a>.
+			</div>
+			<div class="action">
+				<a href="javascript:void(0)" class="btn btn-xs" id="cookieAgree">Понятно!</a>
+			</div>
+		</div>
+	</div>
+</div>
+<?php endif; ?>

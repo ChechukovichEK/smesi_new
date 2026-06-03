@@ -3,6 +3,11 @@
 // включение буферизации вывода
 ob_start();
 
+
+if (!isset($_SESSION['csrf'])) {
+	$_SESSION['csrf'] = bin2hex(random_bytes(16));
+}
+
 ?>
 	<!DOCTYPE html>
 	<html lang="ru">
@@ -25,7 +30,7 @@ ob_start();
 	
 	<link rel="shortcut icon" href="https://smesi.by/favicon.svg" type="image/x-icon">
 	
-	<base href="<?php PATH?>/">
+	<base href="<?= PATH ?>/">
 	
 	<?php
 	$request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -91,71 +96,7 @@ ob_start();
 
 <?= \ishop\App::$app->getProperty('settings')['body_scripts'] ?>
 
-<?php
-if (isset($_POST["submit_tel"])) {
-	if (isset($_POST["prod_title"])) {
-		$spam = $_POST['surname_cent'];
-		$name = htmlspecialchars($_POST['name_cent']);
-		$phone = htmlspecialchars($_POST['tel_cent']);
-		$prod_title = htmlspecialchars($_POST['prod_title']);
-		if (empty($spam)) {
-			mail("vershina_stroi@mail.ru", "Smesi.by - продукт - заявка", "\n
-      Имя : " . $name . "
-      Телефон : " . $phone . "
-      Товар : " . $prod_title . "
-      ");
-			$chat_id = '-661035035';
-			$text = '<b>Заявка с сайта - Заказ в один клик</b>%0A<i>Имя</i> - <b>' . $name . '</b>%0A<i>Телефон</i> - <b>' . strip_tags(trim(urlencode($phone))) . '</b>%0A<i>Товар</i> - <b>' . $prod_title . '</b>';
-			$send_url = BASE_URL . 'sendMessage';
-			$send_url .= "?chat_id={$chat_id}&parse_mode=html&text={$text}";
-			$send = fopen($send_url, "r");
-			
-			add_feedback('Заказ в один клик', $name, $phone, $prod_title);
-			
-			echo '<p class="get-it" id="one_click_success">ВАША ЗАЯВКА ПРИНЯТА! СПАСИБО!</p>';
-			header("Refresh: 5; url = https://smesi.by/");
-		} else {
-			header("Refresh: 5; url = https://smesi.by/");
-			exit();
-		}
-		
-	} else {
-		$spam = $_POST['surname_cent'];
-		$name = htmlspecialchars($_POST['name_cent']);
-		$phone = htmlspecialchars($_POST['tel_cent']);
-		if (empty($spam)) {
-			mail("vershina_stroi@mail.ru", "Smesi.by - заявка", "\n
-    Имя : " . $name . "
-    Телефон : " . $phone . "
-    ");
-			$chat_id = '-661035035';
-			$text = '<b>Заявка с сайта - Обратный звонок</b>%0A<i>Имя</i> - <b>' . $name . '</b>%0A<i>Телефон</i> - <b>' . strip_tags(trim(urlencode($phone))) . '</b>';
-			$send_url = BASE_URL . 'sendMessage';
-			$send_url .= "?chat_id={$chat_id}&parse_mode=html&text={$text}";
-			$send = fopen($send_url, "r");
-			
-			add_feedback('Обратный звонок', $name, $phone);
-			
-			echo '<p class="get-it">ВАША ЗАЯВКА ПРИНЯТА! СПАСИБО!</p>';
-			header("Refresh: 5; url = https://smesi.by/");
-		} else {
-			header("Refresh: 5; url = https://smesi.by/");
-			exit();
-		}
-	}
-}
 
-function add_feedback($type, $name = null, $phone = null, $text = null)
-{
-	$feedback = \R::dispense('feedback');
-	$feedback->type = $type;
-	$feedback->name = $name;
-	$feedback->phone = $phone;
-	$feedback->text = $text;
-	\R::store($feedback);
-}
-
-?>
 
 <?php require APP . '/views/layouts/template/header.php'; ?>
 
@@ -208,6 +149,7 @@ function add_feedback($type, $name = null, $phone = null, $text = null)
 <script src="<?= PATH ?>/js/masonry.js"></script>
 <script src="<?= PATH ?>/js/base.js?v=<?= $versionNumber ?>"></script>
 <script src="<?= PATH ?>/js/main.js?v=<?= $versionNumber ?>"></script>
+<script src="<?= PATH ?>/js/form.js?v=<?= $versionNumber ?>"></script>
 
 <?= \ishop\App::$app->getProperty('settings')['footer_scripts'] ?? null; ?>
 

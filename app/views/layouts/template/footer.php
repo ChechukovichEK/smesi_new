@@ -113,8 +113,8 @@
 						<a href="mailto:<?= $email ?>"><?= $email ?></a>
 					</div>
 					
-					<div class="ft-btn">
-						<p>Перезвони мне</p>
+					<div class="callback">
+						<a href="#modalFeedback" class="btn-gradient" data-toggle="modal-new" data-feedback="Заказать звонок: подвал">Заказать звонок</a>
 					</div>
 					
 					<div class="law">

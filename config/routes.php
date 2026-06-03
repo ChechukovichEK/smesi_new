@@ -125,6 +125,16 @@ Router::add('^admin/navigation_mobile/delete/(?P<id>\d+)$', [
 	'ctrl_alias' => 'navigation_mobile',
 ]);
 
+/*
+|--------------------------------------------------------------------------
+| FEEDBACK ROUTES
+|--------------------------------------------------------------------------
+*/
+
+Router::add('^feedback/send$', ['controller' => 'Feedback', 'action' => 'send']);
+Router::add('^ajax/feedback$', ['controller' => 'Feedback', 'action' => 'send']);
+
+
 
 /*
 |--------------------------------------------------------------------------
