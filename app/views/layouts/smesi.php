@@ -20,11 +20,8 @@ ob_start();
 	<meta name="twitter:card" content="summary_large_image">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="google-site-verification" content="AwuIjIZIy3uFn8Y_74PlH8WNOdrIdwxTWg0yYPQEc-s">
-	<!-- Google NV -->
-	<meta name="google-site-verification" content="5UyBcWXNs5br8Vc1fcC_JhtcNXjiT76xjlrXasNOF0U">
-	<!-- Yandex NV -->
-	<meta name="yandex-verification" content="89000ee2d5fc1151">
+	
+	<?= \ishop\App::$app->getProperty('settings')['header_scripts'] ?? null; ?>
 	
 	<link rel="shortcut icon" href="https://smesi.by/favicon.svg" type="image/x-icon">
 	
@@ -76,48 +73,7 @@ ob_start();
 	<link rel="stylesheet" type="text/css" href="<?= PATH ?>/css/flexslider.min.css">
 	<link rel="stylesheet" type="text/css" href="<?= PATH ?>/css/icon.min.css">
 	
-	<!-- Google tag (gtag.js) NV -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-11MSXY85SZ"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		
-		function gtag() {
-			dataLayer.push(arguments);
-		}
-		
-		gtag('js', new Date());
-		
-		gtag('config', 'G-11MSXY85SZ');
-	</script>
-	<!-- Google tag (gtag.js) -->
-	
-	<!-- Yandex.Metrika counter NV -->
-	<script>
-		(function (m, e, t, r, i, k, a) {
-			m[i] = m[i] || function () {
-				(m[i].a = m[i].a || []).push(arguments)
-			};
-			m[i].l = 1 * new Date();
-			for (var j = 0; j < document.scripts.length; j++) {
-				if (document.scripts[j].src === r) {
-					return;
-				}
-			}
-			k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-		})
-			// (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-			(window, document, "script", "/metrika/tag.php", "ym");
-		
-		ym(98576053, "init", {
-			clickmap: true,
-			trackLinks: true,
-			accurateTrackBounce: true,
-			webvisor: true
-		});
-	</script>
-	<!-- /Yandex.Metrika counter -->
-	
-	<?= \ishop\App::$app->getProperty('settings')['header_scripts'] ?>
+	<?= ishop\App::$app->getProperty('settings')['body_scripts']  ?? null; ?>
 
 </head>
 
@@ -253,7 +209,7 @@ function add_feedback($type, $name = null, $phone = null, $text = null)
 <script src="<?= PATH ?>/js/base.js?v=<?= $versionNumber ?>"></script>
 <script src="<?= PATH ?>/js/main.js?v=<?= $versionNumber ?>"></script>
 
-<?= \ishop\App::$app->getProperty('settings')['footer_scripts'] ?>
+<?= \ishop\App::$app->getProperty('settings')['footer_scripts'] ?? null; ?>
 
 </body>
 

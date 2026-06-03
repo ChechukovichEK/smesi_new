@@ -11,9 +11,7 @@ $url = $url[0];
 		<form class="form" method="post" onsubmit="ym(98576053,'reachGoal','call_back');gtag('event', 'call_back'); return true;">
 			<input class="form-input" type="text" name="name_cent" placeholder="Ваше имя" required/>
 			<input class="form-input" type="tel" name="tel_cent" placeholder="Ваш телефон" required/>
-			<div class="btn-wow-wrapper">
-				<input class="btn btn-orange" type="submit" value="Перезвоните мне" name="submit_tel">
-			</div>
+			<button class="btn-gradient" type="submit" name="submit_tel">Перезвоните мне</button>
 		</form>
 	</div>
 </div>

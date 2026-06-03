@@ -162,8 +162,15 @@ span.twitter-typeahead .tt-suggestion:hover {
 
 
 //RESPONSIVE
+@media (max-width: 992px) {
+	.header-top {
+		.container {
+			padding: 10px 20px;
+		}
+	}
+}
 
-@media (max-width: 993px) {
+@media (max-width: 768px) {
 	.header-top {
 		display: none;
 	}

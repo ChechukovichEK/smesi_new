@@ -7,16 +7,34 @@
 	</div>
 </div>
 
-<div class="product-wrapper">
+<section class="page-search">
 	<div class="container">
+		<div class="search">
+			<div class="title">Поиск по каталогу</div>
+			
+			<form action="search" class="search-form" method="get" autocomplete="off">
+				<div class="search-control" data-control-clean>
+					<input type="text" class="typeahead" id="typeModal" name="s" placeholder="Поиск товаров.." autocomplete="off">
+					<div class="actions">
+						<a href="javascript:void(0)" data-input-clean class="search-close"></a>
+						<button type="submit" class="btn-gradient" value=""><span>Найти</span></button>
+					</div>
+				</div>
+			</form>
+		</div>
+		
 		<?php if (isset($products) && !empty($products)): ?>
+			
+			<div class="page-search-text">Найденные товары: <?= count($products) ?></div>
 			<div class="card-list">
 				<?php foreach ($products as $item): ?>
 					<?php require APP . '/views/components/card.php'; ?>
 				<?php endforeach; ?>
 			</div>
 		<?php else: ?>
-			<p>По вашему запросу ничего не найдено</p>
+			<div class="page-search-text">По вашему запросу ничего не найдено.</div>
 		<?php endif; ?>
 	</div>
-</div>
+</section>
+
+

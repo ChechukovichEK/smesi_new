@@ -584,3 +584,9 @@ $(function (){
 	}
 	
 });
+
+/* CLEAR SEARCH FORM
+------------------------------------------------------------------------ */
+$(document).on('click', '[data-input-clean]', function () {
+	$(this).closest('[data-control-clean]').find('input').val('').focus();
+});
