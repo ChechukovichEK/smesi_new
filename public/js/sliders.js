@@ -6,11 +6,11 @@ $(document).ready(function() {
         },
         breakpoints: {
             900: {
-                autoplay: {
+                /*autoplay: {
                     enabled: true,
                     delay: 5000,
                     pauseOnMouseEnter: true,
-                }
+                }*/
             }
         },
         navigation: {

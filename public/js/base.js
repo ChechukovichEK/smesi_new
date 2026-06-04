@@ -170,16 +170,11 @@ $(document).on('click touchend', function(e) {
 });
 }
 
-
-$(".close-cus").on("click",function(){
-$(".parent_popup, .prod_popup").hide(DELAY);
-});
-
 $(".one-click").on("click",function(){
     $(".prod_popup").show(DELAY);return false;
     });
 
-$(".slide-but-img, .ft-btn").on("click",function(){
+$(".slide-but-img").on("click",function(){
     $(".parent_popup").show(DELAY);return false;
 });
 

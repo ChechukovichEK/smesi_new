@@ -1,5 +1,7 @@
 <?php
 
+// отключаем layout для AJAX
+if (defined('NO_LAYOUT')) return;
 // включение буферизации вывода
 ob_start();
 

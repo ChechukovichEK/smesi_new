@@ -13,42 +13,32 @@ $(document)
 		let form = $(this),
 			action = form.attr('action'),
 			data = form.serialize(),
-			thanks = $(form).is('[data-thanks]')
-				? $(form).attr('data-thanks')
+			thanks = form.is('[data-thanks]')
+				? form.attr('data-thanks')
 				: '#modalThanks';
 		
 		form.find('.form-error, .form-error-note').remove();
 		
 		$.ajax({
-			type  : "POST",
-			url   : action,
-			data  : data,
-			cache : false,
-			async : false,
-			error : function () {
-				alert('Ошибка запроса');
-				return false;
-			},
-			success : function(response) {
+			type: "POST",
+			url: action,
+			data: data,
+			cache: false,
+			success: function(response) {
 				
-				if (typeof response !== 'object') {
+				// Попытка привести к объекту
+				try {
+					if (typeof response !== 'object') {
+						response = JSON.parse(response);
+					}
+				} catch(e) {
 					alert('Ошибка сервера');
-					return false;
+					return;
 				}
 				
 				if (response.error) {
 					form.prepend('<div class="form-error-note">' + response.message + '</div>');
-					form.find('.form-error-note').fadeIn(300);
-					
-					if(response.validation) {
-						for(let key in response.validation) {
-							form.find('[name="' + key + '"]')
-								.addClass('input-error')
-								.after('<div class="form-error">' + response.validation[key] + '</div>');
-						}
-					}
-					
-					return false;
+					return;
 				}
 				
 				$('[data-modal="close"]').trigger('click');
@@ -56,6 +46,9 @@ $(document)
 				
 				form.find('.form-input').val('');
 			},
+			error: function() {
+				alert('Ошибка запроса');
+			}
 		});
 		
 		return false;

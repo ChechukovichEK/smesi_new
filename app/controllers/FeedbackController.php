@@ -10,6 +10,7 @@ class FeedbackController extends AppController
 	
 	public function sendAction()
 	{
+		define('NO_LAYOUT', true);
 		// Полное отключение ошибок и рендера
 		error_reporting(0);
 		ini_set('display_errors', 0);
@@ -59,6 +60,7 @@ class FeedbackController extends AppController
 		$this->sendTelegram($type, $name, $phone, $product);
 		
 		echo json_encode(['error' => false]);
+		exit;
 	}
 	
 	
@@ -70,7 +72,7 @@ class FeedbackController extends AppController
 		$feedback->name = $name;
 		$feedback->phone = $phone;
 		$feedback->text = $text;
-		$feedback->created = date('Y-m-d H:i:s');
+		$feedback->created_at = date('Y-m-d H:i:s');
 		\R::store($feedback);
 	}
 	
