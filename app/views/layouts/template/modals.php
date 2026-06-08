@@ -108,14 +108,13 @@
 	</div>
 </div>
 
-<div class="modal-new" id="modalFeedback">
-	<a href="javascript:void(0)" class="modal-new-close" data-modal="close"></a>
-	<div class="modal-new-top">
-		<div class="title">Заказать звонок</div>
-		<div class="text">Оставьте заявку и наши специалисты свяжутся с Вами в ближайшее время</div>
+<div class="modal-new modal-feedback" id="modalFeedback">
+	<a href="javascript:void(0)" class="modal-feedback-close" data-modal="close"></a>
+	<div class="modal-feedback-top">
+		<div class="title">Заполните форму</div>
 	</div>
 	
-	<form action="/feedback/send" method="post" class="modal-new-form" data-ajax-form>
+	<form action="/feedback/send" method="post" class="modal-feedback-form" data-ajax-form onsubmit="ym(98576053,'reachGoal','call_back');gtag('event', 'call_back'); return true;">
 		
 		<!-- CSRF -->
 		<input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
@@ -125,10 +124,10 @@
 		
 		<ul class="inputs">
 			<li>
-				<input type="text" name="name_cent" class="form-input" placeholder="Ваше Имя" data-input="text" required>
+				<input type="text" name="name_cent" class="form-input form-input-gray" placeholder="Ваше Имя" data-input="text" required>
 			</li>
 			<li>
-				<input type="tel" name="tel_cent" class="form-input" placeholder="Телефон" data-input="num" required>
+				<input type="tel" name="tel_cent" class="form-input form-input-gray" placeholder="Телефон" data-input="num" required>
 			</li>
 		</ul>
 		
@@ -144,17 +143,20 @@
 		</label>
 		
 		<div class="action">
-			<button class="btn" type="submit">Отправить</button>
+			<button class="btn-gradient" type="submit">Отправить</button>
 			<input type="hidden" name="prod_title" id="modalFeedbackTask" value="">
 		</div>
 	</form>
 </div>
 
-<div class="modal-new" id="modalThanks">
-	<a href="javascript:void(0)" class="modal-new-close" data-modal="close"></a>
-	<div class="modal-new-top">
-		<div class="title">Спасибо за заявку</div>
+<div class="modal-new modal-feedback" id="modalThanks">
+	<a href="javascript:void(0)" class="modal-feedback-close" data-modal="close"></a>
+	<div class="modal-feedback-top">
+		<div class="title">Спасибо за заявку!</div>
 		<div class="text">Мы свяжемся с Вами в ближайшее рабочее время</div>
+		<div class="action">
+			<a href="javascripts:void(0);" class="btn-gradient" data-modal="close">Закрыть форму</a>
+		</div>
 	</div>
 </div>
 

@@ -1,0 +1,123 @@
+.checker {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	@include size(24px, 24px);
+	cursor: pointer;
+	
+	input {
+		@include position(absolute, 0, 0, 0, 0, 2);
+		@include size(100%, 100%);
+		opacity: 0;
+		cursor: pointer;
+		
+		&[type="radio"] {
+			
+			+ .checker-view {
+				border-radius: 100%;
+				
+				&:before {
+					content: '';
+					display: block;
+					@include size(8px, 8px);
+					background: #fff;
+					opacity: 0;
+				}
+			}
+			
+			&:checked + .checker-view {
+				background: $color-orange;
+				border-color: $color-orange;
+				
+				&:before {
+					opacity: 1;
+				}
+			}
+		}
+		
+		&[type="checkbox"] {
+			
+			+ .checker-view {
+				
+				&:before {
+					content: "\f00c";
+					display: block;
+					@include font(14px, 400, 1, #fff, $font-awesome);
+					font-style: normal;
+					opacity: 0;
+				}
+			}
+			
+			&:checked + .checker-view {
+				background: $color-orange;
+				border-color: $color-orange;
+				
+				&:before {
+					opacity: 1;
+				}
+			}
+		}
+	}
+	
+	&-view {
+		@include flex(center, center);
+		@include position(absolute, 0, 0, 0, 0);
+		@include size(100%, 100%);
+		border: 1px solid #7A828C;
+		border-radius: 4px;
+		background: #fff;
+		@include transition(border-color 0.3s ease 0s);
+	}
+	
+	&:hover {
+		.checker-view {
+			border-color: $color-orange;
+		}
+	}
+}
+
+.checker-item {
+	@include flex(flex-start, flex-start, nowrap);
+	column-gap: 10px;
+	cursor: pointer;
+	
+	.checker {
+		flex-shrink: 0;
+	}
+	.checker-label {
+		align-self: center;
+		@include font(14px, 400, 1.4, #7A828C, "MyriadProRegular");
+		
+		a {
+			color: #7A828C;
+			text-decoration: underline;
+			
+			&:hover {
+				color: $color-orange-hover;
+			}
+		}
+	}
+	
+	&:hover {
+		.checker-view {
+			border-color: $color-orange;
+		}
+	}
+}
+
+.checker-label {
+	flex-grow: 1;
+	display: block;
+}
+
+.checkers-list {
+	
+	> li + li {
+		margin-top: 10px;
+	}
+}
+
+.checkers-row {
+	@include flex(center, flex-start);
+	gap: 10px 30px;
+}

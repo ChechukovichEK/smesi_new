@@ -42,6 +42,8 @@
 	}
 }
 
+
+
 .modal-new-close {
 	@include flex(center, center);
 	@include position(absolute, null, 0, 0);
@@ -67,6 +69,74 @@
 		margin-bottom: 12px;
 	}
 	
+}
+
+.modal-feedback{
+	padding: 70px;
+}
+
+.modal-feedback-close {
+	@include flex(center, center);
+	@include position(absolute, null, -25px, -20px);
+	background: $color-orange;
+	@include size(54px, 54px);
+	border-radius: 50%;
+	@include text(center, none);
+	@include transition;
+	
+	&:before {
+		content: "\f00d";
+		display: block;
+		@include font(28px, 300, 1, #fff, $font-awesome);
+		font-style: normal;
+	}
+	
+	&:hover {color: $color;}
+}
+
+.modal-feedback-top	{
+	.title {
+		@include font(34px, 600, 1.2, $color-black, "MyriadProSemibold");
+		text-align: center;
+	}
+	
+	.text {
+		margin-top: 30px;
+		@include font(18px, 400, 1.4, $color-black, "MyriadProRegular");
+		text-align: center;
+	}
+	
+	.action {
+		margin-top: 30px;
+		text-align: center;
+	}
+}
+
+.modal-feedback-form {
+	.inputs {
+		width: 100%;
+		margin-top: 30px;
+		@include flex(flex-start, flex-start);
+		flex-direction: column;
+		row-gap: 15px;
+		padding: 0;
+		list-style-type: none;
+		
+		li {
+			width: 100%;
+		}
+	}
+	
+	.checker-item {
+		margin-top: 25px;
+	}
+	
+	.action {
+		margin-top: 25px;
+		.btn-gradient {
+			width: 100%;
+		}
+	}
 }
 
 .modal-new-contacts {

@@ -137,6 +137,8 @@ if (!isset($_SESSION['csrf'])) {
 	var path = '<?=PATH;?>';
 </script>
 
+
+<link rel="stylesheet" href="<?= PATH ?>/font-awesome/css/all.min.css">
 <script src="<?= PATH ?>/js/jquery.min.js"></script>
 <script src="<?= PATH ?>/js/bootstrap.min.js"></script>
 <script src="<?= PATH ?>/js/validator.js"></script>
