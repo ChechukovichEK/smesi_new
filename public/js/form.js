@@ -36,12 +36,13 @@ $(document)
 
 // PHONE
 		let phoneInput = form.find('[name="tel_cent"]');
-		if (phoneInput.val().trim() === '') {
+		let phone = phoneInput.val().trim();
+
+		if (!phoneInput.inputmask("isComplete")) {
 			phoneInput.addClass('input-error');
-			phoneInput.after('<div class="form-error">Поле <strong>Телефон</strong> обязательно для заполнения.</div>');
+			phoneInput.after('<div class="form-error">Введите корректный <strong>Телефон</strong>.</div>');
 			hasError = true;
 		}
-
 // AGREEMENT
 		let agree = form.find('[data-form-agree]');
 		let terms = form.find('.form-terms');

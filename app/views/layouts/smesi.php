@@ -176,11 +176,13 @@ $options = [
 	"formats" => ['jpg', 'jpeg', 'png'],
 	"patterns" => [
 		[
-			'pattern' => '/<img[^>]+src=("[^"]*")[^>]*>/i',
+			// НЕ трогаем <picture>, <source>, base64, svg, og, icons
+			'pattern' => '/<img(?![^>]+data-no-webp)(?![^>]+src="data:)(?![^>]+src="[^"]+\.svg)(?![^>]+property="og:image")[^>]+src="([^"]+\.(?:jpg|jpeg|png))"[^>]*>/i',
 			'exclude' => ['"', './']
 		],
 		[
-			'pattern' => '/background-image:.+url\(([^"]+)\)/i',
+			// background-image: url(...)
+			'pattern' => '/background-image:\s*url\((?!data:)([^)]+\.(?:jpg|jpeg|png))\)/i',
 			'exclude' => ["'", "./"]
 		],
 	],
