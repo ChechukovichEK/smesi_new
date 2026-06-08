@@ -8,6 +8,7 @@
 	input {
 		@include position(absolute, 0, 0, 0, 0, 2);
 		@include size(100%, 100%);
+		z-index: 3;
 		opacity: 0;
 		cursor: pointer;
 		

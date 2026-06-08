@@ -18,6 +18,46 @@ $(document)
 				: '#modalThanks';
 		
 		form.find('.form-error, .form-error-note').remove();
+
+// CLIENT VALIDATION
+		let hasError = false;
+
+// Очистка старых ошибок
+		form.find('.input-error').removeClass('input-error');
+		form.find('.form-error').remove();
+
+// NAME
+		let nameInput = form.find('[name="name_cent"]');
+		if (nameInput.val().trim() === '') {
+			nameInput.addClass('input-error');
+			nameInput.after('<div class="form-error">Поле <strong>Ваше Имя</strong> обязательно для заполнения.</div>');
+			hasError = true;
+		}
+
+// PHONE
+		let phoneInput = form.find('[name="tel_cent"]');
+		if (phoneInput.val().trim() === '') {
+			phoneInput.addClass('input-error');
+			phoneInput.after('<div class="form-error">Поле <strong>Телефон</strong> обязательно для заполнения.</div>');
+			hasError = true;
+		}
+
+// AGREEMENT
+		let agree = form.find('[data-form-agree]');
+		let terms = form.find('.form-terms');
+		
+		terms.removeClass('error');
+		terms.find('.terms-error').remove();
+		
+		if (!agree.is(':checked')) {
+			terms.addClass('error');
+			terms.after('<div class="form-error">Поле <strong>Согласование</strong> обязательно для заполнения.</div>');
+			hasError = true;
+		}
+
+// Если есть ошибки — не отправляем AJAX
+		if (hasError) return false;
+
 		
 		$.ajax({
 			type: "POST",
@@ -37,7 +77,8 @@ $(document)
 				}
 				
 				if (response.error) {
-					form.prepend('<div class="form-error-note">' + response.message + '</div>');
+					form.prepend('<div class="form-error-note">' + '222</div>');
+					$form.find('.form-error-note').fadeIn(300);
 					return;
 				}
 				
@@ -72,10 +113,10 @@ $(document)
 	// AGREE CHECKBOX
 	.on('change', '[data-form-agree]', function(){
 		let $checkbox = $(this),
-			checked = $checkbox.prop('checked'),
-			$button = $checkbox.closest('form').find('button');
+			checked = $checkbox.prop('checked');
+			//$button = $checkbox.closest('form').find('button');
 		
-		$button.prop('disabled', !checked);
+		//$button.prop('disabled', !checked);
 	});
 
 

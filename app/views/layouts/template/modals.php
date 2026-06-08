@@ -114,7 +114,8 @@
 		<div class="title">Заполните форму</div>
 	</div>
 	
-	<form action="/feedback/send" method="post" class="modal-feedback-form" data-ajax-form onsubmit="ym(98576053,'reachGoal','call_back');gtag('event', 'call_back'); return true;">
+	<form action="/feedback/send" method="post" class="modal-feedback-form" data-ajax-form
+		  onsubmit="ym(98576053,'reachGoal','call_back');gtag('event', 'call_back'); return true;">
 		
 		<!-- CSRF -->
 		<input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
@@ -124,16 +125,18 @@
 		
 		<ul class="inputs">
 			<li>
-				<input type="text" name="name_cent" class="form-input form-input-gray" placeholder="Ваше Имя" data-input="text" required>
+				<input type="text" name="name_cent" class="form-input form-input-gray" placeholder="Ваше Имя"
+					   data-input="text">
 			</li>
 			<li>
-				<input type="tel" name="tel_cent" class="form-input form-input-gray" placeholder="Телефон" data-input="num" required>
+				<input type="tel" name="tel_cent" class="form-input form-input-gray" placeholder="Телефон"
+					   data-input="num">
 			</li>
 		</ul>
 		
 		<label class="checker-item form-terms">
 			<div class="checker">
-				<input type="checkbox" data-form-agree value="1" checked>
+					<input type="checkbox" data-form-agree value="1" checked>
 				<i class="checker-view"></i>
 			</div>
 			<div class="checker-label">
@@ -161,20 +164,21 @@
 </div>
 
 
-
-<?php if($cookieAgree != 'yes'): ?>
-<div class="cookie" id="cookieModal" style="display: none;">
-	<div class="container">
-		<div class="cookie-container">
-			<div class="text">
-				Этот сайт использует файлы cookie. Собранная при помощи cookie информация не может идентифицировать вас,
-				однако может помочь нам улучшить работу нашего сайта. Продолжая использовать сайт, вы даете согласие на
-				<a href="<?= PATH ?>/page" target="_blank">обработку файлов cookie</a>.
-			</div>
-			<div class="action">
-				<a href="javascript:void(0)" class="btn btn-xs" id="cookieAgree">Понятно!</a>
+<?php if ($cookieAgree != 'yes'): ?>
+	<div class="cookie" id="cookieModal" style="display: none;">
+		<div class="container">
+			<div class="cookie-container">
+				<div class="text">
+					Этот сайт использует файлы cookie. Собранная при помощи cookie информация не может идентифицировать
+					вас,
+					однако может помочь нам улучшить работу нашего сайта. Продолжая использовать сайт, вы даете согласие
+					на
+					<a href="<?= PATH ?>/page" target="_blank">обработку файлов cookie</a>.
+				</div>
+				<div class="action">
+					<a href="javascript:void(0)" class="btn btn-xs" id="cookieAgree">Понятно!</a>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 <?php endif; ?>
