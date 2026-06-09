@@ -95,3 +95,104 @@
 		}
 	}
 }
+
+//RESPONSIVE
+
+@media (max-width: 1400px) {
+
+}
+
+@media (max-width: 1200px) {
+	.cta {
+		&-form {
+			
+			.group {
+				align-items: center;
+				flex-direction: column;
+				row-gap: 15px;
+				
+				.inputs {
+					align-items: center;
+					flex-direction: column;
+					row-gap: 15px;
+				}
+				
+				.action {
+					.btn-gradient {
+						min-width: 360px;
+						height: $form-height-xl;
+					}
+				}
+			}
+			
+		}
+	}
+}
+
+@media (max-width: 992px) {
+	.cta {
+		&-content {
+			padding: 90px 0;
+		}
+		
+		&-description {
+			.title {
+				max-width: 500px;
+				font-size: 28px;
+				br {
+					display: none;
+				}
+			}
+		}
+		
+		&-form {
+			.form-terms {
+				flex-wrap: nowrap;
+				max-width: 350px;
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.cta {
+		&-content {
+			padding: 40px 0;
+		}
+		
+		&-description {
+			.title {
+				font-size: 24px;
+			}
+		}
+		
+		&-form {
+			.group {
+				
+				.inputs {
+					align-items: center;
+					flex-direction: column;
+					row-gap: 15px;
+					
+					.form-input {
+						min-width: 300px;
+						height: $form-height;
+					}
+				}
+				
+				.action {
+					.btn-gradient {
+						min-width: 300px;
+						height: $form-height;
+					}
+				}
+			}
+			
+			.form-terms {
+				flex-wrap: nowrap;
+				max-width: 300px;
+				text-align: left;
+			}
+		}
+	}
+}
