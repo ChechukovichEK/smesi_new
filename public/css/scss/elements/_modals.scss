@@ -257,6 +257,20 @@
 
 //RESPONSIVE
 
+@media (max-width: 1400px) {
+	
+}
+
+@media (max-width: 1200px) {
+	.modal-new {
+		width: 360px;
+	}
+}
+
+@media (max-width: 992px) {
+
+}
+
 @media (max-width: 768px) {
 	
 	.modal-new {
@@ -267,5 +281,43 @@
 			padding: 0;
 		}
 	}
+	
+	.modal-feedback {
+		width: 300px;
+		
+		&-close {
+			top: -10px;
+			right: -10px;
+			@include size(40px, 40px);
+			
+			&:before {
+				font-size: 20px;
+			}
+		}
+		
+		&-top {
+			.title {
+				font-size: 24px;
+			}
+		}
+		
+		&-form {
+			.form-input {
+				height: $form-height;
+				min-width: 100%;
+			}
+			
+			.checker-item {
+				.checker {
+					@include size(18px, 18px);
+				}
+				.checker-label {
+					font-size: 12px;
+				}
+			}
+		}
+	}
+	
+	
 
 }
