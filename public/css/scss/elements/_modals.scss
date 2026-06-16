@@ -42,8 +42,6 @@
 	}
 }
 
-
-
 .modal-new-close {
 	@include flex(center, center);
 	@include position(absolute, null, 0, 0);
@@ -73,6 +71,24 @@
 
 .modal-feedback{
 	padding: 70px;
+}
+
+.modal-product {
+	width: 910px;
+	
+	&-block {
+		@include flex(center, flex-start, nowrap);
+		column-gap: 40px;
+	}
+	
+	&-left {
+		flex-shrink: 0;
+	}
+	
+	&-right {
+		flex-grow: 1;
+		width: 400px;
+	}
 }
 
 .modal-feedback-close {
