@@ -74,7 +74,7 @@
 }
 
 .modal-product {
-	width: 910px;
+	width: 800px;
 	
 	&-block {
 		@include flex(center, flex-start, nowrap);
@@ -82,12 +82,33 @@
 	}
 	
 	&-left {
-		flex-shrink: 0;
+		flex-grow: 1;
+	}
+	
+	&-image {
+		max-width: 300px;
+		border: 1px solid $color-gray-lite;
+		padding: 20px;
+		
+		img {
+			display: block;
+			@include size(100%, 100%);
+			object-fit: cover;
+		}
 	}
 	
 	&-right {
-		flex-grow: 1;
+		flex-shrink: 0;
 		width: 400px;
+		
+		.title {
+			@include font(34px, 600, 1.2, $color-black, "MyriadProSemibold");
+		}
+		
+		.text {
+			margin-top: 20px;
+			@include font(20px, 600, 1.4, $color-black, "MyriadProSemibold");
+		}
 	}
 }
 
@@ -152,6 +173,30 @@
 		.btn-gradient {
 			width: 100%;
 		}
+	}
+}
+
+.modal-product-form {
+	.inputs {
+		width: 100%;
+		margin-top: 30px;
+		@include flex(flex-start, flex-start);
+		flex-direction: column;
+		row-gap: 15px;
+		padding: 0;
+		list-style-type: none;
+		
+		li {
+			width: 100%;
+		}
+	}
+	
+	.checker-item {
+		margin-top: 2px;
+	}
+	
+	.action {
+		margin-top: 15px;
 	}
 }
 
@@ -281,9 +326,38 @@
 	.modal-new {
 		width: 360px;
 	}
+	
+	.modal-product {
+		width: 750px;
+	}
 }
 
 @media (max-width: 992px) {
+	
+	.modal-product {
+		width: 600px;
+		column-gap: 20px;
+		
+		&-right {
+			width: 300px;
+			
+			.title {
+				font-size: 30px;
+			}
+			
+			.text {
+				font-size: 18px;
+			}
+		}
+		
+		&-form {
+			.inputs {
+				.form-input {
+					min-width: auto;
+				}
+			}
+		}
+	}
 
 }
 
@@ -334,6 +408,42 @@
 		}
 	}
 	
+	.modal-product {
+		width: 300px;
+		column-gap: 20px;
+		
+		&-left {
+			display: none;
+		}
+		
+		&-right {
+			width: 100%;
+			
+			.title {
+				font-size: 30px;
+			}
+			
+			.text {
+				font-size: 18px;
+			}
+		}
+		
+		&-form {
+			.form-input {
+				height: $form-height;
+				min-width: 100%;
+			}
+			
+			.checker-item {
+				.checker {
+					@include size(18px, 18px);
+				}
+				.checker-label {
+					font-size: 12px;
+				}
+			}
+		}
+	}
 	
 
 }
