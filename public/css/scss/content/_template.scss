@@ -34,6 +34,31 @@
 	}
 }
 
+.go2top {
+	@include size(0, 0);
+	@include flex(center, center);
+	@include position(fixed, null, null, 50px, 30px, 2500);
+	@include font(20px, null, 1, $color-orange);
+	text-decoration: none;
+	border-radius: 100%;
+	background-color: rgba($color-orange-hover, 0.24);
+	opacity: 0;
+	overflow: hidden;
+	transition: opacity 0.5s ease 0s,
+	color 0.5s ease 0s,
+	background-color 0.5s ease 0s;
+	
+	&.show {
+		@include size(50px, 50px);
+		opacity: 1;
+	}
+	
+	&:hover {
+		background-color: $color-orange;
+		color: $color-white;
+	}
+}
+
 @media (max-width: 1400px) {
 	.cookie {
 		&-container {
@@ -64,6 +89,10 @@
 			}
 		}
 	}
+	
+	.go2top {
+		right: 30px;
+	}
 }
 
 @media (max-width: 768px) {
@@ -75,5 +104,9 @@
 				font-size: 12px;
 			}
 		}
+	}
+	
+	.go2top {
+		right: 10px;
 	}
 }

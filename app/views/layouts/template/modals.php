@@ -132,6 +132,10 @@
 	</div>
 </div>
 
+<a href="javascript:void(0)" class="go2top" id="go2top">
+	<i class="fa fa-arrow-up"></i>
+</a>
+
 
 <?php $cookieAgree = \ishop\App::$app->getProperty('cookieAgree'); ?>
 

@@ -627,3 +627,26 @@ $(document).on('click', '#cookieAgree', function(){
 $(document).on('click', '[data-close-cookie]', function () {
 	$('#cookieModal').remove();
 });
+
+/* GO TO TOP
+------------------------------------------------------------------------ */
+
+$(window).on('scroll', function () {
+	
+	let scroll = $(window).scrollTop(),
+		$go2top = $('#go2top');
+	
+	if (scroll > 500) {
+		$go2top.addClass('show');
+	} else {
+		$go2top.removeClass('show');
+	}
+	
+});
+
+$(document).on('click', '#go2top', function () {
+	
+	$('html, body').animate({scrollTop: 0}, 1000);
+	
+	
+});
