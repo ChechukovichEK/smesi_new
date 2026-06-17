@@ -3,36 +3,74 @@
 namespace app\models;
 
 class Product extends AppModel {
-
-    public function setRecentlyViewed($id){
-        $recentlyViewed = $this->getAllRecentlyViewed();
-        if(!$recentlyViewed){
-            setcookie('recentlyViewed', $id, time() + 3600*24, '/');
-        }else{
-            $recentlyViewed = explode('.', $recentlyViewed);
-            if(!in_array($id, $recentlyViewed)){
-                $recentlyViewed[] = $id;
-                $recentlyViewed = implode('.', $recentlyViewed);
-                setcookie('recentlyViewed', $recentlyViewed, time() + 3600*24, '/');
-            }
-        }
-    }
-
-    public function getRecentlyViewed(){
-        if(!empty($_COOKIE['recentlyViewed'])){
-            $recentlyViewed = $_COOKIE['recentlyViewed'];
-            $recentlyViewed = explode('.', $recentlyViewed);
-            return array_slice($recentlyViewed, -5);
-        }
-        return false;
-    }
-
-    public function getAllRecentlyViewed(){
-        if(!empty($_COOKIE['recentlyViewed'])){
-            return $_COOKIE['recentlyViewed'];
-        }
-        return false;
-    }
+	
+	private string $cookieName = 'recentlyViewed';
+	private int $cookieDays = 30;
+	private int $maxItems = 20;
+	
+	/**
+	 * Добавляет товар в список просмотренных
+	 */
+	public function setRecentlyViewed(int $id): void
+	{
+		$items = $this->getAllRecentlyViewed();
+		
+		// если пусто — создаём массив
+		if (!$items) {
+			$items = [];
+		}
+		
+		// удаляем дубликат, если есть
+		$items = array_diff($items, [$id]);
+		
+		// добавляем в конец (последний просмотренный)
+		$items[] = $id;
+		
+		// ограничиваем длину
+		if (count($items) > $this->maxItems) {
+			$items = array_slice($items, -$this->maxItems);
+		}
+		
+		// сохраняем
+		setcookie(
+			$this->cookieName,
+			json_encode($items),
+			time() + 86400 * $this->cookieDays,
+			'/'
+		);
+	}
+	
+	/**
+	 * Возвращает последние N просмотренных товаров (по умолчанию 5)
+	 */
+	public function getRecentlyViewed(int $limit = 5)
+	{
+		$items = $this->getAllRecentlyViewed();
+		if (!$items) {
+			return false;
+		}
+		
+		return array_slice($items, -$limit);
+	}
+	
+	/**
+	 * Возвращает весь список просмотренных товаров
+	 */
+	public function getAllRecentlyViewed()
+	{
+		if (empty($_COOKIE[$this->cookieName])) {
+			return false;
+		}
+		
+		$json = json_decode($_COOKIE[$this->cookieName], true);
+		
+		if (!is_array($json)) {
+			return false;
+		}
+		
+		// фильтруем мусор
+		return array_values(array_filter($json, fn($v) => is_numeric($v)));
+	}
 
     public function getParamInfo($param_groups){
       $param_info = [];

@@ -1,7 +1,10 @@
 <?php
-
 // отключаем layout для AJAX
 if (defined('NO_LAYOUT')) return;
+
+if (headers_sent($file, $line)) {
+	die("HEADERS ALREADY SENT in $file:$line");
+}
 // включение буферизации вывода
 ob_start();
 
@@ -139,6 +142,12 @@ if (!isset($_SESSION['csrf'])) {
 
 
 <link rel="stylesheet" href="<?= PATH ?>/font-awesome/css/all.min.css">
+
+<script>
+	const BASE_URL = '<?= PATH ?>';
+	const CSRF_TOKEN = '<?= $_SESSION['csrf'] ?>';
+</script>
+
 <script src="<?= PATH ?>/js/jquery.min.js"></script>
 <script src="<?= PATH ?>/js/bootstrap.min.js"></script>
 <script src="<?= PATH ?>/js/validator.js"></script>

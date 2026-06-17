@@ -13,7 +13,8 @@ use ishop\Cache;
 class AppController extends Controller {
 	
 	public function __construct($route) {
-		parent::__construct($route);
+		
+			parent::__construct($route);
 		
 		new AppModel();
 		
@@ -27,6 +28,10 @@ class AppController extends Controller {
 		self::getSettings();
 		
 		self::getSettingsNew();
+		
+		// COOKIE AGREEMENT
+		$cookieAgree = $_COOKIE['cookieAgree'] ?? null;
+		App::$app->setProperty('cookieAgree', $cookieAgree);
 		
 		$this->loadNavigation();
 		

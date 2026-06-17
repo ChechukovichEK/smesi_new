@@ -590,3 +590,40 @@ $(function (){
 $(document).on('click', '[data-input-clean]', function () {
 	$(this).closest('[data-control-clean]').find('input').val('').focus();
 });
+
+/* COOKIE
+------------------------------------------------------------------------ */
+$(document).on('click', '#cookieAgree', function(){
+	
+	$.ajax({
+		type  : "POST",
+		url   : BASE_URL + '/cookie/agree',
+		data  : {
+			_token: CSRF_TOKEN,
+			cookie_agree: 'yes',
+		},
+		dataType: 'json',
+		cache : false,
+		async : false,
+		error : function () {
+			alert('Ошибка запроса');
+			return false;
+		},
+		success : function(response) {
+			
+			if(!!!response.error && response.error !== false)
+			{
+				alert('Ошибка запроса');
+				return false;
+			}
+			
+			$('#cookieModal').remove();
+			
+		},
+	});
+	
+});
+
+$(document).on('click', '[data-close-cookie]', function () {
+	$('#cookieModal').remove();
+});

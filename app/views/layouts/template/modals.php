@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -107,7 +106,7 @@
 		
 		<label class="checker-item form-terms">
 			<div class="checker">
-					<input type="checkbox" data-form-agree value="1" checked>
+				<input type="checkbox" data-form-agree value="1" checked>
 				<i class="checker-view"></i>
 			</div>
 			<div class="checker-label">
@@ -134,19 +133,20 @@
 </div>
 
 
+<?php $cookieAgree = \ishop\App::$app->getProperty('cookieAgree'); ?>
+
 <?php if ($cookieAgree != 'yes'): ?>
-	<div class="cookie" id="cookieModal" style="display: none;">
+	<div class="cookie" id="cookieModal">
 		<div class="container">
 			<div class="cookie-container">
 				<div class="text">
-					Этот сайт использует файлы cookie. Собранная при помощи cookie информация не может идентифицировать
-					вас,
-					однако может помочь нам улучшить работу нашего сайта. Продолжая использовать сайт, вы даете согласие
-					на
-					<a href="<?= PATH ?>/page" target="_blank">обработку файлов cookie</a>.
+					Этот сайт использует файлы cookie. Продолжая использовать этот сайт, вы соглашаетесь на их
+					использование. Для получения дополнительной информации, пожалуйста, ознакомьтесь
+					<a href="<?= PATH ?>/page" target="_blank">с нашей Политикой конфиденциальности</a>.
 				</div>
 				<div class="action">
-					<a href="javascript:void(0)" class="btn btn-xs" id="cookieAgree">Понятно!</a>
+					<a href="javascript:void(0)" class="btn-gradient btn-xs" id="cookieAgree">Принять</a>
+					<a href="javascript:void(0)" class="btn-gray btn-xs" data-close-cookie>Отказаться</a>
 				</div>
 			</div>
 		</div>
