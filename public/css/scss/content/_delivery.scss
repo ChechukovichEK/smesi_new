@@ -1,0 +1,91 @@
+.delivery {
+	&-title {
+		@include font(40px, 600, 1, $color-black, "MyriadProSemibold");
+	}
+	
+	&-block {
+		margin-top: 30px;
+		.title {
+			@include font(30px, 600, 1, $color-black, "MyriadProSemibold");
+		}
+	}
+	
+	&-list {
+		margin-top: 20px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: 20px;
+	}
+	
+	&-item {
+		border-left: 4px solid #DADADA;
+		padding: 0px 40px 10px 20px;
+		
+		.title {
+			@include font(20px, 400, 1, $color-black, "MyriadProSemibold");
+		}
+		
+		.text {
+			margin-top: 10px;
+			@include font(16px, 300, 1.6, $color-black, "MyriadProLight");
+			
+			span {
+				@include font(16px, 400, 1, $color-black, "MyriadProSemibold");
+			
+				br{
+					display: none;
+				}
+			}
+			
+			a {
+				@include font(16px, 400, 1, null, "MyriadProSemibold");
+			}
+		}
+	}
+	
+	&-info {
+		background: #FFFFFF;
+		box-shadow: 0 0 30px  rgba(212, 214, 217, 0.3);
+		padding: 30px 30px 30px 75px;
+		margin-top: 30px;
+		@include font(16px, 400, 1.6, $color-black, "MyriadProRegular");
+		background: url('../img/icons/delivery.svg') no-repeat 30px 50% / 34px 34px;
+		
+		span {
+			color: $color-orange;
+		}
+	}
+}
+
+//RESPONSIVE
+
+@media (max-width: 1400px) {
+
+}
+
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 992px) {
+
+	.delivery {
+		&-title {
+			font-size: 34px;
+		}
+		
+		&-list {
+			grid-template-columns: 1fr;
+			row-gap: 30px;
+		}
+		
+		&-item {
+			padding: 10px;
+		}
+	}
+
+}
+
+@media (max-width: 768px) {
+
+}

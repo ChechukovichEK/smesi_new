@@ -131,7 +131,10 @@ if (!isset($_SESSION['csrf'])) {
 <?= $content; ?>
 
 <?php require APP . '/views/layouts/components/contact-form.php'; ?>
-<?php require APP . '/views/layouts/components/map-block.php'; ?>
+
+<?php if ($_SERVER['REQUEST_URI'] === '/'): ?>
+	<?php require APP . '/views/layouts/components/map-block.php'; ?>
+<?php endif; ?>
 
 <?php require APP . '/views/layouts/template/footer.php'; ?>
 

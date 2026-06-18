@@ -1,4 +1,30 @@
-.pages-contacts {
+.contacts {
+	&-title {
+		@include font(34px, 600, 1, $color-black, "MyriadProSemibold");
+	}
+	
+	&-text {
+		margin-top: 20px;
+		@include font(20px, 300, 1, $color-black, "MyriadProLight");
+		
+		span {
+			@include font(20px, 300, 1, $color-black, "MyriadProSemibold");
+		}
+	}
+	
+	&-list {
+		margin-top: 30px;
+		background: $color-gray;
+		padding: 80px;
+		@include flex(flex-start, space-between);
+	}
+	
+	&-item {
+	
+	}
+}
+
+/*.pages-contacts {
 	@include flex(flex-start, flex-start, nowrap);
 	gap: 30px;
 	
@@ -101,4 +127,4 @@
 			}
 		}
 	}
-}
+}*/
