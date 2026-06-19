@@ -51,7 +51,7 @@
 			</div>
 		<?php else: ?>
 			<div class="no-products">
-				<i class="glyphicon glyphicon-info-sign"></i> <?= $no_products_message ?: '1В данной категории товары отсутствуют'; ?>
+				<i class="glyphicon glyphicon-info-sign"></i> <?= $no_products_message ?: 'В данной категории товары отсутствуют'; ?>
 			</div>
 		<?php endif; ?>
 	
@@ -68,7 +68,7 @@
 		</div>
 	<?php else: ?>
 		<div class="no-products">
-			<i class="glyphicon glyphicon-info-sign"></i> <?= $no_products_message ?: '2В данной категории товары отсутствуют'; ?>
+			<i class="glyphicon glyphicon-info-sign"></i> <?= $no_products_message ?: 'В данной категории товары отсутствуют'; ?>
 		</div>
 	<?php endif; ?>
 
