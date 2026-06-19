@@ -146,10 +146,6 @@ class SettingsController extends AppController
 	{
 		$file = WWW . '/sitemap.xml';
 		
-		// Получаем страницы
-		$pages = \R::getAll("SELECT alias FROM pages");
-		
-		// Текущее время в ISO 8601
 		$now = date('Y-m-d\TH:i:sP');
 		
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL;
@@ -162,7 +158,24 @@ class SettingsController extends AppController
 		$xml .= '<priority>1.0</priority>';
 		$xml .= '</url>' . PHP_EOL;
 		
+		// Статические страницы
+		$staticPages = [
+			'/vendors'   => '0.7',
+			'/contacts'  => '0.7',
+			'/catalog'   => '0.8',
+			'/sale'      => '0.8',
+		];
+		
+		foreach ($staticPages as $url => $priority) {
+			$xml .= '<url>';
+			$xml .= '<loc>' . PATH . $url . '</loc>';
+			$xml .= '<lastmod>' . $now . '</lastmod>';
+			$xml .= '<priority>' . $priority . '</priority>';
+			$xml .= '</url>' . PHP_EOL;
+		}
+		
 		// Страницы
+		$pages = \R::getAll("SELECT alias FROM pages");
 		foreach ($pages as $p) {
 			$xml .= '<url>';
 			$xml .= '<loc>' . PATH . '/page/' . $p['alias'] . '</loc>';
@@ -173,7 +186,6 @@ class SettingsController extends AppController
 		
 		// Категории
 		$categories = \R::getAll("SELECT alias FROM category WHERE show_cat = 1");
-		
 		foreach ($categories as $cat) {
 			$xml .= '<url>';
 			$xml .= '<loc>' . PATH . '/category/' . $cat['alias'] . '</loc>';
@@ -184,12 +196,31 @@ class SettingsController extends AppController
 		
 		// Посадочные страницы
 		$landings = \R::getAll("SELECT alias FROM landing_pages");
-		
 		foreach ($landings as $lp) {
 			$xml .= '<url>';
 			$xml .= '<loc>' . PATH . '/category/' . $lp['alias'] . '</loc>';
 			$xml .= '<lastmod>' . $now . '</lastmod>';
 			$xml .= '<priority>0.9</priority>';
+			$xml .= '</url>' . PHP_EOL;
+		}
+		
+		// Товары
+		$products = \R::getAll("SELECT alias FROM product WHERE alias != '' AND status = 1");
+		foreach ($products as $pr) {
+			$xml .= '<url>';
+			$xml .= '<loc>' . PATH . '/product/' . $pr['alias'] . '</loc>';
+			$xml .= '<lastmod>' . $now . '</lastmod>';
+			$xml .= '<priority>0.6</priority>';
+			$xml .= '</url>' . PHP_EOL;
+		}
+		
+		// Статьи
+		$articles = \R::getAll("SELECT alias FROM articles");
+		foreach ($articles as $a) {
+			$xml .= '<url>';
+			$xml .= '<loc>' . PATH . '/article/' . $a['alias'] . '</loc>';
+			$xml .= '<lastmod>' . $now . '</lastmod>';
+			$xml .= '<priority>0.7</priority>';
 			$xml .= '</url>' . PHP_EOL;
 		}
 		

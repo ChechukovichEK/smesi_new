@@ -13,35 +13,76 @@
 		<div class="contacts">
 			<div class="contacts-title">Smesi.by - наши контакты</div>
 			<div class="contacts-text">Название: <span>ООО «Вершина-строй»</span></div>
-			
 			<div class="contacts-list">
-				<div class="contacts-item">
-					<ul>
-						<li id="page_tel"><a href="tel:+375445305533" rel="nofollow">+375 (44) 530-55-33</a> Лопатина 6-6а, офис</li>
-						<li id="page_tel"><a href="tel:+375445960533" rel="nofollow">+375 (44) 596-05-33</a> Павел,</li>
-						<li id="page_tel"><a href="tel:+375445667500" rel="nofollow">+375 (44) 566-75-00</a> Маг. Основателей 31/3,</li>
-						<li id="page_tel"><a href="tel:+375445720533" rel="nofollow">+375 (44) 572-05-33</a> Маг. Основателей 31/3,</li>
-						<li id="page_tel"><a href="tel:+375445920533" rel="nofollow">+375 (44) 592-05-33</a> Лопатина 6-6а, офис</li>
-						<li id="page_tel"><a href="tel:+375445970533" rel="nofollow">+375 (44) 597-05-33</a> Илья, специалист по продажам</li>
-						<li id="page_tel"><a href="tel:+375172344018" rel="nofollow">+375 (17) 234-40-18</a> - общий</li>
-					</ul>
+				<div class="contacts-item contacts-item-phones">
+					<div class="list">
+						<div class="item">
+							<div class="label">Офис д.Копище, ул.Лопатина 6-6а</div>
+							
+							<a href="tel:<?= preg_replace('/[^\d+]/', '', \ishop\App::$app->getProperty('settings')['phone']) ?>">
+								<?= \ishop\App::$app->getProperty('settings')['phone'] ?>
+							</a>
+						</div>
+						<div class="item">
+							<div class="label">Общий</div>
+							
+							<a href="tel:<?= preg_replace('/[^\d+]/', '', \ishop\App::$app->getProperty('settings')['phone_general']) ?>">
+								<?= \ishop\App::$app->getProperty('settings')['phone_general'] ?>
+							</a>
+						</div>
+						<div class="item">
+							<div class="label">Офис д.Копище, ул.Лопатина 6-6а</div>
+							
+							<a href="tel:<?= preg_replace('/[^\d+]/', '', \ishop\App::$app->getProperty('settings')['phone_office']) ?>">
+								<?= \ishop\App::$app->getProperty('settings')['phone_office'] ?>
+							</a>
+						</div>
+						<div class="item">
+							<div class="label">Павел</div>
+							
+							<a href="tel:<?= preg_replace('/[^\d+]/', '', \ishop\App::$app->getProperty('settings')['phone_manager_1']) ?>">
+								<?= \ishop\App::$app->getProperty('settings')['phone_manager_1'] ?>
+							</a>
+						</div>
+						<div class="item">
+							<div class="label">Магазин г.Минск, ул. Основателей 31/3</div>
+							
+							<a href="tel:<?= preg_replace('/[^\d+]/', '', \ishop\App::$app->getProperty('settings')['phone_store_1']) ?>">
+								<?= \ishop\App::$app->getProperty('settings')['phone_store_1'] ?>
+							</a>
+						</div>
+						<div class="item">
+							<div class="label">Илья, специалист по продажам</div>
+							
+							<a href="tel:<?= preg_replace('/[^\d+]/', '', \ishop\App::$app->getProperty('settings')['phone_manager_2']) ?>">
+								<?= \ishop\App::$app->getProperty('settings')['phone_manager_2'] ?>
+							</a>
+						</div>
+						<div class="item">
+							<div class="label">Магазин г.Минск, ул. Основателей 31/3</div>
+							
+							<a href="tel:<?= preg_replace('/[^\d+]/', '', \ishop\App::$app->getProperty('settings')['phone_store_2']) ?>">
+								<?= \ishop\App::$app->getProperty('settings')['phone_store_2'] ?>
+							</a>
+						</div>
+					</div>
 				</div>
 				
 				<div class="contacts-item">
-					<div class="label">Наша почта:</div>
-					
-					<ul>
+					<div class="description">
+						<div class="label">Электронная почта</div>
+						
 						<?php $email = \ishop\App::$app->getProperty('email')['text']; ?>
-						<li id="cont-mail"><a  rel="nofollow" href="mailto:<?= $email ?>"><?= $email ?></a></li>
-					</ul>
+						<a  rel="nofollow" href="mailto:<?= $email ?>"><?= $email ?></a>
+					</div>
 				</div>
 				
 				<div class="contacts-item">
-					<h2>Время работы:</h2>
-					
-					<p>ПН-ПТ с 9:00 до 17:30</p>
-					
-					<p>СБ-ВС выходной</p>
+					<div class="description">
+						<div class="label">Время работы</div>
+						
+						<div class="text"><?= \ishop\App::$app->getProperty('settings')['schedule'] ?></div>
+					</div>
 				</div>
 			</div>
 		</div>
