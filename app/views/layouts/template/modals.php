@@ -111,7 +111,7 @@
 			</div>
 			<div class="checker-label">
 				Я даю согласие на обработку персональных данных в соответствии с
-				<a href="<?= PATH ?>/page" target="_blank">политикой конфиденциальности</a>
+				<a href="<?= PATH ?>/page/politika-obrabotki-personal-nyh-dannyh" target="_blank">политикой конфиденциальности</a>
 			</div>
 		</label>
 		
@@ -136,6 +136,13 @@
 	<i class="fa fa-arrow-up"></i>
 </a>
 
+<?php foreach ($socials as $social): ?>
+	<?php if (in_array($social['key'], ['telegram'])): ?>
+		<a href="<?= $social['link'] ?>" target="_blank"
+		   onclick="ym(98576053,'reachGoal','social_click');gtag('event', 'social_click'); return true;"
+		   rel="nofollow" class="fix-social social-icon social-icon-<?= $social['key'] ?>"></a>
+	<?php endif; ?>
+<?php endforeach; ?>
 
 <?php $cookieAgree = \ishop\App::$app->getProperty('cookieAgree'); ?>
 
@@ -146,7 +153,7 @@
 				<div class="text">
 					Этот сайт использует файлы cookie. Продолжая использовать этот сайт, вы соглашаетесь на их
 					использование. Для получения дополнительной информации, пожалуйста, ознакомьтесь
-					<a href="<?= PATH ?>/page" target="_blank">с нашей Политикой конфиденциальности</a>.
+					<a href="<?= PATH ?>/page/politika-obrabotki-personal-nyh-dannyh" target="_blank">с нашей Политикой конфиденциальности</a>.
 				</div>
 				<div class="action">
 					<a href="javascript:void(0)" class="btn-gradient btn-xs" id="cookieAgree">Принять</a>

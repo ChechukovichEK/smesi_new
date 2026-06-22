@@ -37,7 +37,7 @@
 .go2top {
 	@include size(0, 0);
 	@include flex(center, center);
-	@include position(fixed, null, null, 50px, 30px, 2500);
+	@include position(fixed, null, null, 50px, 90px, 2500);
 	@include font(20px, null, 1, $color-orange);
 	text-decoration: none;
 	border-radius: 100%;
@@ -57,6 +57,12 @@
 		background-color: $color-orange;
 		color: $color-white;
 	}
+}
+
+.fix-social {
+	@include position(fixed, null, null, 50px, 30px, 2500);
+	@include flex(center, center);
+	@include size(50px, 50px);
 }
 
 @media (max-width: 1400px) {
@@ -90,7 +96,8 @@
 		}
 	}
 	
-	.go2top {
+	.go2top,
+	.fix-social {
 		right: 30px;
 	}
 }
@@ -106,7 +113,8 @@
 		}
 	}
 	
-	.go2top {
+	.go2top,
+	.fix-social {
 		right: 10px;
 	}
 }

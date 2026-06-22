@@ -46,7 +46,7 @@ $url = $url[0];
 					</div>
 					<div class="checker-label">
 						Я даю согласие на обработку персональных данных в соответствии с
-						<a href="<?= PATH ?>/page" target="_blank">политикой конфиденциальности</a>
+						<a href="<?= PATH ?>/page/politika-obrabotki-personal-nyh-dannyh" target="_blank">политикой конфиденциальности</a>
 					</div>
 				</label>
 			</form>
