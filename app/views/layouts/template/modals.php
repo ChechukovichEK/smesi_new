@@ -139,7 +139,7 @@
 <?php foreach ($socials as $social): ?>
 	<?php if (in_array($social['key'], ['telegram'])): ?>
 		<a href="<?= $social['link'] ?>" target="_blank"
-		   onclick="ym(98576053,'reachGoal','social_click');gtag('event', 'social_click'); return true;"
+		   onclick="ym(98576053,'reachGoal','tg_click');gtag('event', 'tg_click'); return true;"
 		   rel="nofollow" class="fix-social social-icon social-icon-<?= $social['key'] ?>"></a>
 	<?php endif; ?>
 <?php endforeach; ?>

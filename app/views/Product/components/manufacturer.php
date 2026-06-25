@@ -1,0 +1,1 @@
+<?php if (!empty($product->manufacturer)): ?>	<div class="prod-desc-marker">		<div class="desc-marker-title"><p>Производитель:</p></div>		<div class="desc-marker-val">			<p><?= $product->manufacturer ?></p>		</div>	</div><?php endif; ?>

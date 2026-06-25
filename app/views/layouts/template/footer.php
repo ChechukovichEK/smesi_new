@@ -152,6 +152,7 @@
 	<div class="footer-bottom">
 		<div class="container">
 			<?= !empty(\ishop\App::$app->getProperty('settings')['copyright']) ? \ishop\App::$app->getProperty('settings')['copyright'] : '' ?>
+			<a href="<?= PATH ?>/page/politika-obrabotki-personal-nyh-dannyh" class="low">Политика конфиденциальности</a>
 		</div>
 	</div>
 </footer>

@@ -1,0 +1,1 @@
+<?php if (!empty($items)): ?>	<div class="product-recent">		<div class="container">			<div class="home-title">				<div class="title"><?= $title ?></div>			</div>						<div class="card-list">				<?php foreach ($items as $item) {					require APP . '/views/components/card.php';				} ?>			</div>		</div>	</div><?php endif; ?>

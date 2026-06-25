@@ -1,0 +1,1 @@
+<?php if ($product->hit): ?>	<div class="card-hit">ХИТ продаж</div><?php endif; ?><?php if ($product->sale): ?>	<div class="card-sale">Акция</div><?php endif; ?>

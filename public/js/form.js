@@ -134,3 +134,38 @@ $(function () {
 		placeholder: 'X'
 	});
 });
+
+
+// CHECKBOX FORM ORDER
+$(function () {
+	
+	$('#order').on('submit', function (e) {
+		
+		let form = $(this);
+		let agree = form.find('input[data-form-agree]');
+		let terms = agree.closest('.form-group');
+		
+		// Удаляем старые ошибки
+		terms.removeClass('error');
+		terms.find('.with-errors').remove();
+		
+		// Проверка чекбокса
+		if (!agree.is(':checked')) {
+			e.preventDefault();
+			
+			terms.addClass('error');
+			terms.append('<div class="help-block with-errors"><ul class="list-unstyled"><li>Необходимо согласиться с политикой обработки персональных данных.</li></ul></div>');
+			
+			return false;
+		}
+	});
+	
+	// Убираем ошибку при клике на чекбокс
+	$(document).on('change', 'input[data-form-agree]', function () {
+		let terms = $(this).closest('.form-group');
+		terms.removeClass('error');
+		terms.find('.with-errors').remove();
+	});
+	
+});
+

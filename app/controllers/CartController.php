@@ -154,8 +154,28 @@ class CartController extends AppController {
         }
           $cart_products = \R::getAll("SELECT * FROM cart JOIN product ON product.id = cart.product_id WHERE cart.user_id = ? AND product.status = '1'", [$user_id]);
         }
+	  	
+		// Рекомендуемые товары (как на странице товара)
+		$categoryProducts = \R::find(
+			'product',
+			"hit = '1' AND status = '1' ORDER BY hit_position LIMIT 4"
+		);
+		
+		// Недавно просмотренные (как в ProductController)
+		$recentlyViewed = null;
+		$p_model = new \app\models\Product();
+		$r_viewed = $p_model->getRecentlyViewed();
+		
+		if ($r_viewed) {
+			$recentlyViewed = \R::find(
+				'product',
+				'id IN (' . \R::genSlots($r_viewed) . ') GROUP BY id LIMIT 4',
+				$r_viewed
+			);
+		}
+	  
         $this->setMeta('Корзина');
-        $this->set(compact('cart_qty', 'cart_sum', 'cart_products', 'cart_sum_dis', 'cart_sum_master', 'cart_sum_opt'));
+        $this->set(compact('cart_qty', 'cart_sum', 'cart_products', 'cart_sum_dis', 'cart_sum_master', 'cart_sum_opt', 'categoryProducts', 'recentlyViewed'));
 
     }
 

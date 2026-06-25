@@ -252,6 +252,21 @@
 		color: $color-white;
 		background: #131a22;
 		font-size: 20px;
+		
+		.container {
+			@include flex(center, space-between);
+			gap: 20px;
+		}
+		
+		.low {
+			text-decoration: none;
+			color: $color-white;
+			@include transition;
+			
+			&:hover {
+				color: $color-orange;
+			}
+		}
 	}
 }
 

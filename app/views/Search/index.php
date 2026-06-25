@@ -37,4 +37,11 @@
 	</div>
 </section>
 
+<?php
+
+\ishop\App::renderProductList('Рекомендуемые товары', $categoryProducts);
+\ishop\App::renderProductList('Недавно просмотренные', $recentlyViewed);
+
+?>
+
 

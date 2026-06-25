@@ -1,0 +1,1 @@
+<p class="discount">	<span><?= $product->price ?></span>	<?= round($product->price * ((100 - $product->discount) / 100), 2) ?></p><p class="dis-un">руб./<?= $product->units ?></p>

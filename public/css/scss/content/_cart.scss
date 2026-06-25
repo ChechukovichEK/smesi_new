@@ -1,0 +1,51 @@
+.cart {
+	&-empty {
+		.title {
+			@include font(40px, 600, 1.4, $color, "MyriadProSemibold");
+		}
+		
+		.text {
+			margin-top: 10px;
+			@include font(16px, 300, 1.4, $color-black, "MyriadProLight");
+		}
+		
+		.action {
+			margin-top: 30px;
+			@include flex(center, flex-start);
+			gap: 20px;
+		}
+	}
+}
+
+//RESPONSIVE
+
+@media (max-width: 1400px) {
+
+}
+
+@media (max-width: 1200px) {
+	
+}
+
+@media (max-width: 992px) {
+	.cart {
+		&-empty	{
+			.title {
+				font-size: 30px;
+			}
+		}
+	}
+}
+
+@media (max-width: 768px) {
+	.cart {
+		&-empty	{
+			.action {
+				.btn-gradient,
+				.btn-gray {
+					width: 100%;
+				}
+			}
+		}
+	}
+}

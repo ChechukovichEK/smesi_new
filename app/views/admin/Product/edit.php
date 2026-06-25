@@ -576,6 +576,11 @@
                               <input type="text" name="price" class="form-control" id="description" placeholder="Цена" pattern="^[0-9.]{1,}$" value="<?=$product->price;?>" required data-error="Допускаются цифры и десятичная точка">
                               <div class="help-block with-errors"></div>
                           </div>
+							
+							<div class="form-group has-feedback">
+								<label for="price">Старая цена</label>
+								<input type="text" class="form-control" name="old_price" value="<?= $product->old_price ?>">
+							</div>
 
                           <div class="form-group has-feedback">
                             <label for="price">Цена при заказе от 500 руб</label>

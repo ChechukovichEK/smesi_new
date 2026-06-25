@@ -14,7 +14,7 @@ class Product extends AppModel {
         'price_dis' => '',
         'price_master' => '',
         'price_opt' => '',
-        'old_price' => '',
+        'old_price' => null,
         'content' => '',
         'status' => '',
         'hit' => '',
