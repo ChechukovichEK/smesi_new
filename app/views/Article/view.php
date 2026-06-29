@@ -82,19 +82,41 @@
 					</div>
 					<div class="text">Наши эксперты готовы помочь</div>
 				</div>
-				<form class="form" method="post"
-					  onsubmit="ym(98576053,'reachGoal','call_back');gtag('event', 'call_back'); return true;">
+				
+				<form action="/feedback/send" class="form" method="post" data-ajax-form onsubmit="ym(98576053,'reachGoal','call_back');gtag('event', 'call_back'); return true;">
+					
+					<!-- CSRF -->
+					<input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
+					
+					<!-- Honeypot -->
+					<input type="text" name="surname_cent" value="" style="display:none !important;">
+					
 					<ul class="inputs">
 						<li>
-							<input class="form-input" type="text" name="name_cent" placeholder="Ваше имя" required/>
+							<input type="text" name="name_cent" class="form-input" placeholder="Ваше Имя"
+								   data-input="text">
 						</li>
 						<li>
-							<input class="form-input" type="text" name="tel_cent" placeholder="Ваш телефон" required/>
+							<input type="tel" name="tel_cent" class="form-input" placeholder="Телефон"
+								   data-input="num">
 						</li>
 					</ul>
-					<div class="actions">
-						<button class="btn" type="submit" name="submit_tel">Перезвоните мне</button>
+					
+					<div class="action">
+						<button class="btn-gradient" type="submit">Перезвоните мне</button>
+						<input type="hidden" name="prod_title" id="modalFeedbackTask" value="">
 					</div>
+					
+					<label class="checker-item form-terms">
+						<div class="checker">
+							<input type="checkbox" data-form-agree value="1" checked>
+							<i class="checker-view"></i>
+						</div>
+						<div class="checker-label">
+							Я даю согласие на обработку персональных данных в соответствии с
+							<a href="<?= PATH ?>/page/politika-obrabotki-personal-nyh-dannyh" target="_blank">политикой конфиденциальности</a>
+						</div>
+					</label>
 				</form>
 			</div>
 			<div class="bg">

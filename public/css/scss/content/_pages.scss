@@ -267,6 +267,18 @@
 
 			.form {
 				width: 345px;
+				
+				.inputs	{
+					.form-input {
+						min-width: 100%;
+					}
+				}
+				
+				.action {
+					.btn-gradient {
+						width: 100%;
+					}
+				}
 			}
 		}
 	}
@@ -289,7 +301,13 @@
 				padding-left: 0;
 				border: none;
 				width: 100%;
-				max-width: 500px;
+				max-width: 360px;
+				
+				.action {
+					.btn-gradient {
+						height: $form-height-xl;
+					}
+				}
 			}
 
 			.description {
@@ -311,6 +329,10 @@
 				flex-direction: column;
 			}
 		}
+		
+		.article-contact-form-container {
+			padding: 0;
+		}
 
 		.article-contact-form {
 			padding: 30px 20px;
@@ -322,22 +344,15 @@
 
 			.form {
 				&-input {
-					height: 40px;
-					line-height: 40px;
-					font-size: 15px;
-
-					&::placeholder {
-						font-size: 15px;
+					height: $form-height;
+				}
+				
+				.action {
+					.btn-gradient {
+						height: $form-height;
 					}
 				}
-
-				.btn {
-					min-width: 100%;
-
-					&:hover {
-						transform: initial;
-					}
-				}
+				
 			}
 
 			.description {
