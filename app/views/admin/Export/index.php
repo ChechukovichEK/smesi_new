@@ -26,5 +26,9 @@
 <!--            </select>-->
             <a href="<?= ADMIN ?>/export/exportproduct" class="btn btn-block btn-lg btn-success">Экспорт товаров</a>
         </div>
+		
+		<div>
+			<a href="<?= ADMIN ?>/export/exportbrands" class="btn btn-block btn-lg btn-danger">Экспорт БРЕНДОВ</a>
+		</div>
     </div>
 </section>

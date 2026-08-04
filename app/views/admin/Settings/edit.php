@@ -66,7 +66,13 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="schedule">Время работы</label>
+									<label for="schedule_office">Время работы офиса</label>
+									<textarea type="text" name="schedule_office" class="form-control" id="schedule_office" rows="2"
+											  cols="80"><?= $settings['schedule_office'] ?></textarea>
+								</div>
+								
+								<div class="form-group">
+									<label for="schedule">Время работы склада</label>
 									<textarea type="text" name="schedule" class="form-control" id="schedule" rows="2"
 											  cols="80"><?= $settings['schedule'] ?></textarea>
 								</div>

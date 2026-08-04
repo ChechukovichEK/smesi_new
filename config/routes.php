@@ -133,6 +133,7 @@ Router::add('^admin/navigation_mobile/delete/(?P<id>\d+)$', [
 
 Router::add('^feedback/send$', ['controller' => 'Feedback', 'action' => 'send']);
 Router::add('^ajax/feedback$', ['controller' => 'Feedback', 'action' => 'send']);
+Router::add('^feedback/request$', ['controller' => 'Feedback', 'action' => 'request']);
 
 
 

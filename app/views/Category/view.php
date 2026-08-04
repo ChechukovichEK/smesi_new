@@ -2,7 +2,7 @@
 <div class="breadcrumbs">
 	<div class="breadcrumbs-content">
 		<div class="breadcrumbs-main">
-			<ol class="breadcrumb" itemscope itemtype='https://schema.org/BreadcrumbList'>
+			<ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
 				<?= $breadcrumbs; ?>
 			</ol>
 		</div>
@@ -59,14 +59,26 @@
 				<div class="title">Фильтры</div>
 				<a href="javascript:void(0)" class="modal-new-close" data-modal="close"></a>
 			</div>
-			<div class="modal-new-filters">
-			</div>
+			<div class="modal-new-filters"></div>
 		</div>
 		
-		<!-- AJAX-контейнер -->
-		<div id="ajax-container">
+		<?php
+		$activeSort = $_GET['sort'] ?? 'hit';
+		?>
+		
+		 <!-- AJAX‑контейнер -->
+		<div id="ajax-container" class="aj-cont" itemscope itemtype="https://schema.org/OfferCatalog">
 			<?php require APP . '/views/Category/components/ajcont.php'; ?>
 		</div>
+		
+		<!-- Уникальный текст -->
+		<?php if ($unic_text): ?>
+			<div class="text-editor"><?= $unic_text->content ?></div>
+		<?php else: ?>
+			<?php if (!empty($category->content)): ?>
+				<div class="text-editor"><?= $category->content ?></div>
+			<?php endif; ?>
+		<?php endif; ?>
 	
 	</div>
 </div>

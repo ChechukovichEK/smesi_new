@@ -11,13 +11,14 @@ class CategoryController extends AppController
 {
 	public function viewAction()
 	{
+		
 		$alias = $this->route['alias'];
 		
-		/* --- 1. Категория или лендинг --- */
+		// 1. Категория / лендинг
 		$category = \R::findOne('category', 'alias = ?', [$alias]);
 		$landing = null;
-		$_filter = null;
-		$landing_pages_checker = false;
+		$landingFilter = null;
+		$landingPagesChecker = false;
 		
 		if (!$category) {
 			$landing = \R::findOne('landing_pages', 'alias = ?', [$alias]);
@@ -25,55 +26,33 @@ class CategoryController extends AppController
 				throw new \Exception('Страница не найдена', 404);
 			}
 			
-			$landing_pages_checker = true;
-			$category = \R::findOne('category', 'alias = ?', [$landing->category_alias]);
+			$landingPagesChecker = true;
 			
+			$category = \R::findOne('category', 'alias = ?', [$landing->category_alias]);
 			if (!$category) {
 				throw new \Exception('Страница не найдена', 404);
 			}
 			
+			// подменяем только отображаемые поля
 			foreach (['title', 'content', 'meta_title', 'meta_desc', 'short_text'] as $f) {
 				$category->$f = $landing->$f;
 			}
 			
-			$_filter = $landing->filter;
-		} else {
-			
-			// Редирект на лендинг только при первом заходе (без реферера)
-			if (!empty($_GET['filter']) && !$this->isAjax() && empty($_SERVER['HTTP_REFERER'])) {
-				
-				$getFilter = $_GET['filter'];
-				if (is_array($getFilter)) {
-					$getFilter = implode(',', $getFilter);
-				}
-				
-				$landing = \R::findOne(
-					'landing_pages',
-					'category_alias = ? AND filter = ?',
-					[$alias, $getFilter]
-				);
-				
-				if ($landing) {
-					header('HTTP/1.1 301 Moved Permanently');
-					header('Location: ' . PATH . '/category/' . $landing->alias);
-					exit;
-				}
-			}
+			$landingFilter = $landing->filter;
 		}
 		
-		/* --- 2. Хлебные крошки + дочерние категории --- */
+		// 2. Хлебные крошки + дочерние категории
 		$children_cats = \R::find('category', "parent_id = ? AND show_cat = '1' ORDER BY position", [$category->id]);
 		$breadcrumbs = Breadcrumbs::getBreadcrumbs($category->id, $category->alias);
 		
-		/* --- 3. ID товаров категории --- */
-		$cat_model = new Category();
-		$ids = $cat_model->getIds($category->id);
-		$ids = $ids ? $ids . $category->id : $category->id;
+		// 3. ID товаров категории
+		$catModel = new Category();
+		$catIds = $catModel->getCategoryTreeIds((int)$category->id);
+		$catIds[] = (int)$category->id;
 		
-		$ids_products = \R::find('cat_product', "cat_id IN ($ids) GROUP BY prod_id");
-		$ids_prod = $cat_model->getprodIds($ids_products);
+		$prodIds = $catModel->getCategoryProductIds($catIds);
 		
-		/* --- ДЕФОЛТНЫЕ ПЕРЕМЕННЫЕ --- */
+		// дефолты
 		$products = [];
 		$filter_group = [];
 		$attrs = [];
@@ -84,25 +63,32 @@ class CategoryController extends AppController
 		$filter_meta = null;
 		$no_products_message = null;
 		
-		/* --- Cортировка --- */
-		$sortList = [
-			['title' => 'Цена ↑', 'value' => 'price_asc'],
-			['title' => 'Цена ↓', 'value' => 'price_desc'],
-			['title' => 'Сначала со скидкой', 'value' => 'discount_desc'],
-			['title' => 'Популярные', 'value' => 'hit'],
-		];
+		$sortList = $catModel->getSortList();
+		$activeSort = $catModel->getActiveSort();
 		
-		/* --- 4. Если в категории нет товаров вообще --- */
-		if (empty($ids_prod)) {
+		// 4. если нет товаров вообще
+		if (empty($prodIds)) {
 			
 			$no_products_message = "В данной категории товары отсутствуют";
 			
 			if ($this->isAjax()) {
 				$this->layout = false;
-				// ВАЖНО: отдаем только блок товаров
-				$this->loadView('components/product_selection', compact(
+				$this->loadView('/Category/components/ajcont', compact(
 					'products',
-					'no_products_message'
+					'no_products_message',
+					'breadcrumbs',
+					'category',
+					'children_cats',
+					'filter_group',
+					'attrs',
+					'cat_values',
+					'groupes',
+					'params_array',
+					'unic_text',
+					'landingPagesChecker',
+					'sortList',
+					'activeSort',
+					'pagination'
 				));
 				return;
 			}
@@ -119,91 +105,94 @@ class CategoryController extends AppController
 				'groupes',
 				'params_array',
 				'unic_text',
-				'landing_pages_checker',
-				'sortList'
+				'landingPagesChecker',
+				'sortList',
+				'activeSort'
 			));
 			return;
 		}
 		
-		/* --- 5. Фильтры --- */
-		$filterIds = $cat_model->getFilter($_filter);          // array|null
-		$filterCsv = $filterIds ? implode(',', $filterIds) : '';
-		
-		$sql_filter = '';
-		$sql_filter_total = '';
+		// 5. фильтры
+		$filterIds = $catModel->normalizeFilter($landingFilter);
+		[$sql_filter, $sql_filter_total] = $catModel->buildFilterSql($filterIds);
 		$filter = $filterIds;
 		
-		if (!empty($filterIds)) {
-			
-			$cnt = $cat_model->getCountGroups($filterIds);
-			
-			$sql_filter = "AND id IN (
-                SELECT product_id FROM attribute_product
-                WHERE attr_id IN ($filterCsv)
-                GROUP BY product_id
-                HAVING COUNT(product_id) >= $cnt
-            )";
-			
-			$sql_filter_total = "AND prod_id IN (
-                SELECT product_id FROM attribute_product
-                WHERE attr_id IN ($filterCsv)
-                GROUP BY product_id
-                HAVING COUNT(product_id) >= $cnt
-            )";
-			
-			if (!$landing_pages_checker) {
-				$filter_names = \R::find('attribute_value', "id IN ($filterCsv)");
-				$filter_meta = $cat_model->getFilterValues($filter_names);
-			}
+		if (!empty($filterIds) && !$landingPagesChecker) {
+			$filter_meta = $catModel->getFilterMeta($filterIds);
 		}
 		
-		/* --- 6. Пагинация --- */
-		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+		// 6. пагинация
+		$page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 		$perpage = App::$app->getProperty('pagination_new');
 		
-		$total = count(\R::find(
-			'cat_product',
-			"cat_id IN ($ids) $sql_filter_total AND prod_id IN (SELECT id FROM product WHERE status = 1) GROUP BY prod_id"
-		));
+		$placeholdersCat = implode(',', array_fill(0, count($catIds), '?'));
 		
-		$pagination = new Pagination($page, $perpage, $total);
+		$total = \R::getCell("
+			SELECT COUNT(DISTINCT prod_id)
+			FROM cat_product
+			WHERE cat_id IN ($placeholdersCat)
+			$sql_filter_total
+			AND prod_id IN (SELECT id FROM product WHERE status = 1)
+		", $catIds);
+		
+		$pagination = new Pagination($page, $perpage, (int)$total);
 		$start = $pagination->getStart();
 		
-		/* --- 7. Сортировка --- */
-		$sort = $cat_model->getSort(); // тут уже должен возвращаться 'hit' по умолчанию
-		if ($sort === 'price' || $sort === 'discount') {
-			$_SESSION['sort'] = $sort;
-		}
+		// 7. сортировка
+		$order_sql = $catModel->getSortSql($activeSort);
 		
-		$order_sql = $this->getSortSQL($sort, $category);
+		// 8. товары
+		$placeholdersProdIds = implode(',', array_fill(0, count($prodIds), '?'));
 		
-		/* --- 8. Получение товаров --- */
 		$products = \R::find(
 			'product',
-			"status = '1' AND id IN ($ids_prod) $sql_filter $order_sql LIMIT $start, $perpage"
+			"status = '1'
+         AND id IN ($placeholdersProdIds)
+         $sql_filter
+         $order_sql
+         LIMIT $start, $perpage",
+			$prodIds
 		);
 		
 		$products_flt = \R::find(
 			'product',
-			"status = '1' AND id IN ($ids_prod) $sql_filter $order_sql"
+			"status = '1'
+         AND id IN ($placeholdersProdIds)
+         $sql_filter
+         $order_sql",
+			$prodIds
 		);
 		
-		/* --- 9. Если фильтры дали пустой результат --- */
+		// 9. если фильтры дали пустой результат
 		if (empty($products)) {
 			
 			$no_products_message = "По выбранным фильтрам товаров не найдено";
 			
-			$filter_group = $cat_model->getGroups($category->id);
-			$cat_values = $cat_model->getCatValues($filter_group);
-			$attrs = $cat_model->getAttrs();
+			$filter_group = $catModel->getGroups((int)$category->id);
+			$cat_values = $catModel->getCatValues($filter_group);
+			$attrs = $catModel::getAttrs();
 			$groupes = \R::find('groupes', 'category_id = ?', [$category->id]);
 			
 			if ($this->isAjax()) {
 				$this->layout = false;
-				// ВАЖНО: только товары
-				$this->loadView('components/product_selection', compact(
+				$this->loadView('/Category/components/ajcont', compact(
 					'products',
-					'no_products_message'
+					'no_products_message',
+					'breadcrumbs',
+					'category',
+					'children_cats',
+					'pagination',
+					'filter_meta',
+					'filter_group',
+					'attrs',
+					'cat_values',
+					'groupes',
+					'params_array',
+					'unic_text',
+					'landingPagesChecker',
+					'filter',
+					'sortList',
+					'activeSort'
 				));
 				return;
 			}
@@ -222,58 +211,58 @@ class CategoryController extends AppController
 				'groupes',
 				'params_array',
 				'unic_text',
-				'landing_pages_checker',
+				'landingPagesChecker',
 				'filter',
-				'sortList'
+				'sortList',
+				'activeSort'
 			));
 			return;
 		}
 		
-		/* --- 10. Параметры фильтров --- */
+		// 10. параметры фильтров
 		$ids_prods = array_column($products_flt, 'id');
 		if ($ids_prods) {
-			$ids_str = implode(',', $ids_prods);
+			$ids_str = implode(',', array_map('intval', $ids_prods));
 			$prods_params = \R::getAll("SELECT attr_id FROM attribute_product WHERE product_id IN ($ids_str)");
 			foreach ($prods_params as $v) {
-				$params_array[] = $v['attr_id'];
+				$params_array[] = (int)$v['attr_id'];
 			}
 			$params_array = array_unique($params_array);
 		}
 		
-		$filter_group = $cat_model->getGroups($category->id);
-		$cat_values = $cat_model->getCatValues($filter_group);
-		$attrs = $cat_model->getAttrs();
+		$filter_group = $catModel->getGroups((int)$category->id);
+		$cat_values = $catModel->getCatValues($filter_group);
+		$attrs = $catModel::getAttrs();
 		$groupes = \R::find('groupes', 'category_id = ?', [$category->id]);
 		
-		/* --- 11. AJAX: фильтры --- */
-		if ($this->isAjax() && !empty($filterIds) && !isset($_GET['sort'])) {
-			$this->layout = false;
-			$this->loadView('components/product_selection', compact(
-				'products'
-			));
-			return;
-		}
-		
-		/* --- 12. AJAX: сортировка --- */
-		if ($this->isAjax() && array_key_exists('sort', $_GET)) {
-			$this->layout = false;
-			$this->loadView('components/product_selection', compact(
-				'products'
-			));
-			return;
-		}
-		
-		/* --- 12. Глобальная AJAX-ветка --- */
+		// 11. AJAX — единая ветка
 		if ($this->isAjax()) {
 			$this->layout = false;
-			$this->loadView('components/product_selection', compact(
-				'products'
+			$this->loadView('/Category/components/ajcont', compact(
+				'products',
+				'breadcrumbs',
+				'pagination',
+				'total',
+				'category',
+				'filter_group',
+				'attrs',
+				'filter',
+				'filter_meta',
+				'cat_values',
+				'children_cats',
+				'groupes',
+				'params_array',
+				'landingPagesChecker',
+				'unic_text',
+				'no_products_message',
+				'sortList',
+				'activeSort'
 			));
 			return;
 		}
 		
-		/* --- 13. Meta --- */
-		if (!empty($filterIds) && !$landing_pages_checker) {
+		// 12. Meta
+		if (!empty($filterIds) && !$landingPagesChecker && $filter_meta) {
 			$this->setMeta(
 				$category->title . ' ' . $filter_meta . ' купить в Минске - ' . App::$app->getProperty('shop_name'),
 				'Купить ' . $category->title . ' ' . $filter_meta . ' в Минске и по всей Беларуси. Бесплатная доставка, официальная гарантия',
@@ -292,7 +281,7 @@ class CategoryController extends AppController
 			$this->setMeta($title, $desc, $title, $category->img);
 		}
 		
-		/* --- 14. Вывод --- */
+		// 13. вывод полной страницы
 		$this->set(compact(
 			'products',
 			'breadcrumbs',
@@ -307,11 +296,21 @@ class CategoryController extends AppController
 			'children_cats',
 			'groupes',
 			'params_array',
-			'landing_pages_checker',
+			'landingPagesChecker',
 			'unic_text',
 			'no_products_message',
-			'sortList'
+			'sortList',
+			'activeSort'
 		));
+	}
+	
+	public function isAjax()
+	{
+		return (
+				!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+				strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'
+			) ||
+			(isset($_GET['ajax']) && $_GET['ajax'] == 1);
 	}
 	
 	private function getSortSQL($sort, $category)
@@ -319,10 +318,10 @@ class CategoryController extends AppController
 		switch ($sort) {
 			
 			case 'price_asc':
-				return "ORDER BY price ASC";
+				return "ORDER BY is_have DESC, price ASC";
 			
 			case 'price_desc':
-				return "ORDER BY price DESC";
+				return "ORDER BY (is_have = 1) DESC, price DESC";
 			
 			case 'discount':
 			case 'discount_desc':
@@ -332,8 +331,8 @@ class CategoryController extends AppController
 				return "ORDER BY new DESC, position ASC";
 			
 			case 'hit':
-				return "ORDER BY hit DESC, position ASC";
-			
+				return "ORDER BY is_have DESC";
+				
 			case 'have':
 				return "ORDER BY is_have DESC, position ASC";
 			

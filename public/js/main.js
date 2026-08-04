@@ -45,9 +45,6 @@ $('#cart .modal-body').on('change', '.quantity input', function(){
 
 /*qty modal*/
 
-$('body').on('click', '.red', function(e){
-  window.location = location.pathname;
-});
 
 $('body').on('click', '.add-to-cart-link', function(e){
      e.preventDefault();
@@ -305,10 +302,15 @@ $(document)
 		
 	});
 
-/* PRODUCT FILTER
------------------------------------------------------------------------- */
-$('body').on('change', '.filters-sections input[type=checkbox], [data-dropdown-input]', function () {
-	
+/* ============================
+   ГЛОБАЛЬНОЕ: запрет автозапуска AJAX
+============================ */
+let firstLoad = true;
+
+/* ============================
+   Сбор параметров
+============================ */
+function buildParams(page = null) {
 	let params = new URLSearchParams(window.location.search);
 	
 	// фильтры
@@ -324,131 +326,123 @@ $('body').on('change', '.filters-sections input[type=checkbox], [data-dropdown-i
 	let sort = $('input[name="sort"]:checked').val() || 'hit';
 	params.set('sort', sort);
 	
-	params.delete('page');
+	// страница
+	if (page) {
+		params.set('page', page);
+	} else {
+		params.delete('page');
+	}
 	
-	// показываем прелоадер ТОЛЬКО на card-list
+	params.delete('ajax');
+	
+	return params;
+}
+
+/* ============================
+   AJAX обновление
+============================ */
+function applyFiltersAndSort(page = null) {
+	
+	// блокируем автозапуск при первой загрузке
+	if (firstLoad) {
+		firstLoad = false;
+		
+		if (page === null) return;
+		
+	}
+	
+	let params = buildParams(page);
+	
 	$('.card-list-preloader').fadeIn(100);
 	
 	$.ajax({
-		url: location.pathname,
-		data: params.toString(),
+		url: location.pathname + '?' + params.toString() + '&ajax=1',
 		type: 'GET',
-		
+		headers: { 'X-Requested-With': 'XMLHttpRequest' },
 		success: function (res) {
-			
-			// обновляем только товары
-			$('.card-list').html(res);
-			
-			// обновляем текст сортировки
-			let activeSort = $('input[name="sort"]:checked').val();
-			let activeSortText = $('input[name="sort"]:checked')
-				.closest('.dropdown-checker')
-				.find('.dropdown-item')
-				.text();
-			
-			
-			// скрываем прелоадер
+			$('#ajax-container').html(res);
 			$('.card-list-preloader').fadeOut(150);
 			
-			// обновляем URL
 			history.pushState({}, '', location.pathname + '?' + params.toString());
-		}
-	});
-});
-
-
-/* PRODUCT SORT
------------------------------------------------------------------------- */
-$('body').on('change', '[data-dropdown-input]', function () {
-	
-	let sort = $(this).val();
-	
-	let params = new URLSearchParams(window.location.search);
-	
-	// ставим сортировку
-	params.set('sort', sort);
-	
-	// сохраняем фильтры
-	let checked = $('.filters-sections input:checked')
-		.map(function () { return this.value })
-		.get()
-		.join(',');
-	
-	params.delete('filter');
-	if (checked.length > 0) {
-		params.set('filter', checked);
-	}
-	
-	params.delete('page');
-	
-	$.ajax({
-		url: location.pathname,
-		data: params.toString(),
-		type: 'GET',
-		
-		beforeSend: function () {
-			$('.preloader').fadeIn(100);
 		},
-		
-		success: function (res) {
-			$('.preloader').delay(200).fadeOut('slow');
-			
-			// обновляем только товары
-			$('.card-list').html(res);
-			
-			// обновляем текст сортировки
-			let activeSort = $('input[name="sort"]:checked').val();
-			let activeSortText = $('input[name="sort"]:checked')
-				.closest('.dropdown-checker')
-				.find('.dropdown-item')
-				.text();
-			
-			
-			// обновляем URL
-			history.pushState({}, '', location.pathname + '?' + params.toString());
+		error: function () {
+			$('.card-list-preloader').fadeOut(150);
+			alert('Ошибка запроса');
 		}
 	});
+}
+
+/* ============================
+   ФИЛЬТРЫ
+============================ */
+$('body').on('change', '.filters-sections input[type=checkbox]', function () {
+	applyFiltersAndSort(1);
 });
 
-/* DROPDOWN
------------------------------------------------------------------------- */
-
-$(document).on('click', '[data-dropdown-label]', function (event) {
-	
-	event.preventDefault();
-	
-	let $dropdown = $(this).closest('[data-dropdown]');
-	
-	if ($dropdown.hasClass('open')) {
-		$dropdown.removeClass('open');
-		return;
-	}
-	
-	$('[data-dropdown]').removeClass('open');
-	$dropdown.addClass('open');
-	
-	
-	return false;
-})
-	.on('click', '[data-dropdown-item]', function () {
+/* ============================
+   СОРТИРОВКА (dropdown)
+============================ */
+$(document)
+	.on('click', '[data-dropdown-label]', function (event) {
+		event.preventDefault();
 		
+		let $dropdown = $(this).closest('[data-dropdown]');
+		
+		if ($dropdown.hasClass('open')) {
+			$dropdown.removeClass('open');
+			return false;
+		}
+		
+		$('[data-dropdown]').removeClass('open');
+		$dropdown.addClass('open');
+		
+		return false;
+	})
+	.on('click', '[data-dropdown-item]', function () {
 		let $item = $(this),
 			$dropdown = $item.closest('[data-dropdown]'),
-			$label = $dropdown.find('[data-dropdown-label]');
+			$label = $dropdown.find('[data-dropdown-label]'),
+			$input = $item.closest('label').find('input[type=radio]');
 		
 		$dropdown.removeClass('open');
 		$label.text($item.text());
 		
+		$input.prop('checked', true);
+		
+		applyFiltersAndSort(1);
 	})
 	.on('click', function (event) {
-		
 		if ($(event.target).closest('[data-dropdown]').length) return;
-		
 		$('[data-dropdown]').removeClass('open');
-		
-		event.stopPropagation();
-		
 	});
+
+/* ============================
+   AJAX пагинация
+============================ */
+$('body').on('click', '.pagination a', function (e) {
+	e.preventDefault();
+	
+	let url = new URL(this.href);
+	let page = url.searchParams.get('page');
+	
+	applyFiltersAndSort(page || 1);
+});
+
+/* ============================
+   POPSTATE — назад/вперёд
+============================ */
+window.addEventListener('popstate', function () {
+	$.ajax({
+		url: location.pathname + window.location.search,
+		type: 'GET',
+		headers: { 'X-Requested-With': 'XMLHttpRequest' },
+		success: function (res) {
+			$('#ajax-container').html(res);
+		}
+	});
+});
+
+
 
 /* MODAL
 ------------------------------------------------------------------------ */
@@ -555,7 +549,7 @@ $(document).ready(function () {
 		const $originalFilters = $('.filters');
 		
 		// Переносим оригинальные фильтры в модалку
-		$modalBody.html($originalFilters);
+		$modalBody.html($originalFilters.clone());
 		
 		// Делаем их видимыми внутри модалки
 		$modalBody.find('.filters').css('display', 'block');

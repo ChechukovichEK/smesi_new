@@ -22,6 +22,9 @@
                                 <th>ID</th>
                                 <th>Наименование</th>
                                 <th>Alias</th>
+								<th>Страна</th>
+								<th>Производитель</th>
+								<th>Импортер</th>
 								<th>Приоритет</th>
 								<th>Главная страница</th>
                                 <th>Действия</th>
@@ -33,7 +36,12 @@
                                     <td><?=$brand['id']?></td>
                                     <td><?=$brand['title']?></td>
                                     <td><?=$brand['alias']?></td>
-									<td><?=$brand['sort']?>
+									<td><?=$brand['country']?></td>
+									<td><?=$brand['manufacturer']?></td>
+									<td><?=$brand['importer']?></td>
+									<td><?=$brand['sort']?></td>
+									
+									
 									<td>
 									<? if (!empty($brand['is_home'])): ?>
 										Да

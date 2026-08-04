@@ -118,6 +118,7 @@
 
 .sort {
 	@include flex(center, flex-end);
+	margin-top: 20px;
 	margin-bottom: 10px;
 	gap: 10px;
 	

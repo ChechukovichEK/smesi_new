@@ -10,7 +10,7 @@
 <section class="page-search">
 	<div class="container">
 		<div class="search">
-			<div class="title">Поиск по каталогу</div>
+			<h1 class="title">Поиск по каталогу</h1>
 			
 			<form action="search" class="search-form" method="get" autocomplete="off">
 				<div class="search-control" data-control-clean>

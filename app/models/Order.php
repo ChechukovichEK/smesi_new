@@ -178,7 +178,8 @@ class Order extends AppModel {
 
         $message_admin = (new Swift_Message("Сделан заказ №{$order_id}, {$user_name},  {$user_status}, {$user_phone}"))
             ->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')])
-            ->setTo(['vershina_stroi@mail.ru'])
+            ->setTo(['vershina@smesi.by'])
+			//->setTo(['vershina_stroi@mail.ru'])
             ->setBody($body, 'text/html')
         ;
 
@@ -207,7 +208,8 @@ class Order extends AppModel {
 
         $message_admin = (new Swift_Message("Сделан заказ №{$order_id}, {$user_name},  {$user_status}, {$user_phone}"))
             ->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')])
-            ->setTo(['bill.smesi.by@yandex.ru', 'vershina_stroi@mail.ru'])
+            ->setTo(['bill.smesi.by@yandex.ru', 'vershina@smesi.by'])
+			//->setTo(['bill.smesi.by@yandex.ru', 'vershina_stroi@mail.ru'])
             ->setBody($body, 'text/html')
         ;
 
@@ -241,7 +243,8 @@ class Order extends AppModel {
 
         $message_admin = (new Swift_Message("Добавлен новый пользователь - {$user_name}, логин - {$user_login}"))
             ->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')])
-            ->setTo(['vershina_stroi@mail.ru'])
+            ->setTo(['vershina@smesi.by'])
+			//->setTo(['vershina_stroi@mail.ru'])
             ->setBody($body, 'text/html')
         ;
 
@@ -277,7 +280,8 @@ class Order extends AppModel {
 
         $message_admin = (new Swift_Message("Добавлен новый пользователь - {$user_name}, логин - {$user_login}"))
             ->setFrom([App::$app->getProperty('smtp_login') => App::$app->getProperty('shop_name')])
-            ->setTo(['vershina_stroi@mail.ru'])
+            ->setTo(['vershina@smesi.by'])
+			//->setTo(['vershina_stroi@mail.ru'])
             ->setBody($body, 'text/html')
         ;
 

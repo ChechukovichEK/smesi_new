@@ -377,6 +377,54 @@ public function exportproductAction(){
   $writer->save('php://output');
   $_SESSION['success'] = "Товары успешно выгружены";
 }
+	
+	public function exportbrandsAction(){
+		// выгружаем таблицу brands в лист1
+		$brands = \R::getAll("SELECT * FROM `brands`");
+		$spreadsheet = new Spreadsheet();
+		$spreadsheet->setActiveSheetIndex(0);
+		$active_sheet = $spreadsheet->getActiveSheet();
+		
+		// формируем шапку
+		$active_sheet->setCellValue('A1','ID');
+		$active_sheet->setCellValue('B1','Название бренда');
+		$active_sheet->setCellValue('C1','Alias');
+		$active_sheet->setCellValue('D1','Контент');
+		$active_sheet->setCellValue('E1','Изображение');
+		$active_sheet->setCellValue('F1','Meta Title');
+		$active_sheet->setCellValue('G1','Meta Description');
+		$active_sheet->setCellValue('H1','Сортировка');
+		$active_sheet->setCellValue('I1','Показывать на главной');
+		$active_sheet->setCellValue('J1','Страна');
+		$active_sheet->setCellValue('K1','Производитель');
+		$active_sheet->setCellValue('L1','Импортер');
+		
+		$row_start = 2;
+		$i = 0;
+		foreach($brands as $item) {
+			$row_next = $row_start + $i;
+			$active_sheet->setCellValue('A'.$row_next,$item['id']);
+			$active_sheet->setCellValue('B'.$row_next,$item['title']);
+			$active_sheet->setCellValue('C'.$row_next,$item['alias']);
+			$active_sheet->setCellValue('D'.$row_next,$item['content']);
+			$active_sheet->setCellValue('E'.$row_next,$item['img']);
+			$active_sheet->setCellValue('F'.$row_next,$item['meta_title']);
+			$active_sheet->setCellValue('G'.$row_next,$item['meta_desc']);
+			$active_sheet->setCellValue('H'.$row_next,$item['sort']);
+			$active_sheet->setCellValue('I'.$row_next,$item['is_home']);
+			$active_sheet->setCellValue('J'.$row_next,$item['country']);
+			$active_sheet->setCellValue('K'.$row_next,$item['manufacturer']);
+			$active_sheet->setCellValue('L'.$row_next,$item['importer']);
+			$i++;
+		}
+		
+		// отдаём файл только в браузер
+		header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		header("Content-Disposition: attachment;filename=brands.xlsx");
+		$writer = new Xlsx($spreadsheet);
+		$writer->save('php://output');
+		exit;
+	}
 
 
 }

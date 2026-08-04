@@ -759,5 +759,87 @@ return true;
 }
 //исключить удалённые товары из БД
 
+// обновить бренды
+	public $brandcellsupd = [
+		'A' => 'id',
+		'B' => 'title',
+		'C' => 'alias',
+		'D' => 'content',
+		'E' => 'img',
+		'F' => 'meta_title',
+		'G' => 'meta_desc',
+		'H' => 'sort',
+		'I' => 'is_home',
+		'J' => 'country',
+		'K' => 'manufacturer',
+		'L' => 'importer',
+	];
+	
+	public function updateBrandAction(){
+		if (!empty($_FILES['xls']['tmp_name'])) {
+			$file = $this->uploadFile($_FILES);
+			$this->updBrand($file);
+		}
+		$this->setMeta("Обновить бренды");
+	}
+	
+	public function updBrand($file){
+		$this->xls = $this->getPhpExcel($file);
+		$this->xls->setActiveSheetIndex(0);
+		$sheet = $this->xls->getActiveSheet();
+		$rowIterator = $sheet->getRowIterator();
+		$arr = array();
+		
+		foreach ($rowIterator as $row) {
+			if ($row->getRowIndex() != 1) {
+				$cellIterator = $row->getCellIterator();
+				foreach ($cellIterator as $cell) {
+					$cellPath = $cell->getColumn();
+					if (isset($this->brandcellsupd[$cellPath])) {
+						$arr[$row->getRowIndex()][$this->brandcellsupd[$cellPath]] = $cell->getCalculatedValue();
+					}
+				}
+			}
+		}
+		if ($this->updBrandMySql($arr)) {
+			unlink($file);
+			return TRUE;
+		}
+		return false;
+	}
+	
+	public function updBrandMySql($arr){
+		foreach ($arr as $item) {
+			$id = $item['id'];
+			$title = $item['title'];
+			$alias = $item['alias'];
+			$content = $item['content'];
+			$img = $item['img'];
+			$meta_title = $item['meta_title'];
+			$meta_desc = $item['meta_desc'];
+			$sort = $item['sort'];
+			$is_home = $item['is_home'];
+			$country = $item['country'];
+			$manufacturer = $item['manufacturer'];
+			$importer = $item['importer'];
+			
+			\R::exec("UPDATE brands SET
+            title = '$title',
+            alias = '$alias',
+            content = '$content',
+            img = '$img',
+            meta_title = '$meta_title',
+            meta_desc = '$meta_desc',
+            sort = '$sort',
+            is_home = '$is_home',
+            country = '$country',
+            manufacturer = '$manufacturer',
+            importer = '$importer'
+            WHERE id = '$id'");
+		}
+		$_SESSION['success'] = 'Бренды успешно обновлены!';
+		return true;
+	}
+
 
 }

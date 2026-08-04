@@ -13,7 +13,7 @@
 	
 	<section class="delivery">
 		<div class="container">
-			<div class="delivery-title">Доставка и оплата</div>
+			<h1 class="delivery-title">Доставка и оплата</h1>
 			
 			<div class="delivery-block">
 				<div class="title">Доставка</div>
@@ -62,6 +62,32 @@
 							</a>
 						</div>
 					</div>
+				</div>
+			</div>
+			
+			<div class="delivery-block">
+				<div class="title">Сопроводительные документы</div>
+				
+				<div class="delivery-images">
+					<a href="<?= PATH ?>/img/delivery/image-1.jpg" target="_blank" class="list-item">
+						<picture class="image">
+							<img src="<?= PATH ?>/img/delivery/image-1.jpg" alt="чек" data-no-webp>
+						</picture>
+					</a>
+					<a href="<?= PATH ?>/img/delivery/image-2.jpg" target="_blank" class="list-item">
+						<picture class="image">
+							<img src="<?= PATH ?>/img/delivery/image-2.jpg" alt="чек" data-no-webp>
+						</picture>
+					</a>
+					<a href="<?= PATH ?>/img/delivery/image-3.jpg" target="_blank" class="list-item">
+						<picture class="image">
+							<img src="<?= PATH ?>/img/delivery/image-3.jpg"  alt="чек" data-no-webp>
+						</picture>
+					</a>
+				</div>
+				
+				<div class="block-text">
+					При оплате товаров наличными деньгами или пластиковыми картами, покупателю выдаётся кассовый чек, с указанием суммы покупки. В случае выбора безналичного расчета через банк покупателю выдается товарно-транспортная накладная. Для ее получения необходимо предоставить доверенность или печать (для юридических лиц), либо быть заказчиком, непосредственно указанным в договоре.
 				</div>
 			</div>
 	</section>

@@ -8,6 +8,28 @@
 		.title {
 			@include font(30px, 600, 1, $color-black, "MyriadProSemibold");
 		}
+		
+		.block-text {
+			margin-top: 40px;
+			@include font(16px, 400, 1.6, null, "MyriadProRegular");
+		}
+	}
+	
+	&-images {
+		margin-top: 25px;
+		@include flex(flex-start, flex-start);
+		column-gap: 30px;
+		
+		.image {
+			padding: 15px 20px;
+			border: 1px solid #E0E6EE;
+			display: block;
+			
+			img {
+				@include size(100%, 300px);
+				display: block;
+			}
+		}
 	}
 	
 	&-list {
@@ -87,5 +109,27 @@
 }
 
 @media (max-width: 768px) {
-
+	.delivery {
+		&-block {
+			.block-text {
+				margin-top: 20px;
+				font-size: 14px;
+			}
+		}
+		
+		&-images {
+			margin-top: 20px;
+			justify-content: center;
+			row-gap: 20px;
+			
+			.image {
+				padding: 10px;
+				
+				img {
+					@include size( 250px, 100%);
+					display: block;
+				}
+			}
+		}
+	}
 }

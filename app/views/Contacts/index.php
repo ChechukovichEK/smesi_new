@@ -11,7 +11,7 @@
 <div class="pages-content">
 	<div class="container">
 		<div class="contacts">
-			<div class="contacts-title">Smesi.by - наши контакты</div>
+			<h1 class="contacts-title">Smesi.by - наши контакты</h1>
 			<div class="contacts-text">Название: <span>ООО «Вершина-строй»</span></div>
 			<div class="contacts-list">
 				<div class="contacts-item contacts-item-phones">

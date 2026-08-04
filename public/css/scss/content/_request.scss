@@ -1,0 +1,347 @@
+.page-podacha-obrascheniya {
+	.cta {
+		display: none;
+	}
+}
+
+.request {
+	position: relative;
+	
+	.container {
+		position: relative;
+		max-width: 1550px;
+		padding: 0 20px;
+		margin: 0 auto;
+		z-index: 10;
+	}
+	
+	&-content {
+		position: relative;
+		z-index: 20;
+		padding: 90px 0;
+		color: $color-white;
+		display: grid;
+		grid-template-columns: 1fr 680px;
+		column-gap: 180px;
+		align-items: center;
+	}
+	
+	&-left {
+		.title {
+			@include font(40px, 600, 1, null, "MyriadProRegular");
+		}
+		
+		.text {
+			margin-top: 40px;
+			@include font(20px, 400, 1.6, null, "MyriadProRegular");
+		}
+		
+		.list {
+			margin-top: 60px;
+			@include flex(flex-start, flex-start);
+			flex-direction: column;
+			row-gap: 30px;
+			
+			&-item {
+				max-width: 520px;
+				@include flex(flex-start, flex-start, nowrap);
+				column-gap: 15px;
+				
+				.image {
+					flex-shrink: 0;
+					background: rgba($color-white, 0.1);
+					@include flex(center, center);
+					@include size(40px, 40px);
+					border-radius: 100%;
+					border: 1px solid rgba($color-white, 0.15);
+					
+					img {
+						@include size(20px, 20px);
+						display: block;
+					}
+				}
+				
+				&-info {
+					flex-grow: 1;
+					.title {
+						@include font(20px, 600, 1, null, "MyriadProRegular");
+					}
+					
+					.text {
+						margin-top: 5px;
+						@include font(16px, 400, 1.6, null, "MyriadProRegular");
+						opacity: 0.7;
+					}
+				}
+			}
+		}
+	}
+	
+	&-right {
+		color: #2B2B2B;
+		padding: 40px;
+		background: $color-white;
+		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+		border-radius: 24px;
+	}
+	
+	&-form {
+		
+		&-inputs {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 25px 15px;
+			width: 100%;
+		}
+		
+		&-item {
+			display: inline-flex;
+			flex-direction: column;
+			width: 100%;
+		}
+		
+		&-label {
+			@include font(14px, 400, 1, null, "MyriadProRegular");
+			width: 100%;
+		}
+		
+		&-group {
+			@include flex(flex-start, flex-start);
+			flex-direction: column;
+			row-gap: 20px;
+			
+			.action {
+				width: 100%;
+				.btn-gradient {
+					width: 100%;
+				}
+			}
+		}
+		
+		&-input {
+			margin-top: 5px;
+			display: block;
+			height: 44px;
+			line-height: 44px;
+			background: $color-white;
+			border-radius: 8px;
+			@include font(14px, 400, 1, $color-black, "MyriadProRegular");
+			padding: 0 20px;
+			border: 1px solid #E5E7EB;
+			transition: .3s ease border-color;
+			
+			&:focus {
+				outline: none;
+				border: 1px solid $color-orange;
+			}
+			
+			&::placeholder {
+				@include font(14px, 400, 1, #7A828C, "MyriadProRegular");
+			}
+		}
+		
+		&-textarea {
+			margin-top: 5px;
+			display: block;
+			background: $color-white;
+			border-radius: 8px;
+			@include font(14px, 400, 1.4, $color-black, "MyriadProRegular");
+			padding: 10px 20px;
+			border: 1px solid #E5E7EB;
+			transition: .3s ease border-color;
+			
+			&:focus {
+				outline: none;
+				border: 1px solid $color-orange;
+			}
+			
+			&::placeholder {
+				@include font(14px, 400, 1.4, #7A828C, "MyriadProRegular");
+			}
+		}
+		
+		&-file {
+			@include flex(center, flex-start);
+			padding: 15px;
+			column-gap: 15px;
+			background: #F9FAFB;
+			border: 1px dashed #D1D5DB;
+			border-radius: 8px;
+			@include transition;
+			
+			.image {
+				background: #E5E7EB;
+				@include size(36px, 36px);
+				border-radius: 100%;
+				@include flex(center,center);
+				img {
+					@include size(16px, 16px);
+				}
+			}
+			
+			.info {
+				.title {
+					@include font(14px, 400, 1.4, $color, "MyriadProRegular");
+				}
+				.text {
+					margin-top: 2px;
+					@include font(11px, 400, 1, #6B7280, "MyriadProRegular");
+				}
+			}
+			
+			&:hover,
+			&:focus {
+				border: 1px solid $color-orange;
+			}
+		}
+	}
+	
+	
+	
+	&-bg {
+		display: block;
+		@include position(absolute, 0, 0, 0, 0);
+		@include size(100%, 100%);
+		overflow: hidden;
+		
+		img {
+			display: block;
+			@include size(100%, 100%);
+			object-fit: cover;
+		}
+	}
+}
+
+//RESPONSIVE
+@media (max-width: 1400px) {
+	.request {
+		&-content {
+			column-gap: 50px;
+			grid-template-columns: 1fr 600px;
+			align-items: flex-start;
+		}
+		
+		&-left {
+			.text {
+				margin-top: 15px;
+				font-size: 16px;
+			}
+		}
+	}
+}
+
+@media (max-width: 1200px) {
+	.request {
+		&-content {
+			grid-template-columns: 1fr;
+			row-gap: 40px;
+			padding: 60px 0;
+		}
+		
+		&-left {
+			.title {
+				font-size: 30px;
+			}
+			
+			.list {
+				margin-top: 40px;
+				flex-direction: row;
+				column-gap: 30px;
+				&-item {
+					flex-basis: 45%;
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 992px) {
+
+}
+
+@media (max-width: 768px) {
+	.request {
+		&-content {
+			row-gap: 20px;
+			padding: 30px 0;
+		}
+		
+		&-left {
+			.title {
+				font-size: 20px;
+			}
+			.text {
+				margin-top: 10px;
+				font-size: 14px;
+			}
+			
+			.list {
+				margin-top: 20px;
+				&-item {
+					column-gap: 10px;
+					flex-basis: 100%;
+					
+					&-info {
+						.title {
+							font-size: 16px;
+						}
+						.text {
+							font-size: 14px;
+						}
+					}
+					
+				}
+			}
+		}
+		
+		&-right {
+			border-radius: 10px;
+			padding: 20px;
+		}
+		
+		&-form {
+			
+			&-inputs {
+				grid-template-columns: repeat(1, 1fr);
+				row-gap: 15px;
+			}
+			
+			&-group {
+				row-gap: 15px;
+				.checker {
+					@include size(18px, 18px);
+					
+					&-item {
+						margin-top: 0;
+					}
+					
+					&-label {
+						font-size: 11px;
+					}
+					
+					& input[type="checkbox"] + .checker-view::before {
+						font-size: 12px;
+					}
+				}
+			}
+			
+			&-file {
+				flex-wrap: nowrap;
+				padding: 10px;
+				column-gap: 10px;
+				
+				.image {
+					flex-shrink: 0;
+					@include size(30px, 30px);
+					img {
+						@include size(12px, 12px);
+					}
+				}
+				
+				.info {
+					flex-grow: 1;
+				}
+			}
+		}
+	}
+}

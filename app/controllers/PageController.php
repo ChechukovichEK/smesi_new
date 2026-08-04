@@ -15,7 +15,7 @@ class PageController extends AppController
     {
         $alias = $this->route['alias'];
         $page = \R::findOne('pages', 'alias = ?', [$alias]);
-
+		
         if (empty($page->meta_title)) {
             $title = 'Smesi.by - ' . $page->title;
         } else {
@@ -38,6 +38,10 @@ class PageController extends AppController
 		
 		if ($alias === 'dostavka-i-oplata') {
 			$this->view = 'delivery';
+		}
+		
+		if ($alias === 'podacha-obrascheniya') {
+			$this->view = 'request';
 		}
 
         $this->setMeta($title, $desc, $title, 'og_pages.jpg');

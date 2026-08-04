@@ -47,6 +47,7 @@ class SettingsController extends AppController
 			'address_store',
 			'address_office',
 			'schedule',
+			'schedule_office',
 			'additional_phones',
 			'name_site',
 			'description_site',

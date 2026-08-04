@@ -214,7 +214,7 @@
                     </div>
                     <div class="contact">
                         <div class="label">Электронная почта</div>
-                        <a href="mailto:vershina_stroi@mail.ru">vershina_stroi@mail.ru</a>
+                        <a href="mailto:vershina@smesi.by">vershina@smesi.by</a>
                     </div>
                 </div>
             </div>

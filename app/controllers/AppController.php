@@ -29,6 +29,17 @@ class AppController extends Controller {
 		
 		self::getSettingsNew();
 		
+		// Проверка редиректов
+		$uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+		
+		$redirect = \R::findOne('redirects', 'url_from = ?', [$uri]);
+		
+		if ($redirect) {
+			header("HTTP/1.1 301 Moved Permanently");
+			header("Location: /" . ltrim($redirect->url_to, '/'));
+			exit;
+		}
+		
 		// COOKIE AGREEMENT
 		$cookieAgree = $_COOKIE['cookieAgree'] ?? null;
 		App::$app->setProperty('cookieAgree', $cookieAgree);

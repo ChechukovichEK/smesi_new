@@ -16,6 +16,9 @@
 		<?php if (!isset($_SESSION['user'])): ?>
 			<?php if (!empty($_SESSION['cart'])): ?>
 				<div class="cart-items">
+					<div class="cart-empty">
+						<h1 class="title">Корзина</h1>
+					</div>
 					<?php foreach ($_SESSION['cart'] as $id => $item): ?>
 						<div class="cart-item">
 							<a href="product/<?= $item['alias'] ?>" class="cart-img cart-view">

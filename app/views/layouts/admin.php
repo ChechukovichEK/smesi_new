@@ -111,6 +111,7 @@
                 <li><a href="<?= ADMIN ?>/"><i class="fa fa-home"></i> <span>Home</span></a></li>
                 <li><a href="<?= ADMIN ?>/order"><i class="fa fa-shopping-cart"></i> <span>Заказы</span></a></li>
                 <li><a href="<?= ADMIN ?>/feedback"><i class="fa fa-envelope"></i> <span>Заявки</span></a></li>
+				<li><a href="<?= ADMIN ?>/request"><i class="fa fa-commenting"></i> <span>Обращения покупателей</span></a></li>
                 <li class="treeview">
                     <a>
                         <i class="fa fa-th"></i> <span>Страницы</span>
@@ -235,6 +236,7 @@
                             <li><a href="<?= ADMIN ?>/import/updateproduct">Обновить товары (цены)</a></li>
                             <li><a href="<?= ADMIN ?>/import/importuser">Импорт клиентов</a></li>
                             <li><a href="<?= ADMIN ?>/import/importorder">Импорт заказов</a></li>
+							<li><a href="<?= ADMIN ?>/import/updatebrand">Обновить бренды</a></li>
                             <!--<li><a href="<?= ADMIN ?>/import/imgtofld">Загрузить изображения</a></li>-->
                         </ul>
                     </li>
@@ -263,6 +265,7 @@
 						<li><a href="<?= ADMIN ?>/navigation_mobile">Мобильное меню</a></li>
 						<li><a href="<?= ADMIN ?>/socials">Социальные сети</a></li>
 						<li><a href="<?= ADMIN ?>/settings">Настройки</a></li>
+						<li><a href="<?= ADMIN ?>/redirects">Редиректы</a></li>
 					</ul>
 				</li>
 				
