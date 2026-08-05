@@ -16,6 +16,9 @@ class Brands extends AppModel
 		'meta_desc' => '',
 		'sort' => '',
 		'is_home' => '',
+		'country' => '',
+		'manufacturer' => '',
+		'importer' => '',
 	];
 
 	public $rules = [

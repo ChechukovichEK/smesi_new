@@ -65,6 +65,24 @@
                             <label for="content">Описание</label>
                             <textarea name="content" id="editor1" cols="80" rows="10"><?= h($brand->content); ?></textarea>
                         </div>
+						
+						<div class="form-group has-feedback">
+							<label for="title">Страна</label>
+							<input type="text" name="country" class="form-control" id="country" placeholder="Страна" value="<?=h($brand->country);?>" required>
+							<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						</div>
+						
+						<div class="form-group has-feedback">
+							<label for="title">Производитель (Данные: адрес, УНП и т.п.)</label>
+							<input type="text" name="manufacturer" class="form-control" id="manufacturer" placeholder="Производитель" value="<?=h($brand->manufacturer);?>" required>
+							<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						</div>
+						
+						<div class="form-group has-feedback">
+							<label for="title">Импортер (Данные: адрес, УНП и т.п.)</label>
+							<input type="text" name="importer" class="form-control" id="importer" placeholder="Импортер" value="<?=h($brand->importer);?>">
+							<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						</div>
 
                         <div class="form-group">
                             <div class="col-md-4">
