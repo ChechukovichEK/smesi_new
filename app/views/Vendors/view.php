@@ -25,6 +25,17 @@
 				</div>
 			</div>
 			
+			<?php if (!empty($brand['opt_title'])): ?>
+				<div class="opt-brand-prices">
+					<h2 class="title">
+						<?= $brand['opt_title']?></h2>
+					<div class="text">
+						<?= $brand['opt_desc']?>
+					</div>
+					<a href="<?=PATH;?>/vendors/<?= $brand['alias'] ?>#ctaForm" class="btn-gradient" data-toggle="ctaForm">Запросить цены</a>
+				</div>
+			<?php endif; ?>
+			
 			<?php if ($categories): ?>
 				<div class="filter-category">
 					<div class="filter-category-list">
@@ -37,17 +48,6 @@
 							</a>
 						<?php endforeach; ?>
 					</div>
-				</div>
-			<?php endif; ?>
-			
-			<?php if (!empty($brand['opt_title'])): ?>
-				<div class="opt-brand-prices">
-					<h2 class="title">
-						<?= $brand['opt_title']?></h2>
-					<div class="text">
-						<?= $brand['opt_desc']?>
-					</div>
-					<a href="<?=PATH;?>/vendors/<?= $brand['alias'] ?>#ctaForm" class="btn-gradient" data-toggle="ctaForm">Запросить цены</a>
 				</div>
 			<?php endif; ?>
 		</div>
