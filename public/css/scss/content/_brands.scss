@@ -1,6 +1,42 @@
+.brand-top {
+	margin-bottom: 20px;
+	
+	&-inner {
+		@include flex(flex-start, flex-start, nowrap);
+		gap: 20px;
+		
+		.image {
+			flex-shrink: 0;
+			display: block;
+			max-width: 180px;
+			padding: 5px;
+			border: 1px solid $color-gray-lite;
+		}
+	}
+	
+	&-description {
+		flex-grow: 1;
+		
+		.text-editor {
+			margin: 0;
+		}
+	}
+	
+	.filter-category {
+		margin-top: 20px;
+		
+		&-item-current {
+			background: #f1592a;
+		}
+		&-item-current span {
+			color: #fff;
+		}
+	}
+}
+
 .brands-list {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(310px, max-content));
 	
 	.brands-item {
 		border: solid 1px #e3e0e3;
@@ -50,5 +86,163 @@
 				color: #E85628;
 			}
 		}
+	}
+}
+
+.opt-brand-prices {
+	margin: 40px 0;
+	
+	.title {
+		@include font(42px, 600, 1, $color-black, "MyriadProSemibold");
+	}
+	
+	.text {
+		margin-top: 20px;
+		@include font(18px, 300, 1.6, $color-black, "MyriadProLight");
+	}
+	
+	a {
+		margin-top: 20px;
+		text-decoration: none;
+		color: $color-white;
+		
+		&:hover {
+			color: $color-white;
+		}
+	}
+}
+
+.vendor-search {
+	margin-bottom: 30px;
+	
+	.search-control {
+		position: relative;
+		
+		input {
+			box-sizing: border-box;
+			display: inline-block;
+			@include size(100%, 78px);
+			line-height: 78px;
+			background: #F2F5F8 !important;
+			border-radius: 78px;
+			@include font(16px, 400, 1, $color-black, "MyriadProRegular");
+			padding: 0 200px 0 40px;
+			border: 1px solid transparent;
+			z-index: 1;
+			@include transition;
+			
+			&:focus {
+				outline: none;
+				border: 1px solid #909293;
+			}
+			
+			&::placeholder {
+				@include font(18px, 400, 1, #909293, "MyriadProRegular");
+			}
+		}
+		
+		.actions {
+			@include position(absolute, null, 50%, 9px, null, 2);
+			@include flex(center, flex-end, nowrap);
+			transform: translateY(-50%);
+			column-gap: 10px;
+		}
+		
+	}
+}
+
+//RESPONSIVE
+
+@media (max-width: 1400px) {
+	.vendor-search {
+		.search-control {
+			input {
+				height: 64px;
+				padding: 0 180px 0 30px;
+			}
+			
+			.actions {
+				.btn-gradient {
+					height: $form-height;
+				}
+			}
+		}
+	}
+	
+	.opt-brand-prices {
+		
+		.title {
+			font-size: 30px;
+			line-height: 1.4;
+		}
+		
+		.text {
+			font-size: 16px;
+		}
+		
+	}
+}
+
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 992px) {
+	
+	.brand-top {
+		.filter-category {
+			display: block;
+			width: 100%;
+		}
+	}
+	
+	.opt-brand-prices {
+		display: block;
+		width: 100%;
+		margin: 20px 0;
+		
+		.title {
+			font-size: 20px;
+		}
+		
+		.text {
+			font-size: 14px;
+		}
+		
+	}
+}
+
+@media (max-width: 768px) {
+	.brand-top-inner {
+		flex-wrap: wrap;
+	}
+	
+	.vendor-search {
+		.search-control {
+				
+				input {
+					padding: 0 70px 0 30px;
+					font-size: 14px;
+					
+					&::placeholder {
+						font-size: 14px;
+					}
+				}
+				
+				.actions {
+					.search-close {
+						display: none;
+					}
+					
+					.btn-gradient {
+						background: #f1592a url("../img/icons/search.svg") no-repeat 50% 50%/22px 22px;
+						@include size(50px, 50px);
+						
+						span {
+							display: none;
+						}
+					}
+				}
+			}
 	}
 }

@@ -259,3 +259,19 @@ $(document).ready(function () {
 		
 	});
 });
+
+$(document).ready(function () {
+	$('[data-toggle="ctaForm"]').on('click', function (e){
+		e.preventDefault();
+		
+		const formOffset = $('#ctaForm').offset().top;
+		
+		$('html, body').animate(
+			{
+				scrollTop: formOffset - 50,
+			},
+			800
+		);
+		
+	});
+});

@@ -120,6 +120,7 @@
                     </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="<?= ADMIN ?>/main-page">Главная</a></li>
                         <li><a href="<?= ADMIN ?>/pages">Страницы</a></li>
                         <li><a href="<?= ADMIN ?>/pages/add">Добавить страницу</a></li>
                     </ul>

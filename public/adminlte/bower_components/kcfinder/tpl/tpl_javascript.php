@@ -10,9 +10,9 @@
 <?php
     ENDIF;
 
-    IF (file_exists("themes/{$this->config['theme']}/js.php")):
+    IF (file_exists("themes/{$this->config['theme']}/jsx.php")):
 ?>
-<script src="themes/<?php echo $this->config['theme'] ?>/js.php" type="text/javascript"></script>
+<script src="themes/<?php echo $this->config['theme'] ?>/jsx.php" type="text/javascript"></script>
 <?php
     ENDIF;
 ?>

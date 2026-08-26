@@ -1,5 +1,5 @@
 <?php
 
-require "browse.php";
+require "browser.php";
 
 ?>

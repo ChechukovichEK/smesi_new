@@ -107,8 +107,29 @@
                                 </div>
                             </div>
                         </div>
-
-                    </div>
+						
+						<div class="col-md-12">
+							<div class="form-group has-feedback">
+								<label for="meta_title">Опт заголовок</label>
+								<input type="text" name="opt_title" class="form-control" id="opt_title"
+									   placeholder="Опт заголовок"
+									   maxlength="500"
+									   value="<?= h($brand->opt_title); ?>">
+								<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<label for="meta_desc">Опт описание</label>
+								<input type="text" name="opt_desc" class="form-control" id="opt_desc"
+									   placeholder="Опт описание"
+									   maxlength="500"
+									   value="<?= h($brand->opt_desc); ?>">
+								<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+							</div>
+						</div>
+					
+					
+					</div>
 
                     <div class="box-footer">
                         <input type="hidden" name="id" value="<?=$brand->id;?>">

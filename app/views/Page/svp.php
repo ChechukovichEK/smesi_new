@@ -78,7 +78,7 @@
 			<div class="list">
 				<?php foreach ($advantages as $advantage): ?>
 					<div class="item">
-						<img src="<?= PATH ?>/img/svp/<?= $advantage['img'] ?>">
+						<img src="<?= PATH ?>/img/svp/<?= $advantage['img'] ?>" alt="<?= $advantage['title'] ?>">
 						<div class="description">
 							<div class="title"><?= $advantage['title'] ?></div>
 							<div class="text"><?= $advantage['text'] ?></div>
@@ -374,7 +374,7 @@
 										
 										<?php foreach ($images as $index => $img): ?>
 											<div class="image image-<?= $index ?> <?= $index === 0 ? 'current' : '' ?>">
-												<img src="<?= PATH ?>/img/svp/products/<?= $img ?>">
+												<img src="<?= PATH ?>/img/svp/products/<?= $img ?>" alt="<?= $product['title'] ?>">
 											</div>
 										<?php endforeach; ?>
 									
@@ -482,7 +482,7 @@
 			<div class="list">
 				<?php foreach ($offers as $offer) : ?>
 					<div class="item">
-						<img src="<?= PATH ?>/img/svp/<?= $offer['img'] ?>">
+						<img src="<?= PATH ?>/img/svp/<?= $offer['img'] ?>" alt="<?= $offer['title'] ?>">
 						<div class="title"><?= $offer['title'] ?></div>
 						<div class="line"></div>
 						<div class="text"><?= $offer['text'] ?></div>
@@ -492,7 +492,7 @@
 		</div>
 	</div>
 	
-	<div class="cta">
+	<div id="svpForm" class="cta">
 		<div class="container">
 			<div class="cta-content">
 				<div class="cta-description">

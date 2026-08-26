@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="wholesale-offer-bg">
-            <img src="../img/wholesale/wholesale-offer-img.jpg">
+            <img src="../img/wholesale/wholesale-offer-img.jpg" alt="Строительные материалы оптом от Smesi.by">
         </div>
     </div>
 
@@ -19,7 +19,7 @@
         <div class="container">
             <div class="wholesale-reasons-container">
                 <div class="wholesale-reasons-img">
-                    <img src="../img/wholesale/wholesale-reasons-img.png">
+                    <img src="../img/wholesale/wholesale-reasons-img.png" alt="Почему выбирают нас?">
                 </div>
                 <div class="wholesale-reasons-content">
                     <h2 class="title wholesale-title">Почему выбирают нас?</h2>
@@ -66,43 +66,43 @@
                 <a href="/category/suhie-stroitel-nye-smesi" class="catalog-card">
                     <div class="name">Сухие строительные смеси для фасадов <br>и внутренних работ</div>
                     <div class="img">
-                        <img src="../img/wholesale/wholesale-catalog-1.png">
+                        <img src="../img/wholesale/wholesale-catalog-1.png" alt="Сухие строительные смеси для фасадов и внутренних работ">
                     </div>
                 </a>
                 <a href="/category/klei-dlya-plitki" class="catalog-card">
                     <div class="name">Клеи для плитки <br>и декоративных покрытий</div>
                     <div class="img">
-                        <img src="../img/wholesale/wholesale-catalog-2.png">
+                        <img src="../img/wholesale/wholesale-catalog-2.png" alt="Клеи для плитки и декоративных покрытий">
                     </div>
                 </a>
                 <a href="/category/shtukaturka" class="catalog-card">
                     <div class="name">Штукатурки</div>
                     <div class="img">
-                        <img src="../img/wholesale/wholesale-catalog-3.png">
+                        <img src="../img/wholesale/wholesale-catalog-3.png" alt="Штукатурки">
                     </div>
                 </a>
                 <a href="/category/membrany-plenki" class="catalog-card">
                     <div class="name">Кровельные <br>утеплители</div>
                     <div class="img">
-                        <img src="../img/wholesale/wholesale-catalog-4.png">
+                        <img src="../img/wholesale/wholesale-catalog-4.png" alt="Кровельные утеплители">
                     </div>
                 </a>
                 <a href="/category/gruntovki" class="catalog-card">
                     <div class="name">Грунтовки и гидроизоляционные материалы</div>
                     <div class="img">
-                        <img src="../img/wholesale/wholesale-catalog-5.png">
+                        <img src="../img/wholesale/wholesale-catalog-5.png" alt="Грунтовки и гидроизоляционные материалы">
                     </div>
                 </a>
                 <a href="/category/mineral-naya-vata" class="catalog-card">
                     <div class="name">Утепление <br>фасадов</div>
                     <div class="img">
-                        <img src="../img/wholesale/wholesale-catalog-6.png">
+                        <img src="../img/wholesale/wholesale-catalog-6.png" alt="Утепление фасадов">
                     </div>
                 </a>
                 <a href="<?= PATH ?>/page/stat-dilerom-svp-ot-tls-profi" class="catalog-card">
                     <div class="name">Система выравнивания плитки</div>
                     <div class="img">
-                        <img src="../img/wholesale/wholesale-catalog-7.png">
+                        <img src="../img/wholesale/wholesale-catalog-7.png" alt="Система выравнивания плитки">
                     </div>
                 </a>
             </div>
@@ -221,7 +221,7 @@
         </div>
     </div>
 	
-	<div class="cta">
+	<div id="wholesaleForm" class="cta">
 		<div class="container">
 			<div class="cta-content">
 				<div class="cta-description">

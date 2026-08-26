@@ -19,6 +19,8 @@ class Brands extends AppModel
 		'country' => '',
 		'manufacturer' => '',
 		'importer' => '',
+		'opt_title' => '',
+		'opt_desc' => '',
 	];
 
 	public $rules = [

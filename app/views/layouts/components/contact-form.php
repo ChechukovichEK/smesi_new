@@ -6,11 +6,15 @@ $url = $url[0];
 
 
 <?php if ($url != '/page/stat-dilerom-svp-ot-tls-profi'): ?>
-<div class="cta">
+<div id="ctaForm" class="cta">
 	<div class="container">
 		<div class="cta-content">
 			<div class="cta-description">
-				<div class="title">Свяжитесь с&nbsp;нами! Мы&nbsp;гарантируем Специальные&nbsp;цены и&nbsp;Бонусы!</div>
+				<div class="title">
+					<?= !empty($brand['opt_title']) ?
+						'Получите индивидуальные оптовые цены в зависимости от объема заказа и условий сотрудничества' :
+						'Свяжитесь с&nbsp;нами! Мы&nbsp;гарантируем Специальные&nbsp;цены и&nbsp;Бонусы!'?>
+				</div>
 			</div>
 			<form action="/feedback/send" method="post" class="cta-form" data-ajax-form
 				  onsubmit="ym(98576053,'reachGoal','call_back');gtag('event', 'call_back'); return true;">

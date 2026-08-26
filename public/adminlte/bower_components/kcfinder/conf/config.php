@@ -19,6 +19,7 @@ session_start();
 
 $_CONFIG = array(
 
+	'debug' => true,
 
 // GENERAL SETTINGS
 
