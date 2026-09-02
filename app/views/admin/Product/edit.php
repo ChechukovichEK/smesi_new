@@ -23,6 +23,12 @@
                             <input type="text" name="title" class="form-control" id="title" placeholder="Наименование товара" value="<?=h($product->title);?>" required>
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
+						
+						<div class="form-group has-feedback">
+							<label for="alias">Ссылка (ЧПУ)</label>
+							<input type="text" name="alias" class="form-control" id="alias" placeholder="Ссылка (ЧПУ)" value="<?=h($product->alias);?>" required data-toggle="translate_title">
+							<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						</div>
 
                         <div class="form-group has-feedback">
                             <label for="meta_title">Meta-title</label>
@@ -100,6 +106,16 @@
                         <div class="form-group">
                           <label for="description">Страна производитель</label>
                           <input type="text" name="manufacturer_country" class="form-control" placeholder="Страна производитель" value="<?=$product->manufacturer_country;?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="manufacturer_info">Производитель (Данные: адрес, УНП и т.п.)</label>
+                            <input type="text" name="manufacturer_info" class="form-control" id="manufacturer_info" placeholder="Производитель" value="<?=h($product->manufacturer_info);?>">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="importer">Импортер (Данные: адрес, УНП и т.п.)</label>
+                          <input type="text" name="importer" class="form-control" id="importer" placeholder="Импортер" value="<?=h($product->importer);?>">
                         </div>
 
                         <div class="nav-tabs-custom">
@@ -576,11 +592,6 @@
                               <input type="text" name="price" class="form-control" id="description" placeholder="Цена" pattern="^[0-9.]{1,}$" value="<?=$product->price;?>" required data-error="Допускаются цифры и десятичная точка">
                               <div class="help-block with-errors"></div>
                           </div>
-							
-							<div class="form-group has-feedback">
-								<label for="price">Старая цена</label>
-								<input type="text" class="form-control" name="old_price" value="<?= $product->old_price ?>">
-							</div>
 
                           <div class="form-group has-feedback">
                             <label for="price">Цена при заказе от 500 руб</label>

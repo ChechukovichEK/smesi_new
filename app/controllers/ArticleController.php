@@ -17,7 +17,7 @@ class ArticleController extends AppController
 		// Статьи для текущей страницы
 		$news = \R::findAll(
 			'articles',
-			'ORDER BY id DESC LIMIT ? OFFSET ?',
+			"ORDER BY COALESCE(NULLIF(published_at, '0000-00-00 00:00:00'), CONCAT(date, ' 00:00:00')) DESC, id DESC LIMIT ? OFFSET ?",
 			[$perpage, $offset]
 		);
 		
@@ -62,7 +62,11 @@ class ArticleController extends AppController
 			$desc = $new->meta_desc;
 		}
 		
-		$other_articles = \R::findAll('articles', 'id != ? ORDER BY id DESC LIMIT 3', [$new->id]);
+		$other_articles = \R::findAll(
+			'articles',
+			"id != ? ORDER BY COALESCE(NULLIF(published_at, '0000-00-00 00:00:00'), CONCAT(date, ' 00:00:00')) DESC, id DESC LIMIT 3",
+			[$new->id]
+		);
 		
 		$new['content'] = $this->replaceBlogProducts($new['content']);
 		

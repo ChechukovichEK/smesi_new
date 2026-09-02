@@ -43,14 +43,34 @@ class CategoryController extends AppController {
                 $category->getErrors();
                 redirect();
             }
-            if($id = $category->save('category')){
-                $alias = AppModel::createAlias('category', 'alias', $data['title'], $id);
-                $cat = \R::load('category', $id);
-                $cat->alias = $alias;
-                \R::store($cat);
-                $_SESSION['success'] = 'Категория добавлена';
-            }
-            redirect();
+          
+			//Проверка: alias
+			if (empty($data['alias'])) {
+				$_SESSION['error'] = 'Поле ЧПУ обязательно для заполнения';
+				$_SESSION['form_data'] = $data;
+				redirect();
+			}
+			
+			// Проверка уникальности alias
+			$exists = \R::findOne('category', 'alias = ?', [$data['alias']]);
+			if($exists){
+				$_SESSION['error'] = 'Категория с таким ЧПУ уже существует';
+				$_SESSION['form_data'] = $data;
+				redirect();
+			}
+			
+			if(!$category->validate($data)){
+				$category->getErrors();
+				redirect();
+			}
+			
+			if($id = $category->save('category')){
+				$cat = \R::load('category', $id);
+				$cat->alias = $data['alias']; // сохраняем введённый alias
+				\R::store($cat);
+				$_SESSION['success'] = 'Категория добавлена';
+			}
+			redirect();
         }
         $this->setMeta('Новая категория');
     }
@@ -62,48 +82,70 @@ class CategoryController extends AppController {
         $category->uploadImg($name);
       }
   }
-
-
-    public function editAction(){
-        if(!empty($_POST)){
-            $id = $this->getRequestID(false);
-            $category = new Category();
-            $data = $_POST;
-            $category->load($data);
-            $category->getImg();
-            if(!$category->validate($data)){
-                $category->getErrors();
-                redirect();
-            }
-            if($category->update('category', $id)){
-                $_SESSION['success'] = 'Изменения сохранены';
-            }
-            redirect();
-        }
-        $id = $this->getRequestID();
-        $category = \R::load('category', $id);
-        App::$app->setProperty('parent_id', $category->parent_id);
-        App::$app->setProperty('cat_id', $category->id);
-        App::$app->setProperty('cats', self::getCats());
-        $cat_model = new Category();
-        $ids = $cat_model->getIds($category->id);
-        $ids = !$ids ? $category->id : $ids . $category->id;
-        $ids_products = \R::find('cat_product', "cat_id IN ($ids) GROUP BY prod_id");
-        $ids_prod = $cat_model->getprodIds($ids_products);
-        if($ids_prod){
-          if ($category->parent_id == 0) {
-            $products = \R::find('product', "status = '1' AND id IN ($ids_prod) ORDER BY all_position");
-          } else {
-            $products = \R::find('product', "status = '1' AND id IN ($ids_prod) ORDER BY position");
-          }
-
-        }
-        $filter_group = $cat_model->getGroups($category->id);
-        $cat_values = $cat_model->getCatValues($filter_group);
-        $attrs = $cat_model->getAttrs();
-        $child_cats = \R::find('category', "parent_id = $category->id ORDER BY position");
-        $this->setMeta("Редактирование категории {$category->title}");
-        $this->set(compact('child_cats', 'category', 'products', 'filter_group', 'cat_values'));
+	
+	
+	public function editAction(){
+		if(!empty($_POST)){
+			$id = $this->getRequestID(false);
+			$category = new Category();
+			$data = $_POST;
+			$category->load($data);
+			$category->getImg();
+			
+			// Проверка: alias обязателен
+			if(empty($data['alias'])){
+				$_SESSION['error'] = 'Поле ЧПУ обязательно для заполнения';
+				$_SESSION['form_data'] = $data;
+				redirect();
+			}
+			
+			// Проверка уникальности alias (исключаем текущую категорию)
+			$exists = \R::findOne('category', 'alias = ? AND id != ?', [$data['alias'], $id]);
+			if($exists){
+				$_SESSION['error'] = 'Категория с таким ЧПУ уже существует';
+				$_SESSION['form_data'] = $data;
+				redirect();
+			}
+			
+			if(!$category->validate($data)){
+				$category->getErrors();
+				redirect();
+			}
+			
+			if($category->update('category', $id)){
+				// Обновляем alias вручную
+				$cat = \R::load('category', $id);
+				$cat->alias = $data['alias'];
+				\R::store($cat);
+				
+				$_SESSION['success'] = 'Изменения сохранены';
+			}
+			redirect();
+		}
+		
+		$id = $this->getRequestID();
+		$category = \R::load('category', $id);
+		App::$app->setProperty('parent_id', $category->parent_id);
+		App::$app->setProperty('cat_id', $category->id);
+		App::$app->setProperty('cats', self::getCats());
+		$cat_model = new Category();
+		$ids = $cat_model->getIds($category->id);
+		$ids = !$ids ? $category->id : $ids . $category->id;
+		$ids_products = \R::find('cat_product', "cat_id IN ($ids) GROUP BY prod_id");
+		$ids_prod = $cat_model->getprodIds($ids_products);
+		if($ids_prod){
+			if ($category->parent_id == 0) {
+				$products = \R::find('product', "status = '1' AND id IN ($ids_prod) ORDER BY all_position");
+			} else {
+				$products = \R::find('product', "status = '1' AND id IN ($ids_prod) ORDER BY position");
+			}
+		}
+		$filter_group = $cat_model->getGroups($category->id);
+		$cat_values = $cat_model->getCatValues($filter_group);
+		$attrs = $cat_model->getAttrs();
+		$child_cats = \R::find('category', "parent_id = $category->id ORDER BY position");
+		$this->setMeta("Редактирование категории {$category->title}");
+		$this->set(compact('child_cats', 'category', 'products', 'filter_group', 'cat_values'));
       }
 
           public function getCats(){

@@ -12,8 +12,10 @@ class MainController extends AppController {
 		$brands = \R::find('brands', "is_home = '1' ORDER BY sort DESC");
         $slider = \R::findAll('slider', 'ORDER BY position');
 
-		$title = "Интернет-магазин строительных, отделочных материалов, купить с доставкой в Минске и РБ";
-		$desc = "Большой ассортимент товаров для строительства и ремонта. Самовывоз со склада в Минске. Доставка по РБ. Оптом и в розницу. Наличный и безналичный расчет. Низкие цены. Акции. Скидки. Распродажи.";
+        $page_info = \R::getRow('SELECT * FROM `main_page` WHERE id = 1');
+
+		$title = $page_info['title'];
+		$desc = $page_info['description'];
 
         $this->setMeta($title, $desc, $title, 'logo-map.jpg');
         $this->set(compact('hits', 'sales', 'slider', 'brands'));

@@ -87,6 +87,11 @@ class YamlController extends AppController
 		$this->genFeed('4359455');
 	}
 
+	public function feed17Action()
+	{
+		$this->genFeedByBrand('Строймаш');
+	}
+
 	public function genFeed($id, $filter = [])
 	{
 		$categories = \R::findAll('category');
@@ -97,6 +102,62 @@ class YamlController extends AppController
 //			die();
 //		}
 
+
+		header("Content-type: text/xml; charset=utf-8");
+
+		echo '<?xml version="1.0" encoding="UTF-8"?>';
+		echo '<yml_catalog date="'.date('Y-m-d\TH:i:sP').'">';
+
+		echo '<shop>';
+
+		echo '<name>Smesi.by</name>';
+		echo '<company>Smesi.by</company>';
+		echo '<url>https://smesi.by/</url>';
+		echo '<platform>BSM/Yandex/Market</platform>';
+		echo '<version>2.7.5</version>';
+
+		echo '<currencies>';
+		echo '<currency id="BYN" rate="1"/>';
+		echo '</currencies>';
+
+		echo '<categories>';
+		foreach ($categories as $category) {
+			if ($category->parent_id == 0) {
+				echo '<category id="'.$category->id.'">'.$category->title.'</category>';
+			} else {
+				echo '<category id="'.$category->id.'" parentId="'.$category->parent_id.'">'.$category->title.'</category>';
+			}
+
+		}
+		echo '</categories>';
+
+		echo '<offers>';
+		foreach ($products as $product) {
+			if (!in_array($product->id, $filter) && $product->price > 0 && $product->status == 1) {
+				echo '<offer id="'.$product->id.'">';
+				echo '<url>https://smesi.by/product/'.$product->alias.'</url>';
+				echo '<price>'.$product->price.'</price>';
+				echo '<currencyId>BYN</currencyId>';
+				echo '<categoryId>'.$product->category_id.'</categoryId>';
+				if (!empty($product->img)) {
+					echo '<picture>https://smesi.by/prodimg/'.$product->img.'</picture>';
+				}
+				echo '<name>'.$product->title.'</name>';
+				echo '</offer>';
+			}
+		}
+		echo '</offers>';
+
+		echo '</shop>';
+
+		echo '</yml_catalog>';
+		die();
+	}
+
+	public function genFeedByBrand($brand, $filter = [])
+	{
+		$categories = \R::findAll('category');
+		$products = \R::findAll('product', 'manufacturer = ? AND status = ?', [$brand, '1']);
 
 		header("Content-type: text/xml; charset=utf-8");
 

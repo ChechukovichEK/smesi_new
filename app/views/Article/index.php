@@ -17,12 +17,8 @@
 				<?php foreach ($news as $item): ?>
 					<?php
 					$date = new DateTime($item['date']);
-					
-					if ($item['published_at'] !== '0000-00-00 00:00:00') {
-						$published_at = new DateTime($item['published_at']);
-					} else {
-						$published_at = '';
-					}
+					$has_update_date = !empty($item['published_at']) && $item['published_at'] !== '0000-00-00 00:00:00';
+					$updated_date = $has_update_date ? new DateTime($item['published_at']) : null;
 					
 					$formatter = new IntlDateFormatter(
 						'ru_RU',
@@ -49,12 +45,17 @@
 						<div class="description">
 							<h2 class="title" itemprop="headline"><?= $item['title']; ?></h2>
 							<div class="data-block">
-								<div class="date" itemprop="datePublished">
-									Опубликовано: <?= $formatter->format($date); ?></div>
+								<div class="date">
+									<?php if ($has_update_date): ?>
+										Обновлено: <?= $formatter->format($updated_date); ?>
+									<?php else: ?>
+										Опубликовано: <?= $formatter->format($date); ?>
+									<?php endif; ?>
+								</div>
+								<meta itemprop="datePublished" content="<?= date('c', strtotime($item['date'])); ?>">
 								
-								<?php if (!empty($published_at) && $published_at !== ''): ?>
-									<div class="date" itemprop="dateModified">
-										Обновлено: <?= $formatter->format($published_at); ?></div>
+								<?php if ($has_update_date): ?>
+									<meta itemprop="dateModified" content="<?= date('c', strtotime($item['published_at'])); ?>">
 								<?php endif; ?>
 							
 							</div>

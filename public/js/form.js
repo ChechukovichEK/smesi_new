@@ -74,7 +74,7 @@ $(document).on('change', '[data-file-input]', function () {
 	const dropzone = $(this).closest('.request-form-group').find('[data-toggle="file"]')[0];
 	updateFileNameUI(dropzone, this.files[0]);
 });
-admin
+
 
 
 // FILE VALIDATION

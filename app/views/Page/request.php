@@ -27,7 +27,7 @@
 				<div class="list">
 					<div class="list-item">
 						<div class="image">
-							<img src="<?= PATH ?>/img/icons/request/clock.svg">
+							<img src="<?= PATH ?>/img/icons/request/clock.svg" alt="Рассмотрение обращения">
 						</div>
 						
 						<div class="list-item-info">
@@ -38,7 +38,7 @@
 					
 					<div class="list-item">
 						<div class="image">
-							<img src="<?= PATH ?>/img/icons/request/shield-check.svg">
+							<img src="<?= PATH ?>/img/icons/request/shield-check.svg" alt="Защита ваших прав">
 						</div>
 						
 						<div class="list-item-info">
@@ -48,7 +48,7 @@
 					</div>
 					<div class="list-item">
 						<div class="image">
-							<img src="<?= PATH ?>/img/icons/request/user-cog.svg">
+							<img src="<?= PATH ?>/img/icons/request/user-cog.svg" alt="Конфиденциальность">
 						</div>
 						
 						<div class="list-item-info">
@@ -58,7 +58,7 @@
 					</div>
 					<div class="list-item">
 						<div class="image">
-							<img src="<?= PATH ?>/img/icons/request/award.svg">
+							<img src="<?= PATH ?>/img/icons/request/award.svg" alt="Законность и прозрачность">
 						</div>
 						
 						<div class="list-item-info">

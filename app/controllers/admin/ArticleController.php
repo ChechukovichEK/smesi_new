@@ -16,15 +16,37 @@ class ArticleController extends AppController{
   public function editAction(){
     if(!empty($_POST)){
       $id = $this->getRequestID(false);
-      $new = new Article();
       $data = $_POST;
-      $new->load($data);
-      $new->getImg();
-      if(!$new->validate($data)){
-        $new->getErrors();
-        redirect();
+      $publishedAt = trim((string)($data['published_at'] ?? ''));
+      $publishedAt = $publishedAt === '' ? null : $publishedAt . ' 00:00:00';
+
+      if (isset($data['published_at'])) {
+        $data['published_at'] = $publishedAt;
       }
-      if($new->update('articles', $id)){
+
+      if (!empty($data['title'])) {
+        $fields = [
+          'title', 'position', 'pre_content', 'date', 'content', 'meta_title',
+          'meta_desc', 'alias', 'img', 'faq_title', 'published_at'
+        ];
+        $updates = [];
+        $values = [];
+
+        foreach ($fields as $field) {
+          if (array_key_exists($field, $data)) {
+            $updates[] = "$field = ?";
+            $values[] = $field === 'published_at' ? $publishedAt : $data[$field];
+          }
+        }
+
+        if (!empty($_SESSION['newsimg'])) {
+          $updates[] = 'img = ?';
+          $values[] = $_SESSION['newsimg'];
+          unset($_SESSION['newsimg']);
+        }
+
+        $values[] = $id;
+        \R::exec('UPDATE articles SET ' . implode(', ', $updates) . ' WHERE id = ?', $values);
         $_SESSION['success'] = 'Изменения сохранены';
         redirect();
       }

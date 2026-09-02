@@ -82,6 +82,89 @@
 	margin-bottom: 30px;
 	align-self: start;
 	
+	.card-block {
+		position: relative;
+		grid-column: 1/-1;
+		width: 100%;
+		max-width: 100%;
+		
+		&-inner {
+			padding: 40px 80px;
+			@include flex(center, space-between, nowrap);
+			column-gap: 80px;
+			
+			.card-block-image {
+				flex-shrink: 0;
+				max-height: 300px;
+				.image {
+					display: block;
+					@include size(100%, 100%);
+					max-height: 280px;
+					object-fit: cover;
+				}
+			}
+			
+			.description {
+				flex-grow: 1;
+				.title {
+					@include font(42px, 600, 1, $color-black, "MyriadProSemibold");
+				}
+				.text {
+					margin-top: 20px;
+					@include font(24px, 400, 1.6, $color-black, "MyriadProRegular");
+				}
+			}
+			
+			.action {
+				margin-top: 20px;
+				
+				a.btn-gradient {
+					padding: 0 50px;
+					text-decoration: none;
+					color: $color-white;
+					
+					&:hover {
+						color: $color-white;
+					}
+				}
+				
+				a.btn-gradient {
+					padding: 0 50px;
+					text-decoration: none;
+					color: $color-white;
+					
+					&:hover {
+						color: $color-white;
+					}
+				}
+				
+				a.btn-outline {
+					margin-left: 15px;
+					text-decoration: none;
+					color: $color-black;
+					
+					&:hover {
+						color: $color-white;
+					}
+				}
+			}
+		}
+		
+		&-bg {
+			display: block;
+			@include position(absolute, 0, 0, 0, 0, -1);
+			@include size(100%, 100%);
+			overflow: hidden;
+			
+			img {
+				display: block;
+				@include size(100%, 100%);
+				object-fit: cover;
+				object-position: center;
+			}
+		}
+	}
+	
 	.no-products {
 		width: 100%;
 	}
@@ -321,6 +404,49 @@
 	height: $form-height;
 }
 
+//RESPONSIVE
+
+@media (max-width: 1400px) {
+	.card-list {
+		.card-block {
+			
+			&-inner {
+				.card-block-image {
+					.image {
+						max-height: 200px;
+					}
+				}
+				
+				.description {
+					.title {
+						font-size: 30px;
+					}
+					.text {
+						font-size: 16px;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 1200px) {
+	.card-list {
+		.card-block {
+			
+			&-inner {
+				column-gap: 30px;
+				padding: 30px;
+				.card-block-image {
+					.image {
+						max-height: 150px;
+					}
+				}
+			}
+		}
+	}
+}
+
 @media (max-width: 992px) {
 	.card {
 		&:hover {
@@ -331,9 +457,69 @@
 			height: 250px;
 		}
 	}
+	
+	.card-list {
+		.card-block {
+			
+			&-inner {
+				padding: 20px;
+				
+				.card-block-image {
+					display: none;
+				}
+				
+				.description {
+					.text {
+						margin-top: 15px;
+						font-size: 14px;
+					}
+				}
+				
+				.action {
+					margin-top: 15px;
+				}
+			}
+		}
+	}
 }
 
 @media (max-width: 768px) {
+	
+	.card-list {
+		.card-block {
+			
+			&-inner {
+				padding: 20px 15px;
+				
+				.description {
+					.title {
+						font-size: 20px;
+						line-height: 1.2;
+					}
+					.text {
+						margin-top: 10px;
+						font-size: 14px;
+					}
+				}
+				
+				.action {
+					a.btn-outline {
+						margin-left: 0;
+						margin-top: 10px;
+					}
+					
+					a.btn-gradient,
+					a.btn-outline {
+						width: 100%;
+						text-align: center;
+						padding-left: 0;
+						padding-right: 0;
+					}
+				}
+			}
+		}
+	}
+	
 	.card {
 		&-img-wrapper {
 			height: 200px;

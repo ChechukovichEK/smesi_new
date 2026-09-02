@@ -1,8 +1,13 @@
 <?php
-/** @var array $sortList */
-/** @var string $activeSort */
+$activeSort = $_GET['sort'] ?? 'hit';
+$activeSortTitle = 'Популярные';
 
-$activeSortTitle = $sortList[$activeSort]['title'] ?? 'Популярные';
+foreach ($sortList as $item) {
+	if ($item['value'] === $activeSort) {
+		$activeSortTitle = $item['title'];
+		break;
+	}
+}
 ?>
 
 <div class="sort">
@@ -10,19 +15,16 @@ $activeSortTitle = $sortList[$activeSort]['title'] ?? 'Популярные';
 	
 	<div class="dropdown" data-dropdown>
 		<div class="dropdown-label" data-dropdown-label>
-			<?= htmlspecialchars($activeSortTitle, ENT_QUOTES, 'UTF-8') ?>
+			<?= $activeSortTitle ?>
 		</div>
 		
 		<div class="dropdown-list">
-			<?php foreach ($sortList as $value => $item): ?>
+			<?php foreach($sortList as $item): ?>
 				<label class="dropdown-checker">
-					<input type="radio" name="sort" value="<?= htmlspecialchars($value, ENT_QUOTES, 'UTF-8') ?>"
-						<?= $activeSort === $value ? 'checked' : '' ?>
-							data-dropdown-input
-					>
-					<span class="dropdown-item" data-dropdown-item>
-                        <?= htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8') ?>
-                    </span>
+					<input type="radio" name="sort" value="<?= $item['value'] ?>"
+						<?= $activeSort == $item['value'] ? 'checked' : '' ?>
+						   data-dropdown-input>
+					<span class="dropdown-item" data-dropdown-item><?= $item['title'] ?></span>
 				</label>
 			<?php endforeach; ?>
 		</div>

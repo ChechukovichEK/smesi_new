@@ -87,12 +87,34 @@ class ProductController extends AppController {
                 $product->getErrors();
                 redirect();
             }
+			
+			// Проверка: alias обязателен
+			if(empty($data['alias'])){
+				$_SESSION['error'] = 'Поле ЧПУ обязательно для заполнения';
+				$_SESSION['form_data'] = $data;
+				redirect();
+			}
+			
+			// Проверка уникальности alias (исключаем текущую категорию)
+			$exists = \R::findOne('product', 'alias = ? AND id != ?', [$data['alias'], $id]);
+			if($exists){
+				$_SESSION['error'] = 'Товар с таким ЧПУ уже существует';
+				$_SESSION['form_data'] = $data;
+				redirect();
+			}
+			
             if($product->update('product', $id)){
                 $product->editDopCats($id, $data);
                 $product->editFilter($id, $data);
                 $product->editGroup($id, $data);
                 $product->editRelatedProduct($id, $data);
                 $product->saveGallery($id);
+				
+				// Обновляем alias вручную
+				$cat = \R::load('product', $id);
+				$cat->alias = $data['alias'];
+				\R::store($cat);
+				
                 $_SESSION['success'] = 'Изменения сохранены';
                 redirect();
             }
@@ -144,10 +166,26 @@ class ProductController extends AppController {
               $product->getErrors();
               redirect();
           }
+		  
+		  // Проверка: alias обязателен
+		  if(empty($data['alias'])){
+			  $_SESSION['error'] = 'Поле ЧПУ обязательно для заполнения';
+			  $_SESSION['form_data'] = $data;
+			  redirect();
+		  }
+		  
+		  // Проверка уникальности alias (исключаем текущую категорию)
+		  $exists = \R::findOne('product', 'alias = ?', [$data['alias']]);
+		  if($exists){
+			  $_SESSION['error'] = 'Товар с таким ЧПУ уже существует';
+			  $_SESSION['form_data'] = $data;
+			  redirect();
+		  }
+		  
           if($id = $product->save('product')){
-              $alias = AppModel::createAlias('product', 'alias', $data['title'], $id);
+              //$alias = AppModel::createAlias('product', 'alias', $data['title'], $id);
               $p = \R::load('product', $id);
-              $p->alias = $alias;
+              $p->alias = $data['alias'];
               $p->img = $img;
               \R::store($p);
               $product->editDopCats($id, $data);
@@ -237,7 +275,22 @@ class ProductController extends AppController {
             $product->attributes['sale'] = $product->attributes['sale'] ? '1' : '0';
             $product->attributes['is_have'] = $product->attributes['is_have'] ? '1' : '0';
             $product->getImg();
-
+			
+			//Проверка: alias
+			if (empty($data['alias'])) {
+				$_SESSION['error'] = 'Поле ЧПУ обязательно для заполнения';
+				$_SESSION['form_data'] = $data;
+				redirect();
+			}
+			
+			// Проверка уникальности alias
+			$exists = \R::findOne('product', 'alias = ?', [$data['alias']]);$exists = \R::findOne('product', 'alias = ?', [$data['alias']]);
+			if($exists){
+				$_SESSION['error'] = 'Товар с таким ЧПУ уже существует';
+				$_SESSION['form_data'] = $data;
+				redirect();
+			}
+			
             if(!$product->validate($data)){
                 $product->getErrors();
                 $_SESSION['form_data'] = $data;
@@ -248,7 +301,7 @@ class ProductController extends AppController {
                 $product->saveGallery($id);
                 $alias = AppModel::createAlias('product', 'alias', $data['title'], $id);
                 $p = \R::load('product', $id);
-                $p->alias = $alias;
+                $p->alias = $data['alias']; // сохраняем введённый alias
                 \R::store($p);
                 $product->editDopCats($id, $data);
                 $product->editFilter($id, $data);

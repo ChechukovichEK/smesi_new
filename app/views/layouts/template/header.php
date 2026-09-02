@@ -26,9 +26,9 @@
 										<a class="link" href="tel:<?= $phone['link'] ?>" onclick="gtag('event', 'call_click'); return true;"
 										   rel="nofollow" >
 										<?php if ($phone['link'] != '+375172344018'):?>
-												<img src="<?= PATH ?>/img/icons/social/phone.svg">
+												<img src="<?= PATH ?>/img/icons/social/phone.svg" alt="<?= $phone['title'] ?>">
 										<?php else: ?>
-												<img src="<?= PATH ?>/images/old-tel.svg">
+												<img src="<?= PATH ?>/images/old-tel.svg" alt="<?= $phone['title'] ?>">
 										<?php endif; ?>
 											<?= $phone['title'] ?>
 										</a>

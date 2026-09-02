@@ -19,9 +19,15 @@
                     <div class="box-body">
                         <div class="form-group has-feedback">
                             <label for="title">Наименование товара</label>
-                            <input type="text" name="title" class="form-control" id="title" placeholder="Наименование товара" value="<?=h($product->title);?>" required>
+                            <input type="text" name="title" class="form-control" id="title" placeholder="Наименование товара" value="<?=h($product->title);?>" required >
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
+						
+						<div class="form-group has-feedback">
+							<label for="alias">Ссылка (ЧПУ)</label>
+							<input type="text" name="alias" class="form-control" id="alias" placeholder="Ссылка (ЧПУ)" value="<?=h($product->alias);?>" required data-toggle="translate_title">
+							<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						</div>
 
                         <div class="form-group">
                             <label for="description">Позиция</label>

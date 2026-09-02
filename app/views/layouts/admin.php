@@ -507,6 +507,7 @@
 <script src="dist/js/adminlte.min.js"></script>
 <script src="bower_components/ckeditor/ckeditor.js"></script>
 <script src="bower_components/ckeditor/adapters/jquery.js"></script>
+<script src="<?= PATH; ?>/js/content.js"></script>
 <script src="dist/js/jquery-ui.js"></script>
 <script src="my.js"></script>
 

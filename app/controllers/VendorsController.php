@@ -38,7 +38,7 @@ class VendorsController extends AppController
 		}
 
 		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-		$perpage = 20;
+		$perpage = 1000;
 		$count = \R::count('product', 'manufacturer = ? AND status = ?', [$brand->title, 1]);
 		$pagination = new Pagination($page, $perpage, $count);
 		$start = $pagination->getStart();
@@ -64,7 +64,14 @@ class VendorsController extends AppController
 
             $products = \R::getAll("SELECT * FROM product WHERE manufacturer = '$brand_title' AND category_id = '$category_id' AND status = '1' ORDER BY title LIMIT $start, $perpage");
         }
-
+		
+		if ($this->isAjax()) {
+			$this->layout = false;
+			$this->loadView('Vendors/components/ajcont', compact('products','pagination'));
+			return;
+		}
+		
+		
 		$this->setMeta($title, $desc);
 		$this->set(compact('brand', 'products', 'pagination', 'count', 'categories'));
 	}

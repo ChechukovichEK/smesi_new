@@ -356,6 +356,7 @@ $('.sidebar-menu a').each(function(){
 
 // CKEDITOR.replace('editor1');
 $( '#editor1' ).ckeditor();
+$( '#editor_opt' ).ckeditor();
 
 $( '#legal_entity' ).ckeditor({
     autoParagraph: false,
@@ -696,4 +697,29 @@ $("#typeahead_user").typeahead({
 $('#typeahead_user').bind('typeahead:select', function(ev, suggestion) {
     // console.log(suggestion);
     window.location = adminpath + '/user/edit?id=' + encodeURIComponent(suggestion.id);
+});
+
+/* Search Brands */
+var brands = new Bloodhound({
+	datumTokenizer: Bloodhound.tokenizers.whitespace,
+	queryTokenizer: Bloodhound.tokenizers.whitespace,
+	remote: {
+		wildcard: '%QUERY',
+		url: adminpath + '/brand/typeahead?query=%QUERY'
+	}
+});
+
+brands.initialize();
+
+$("#typeahead_brand").typeahead({
+	highlight: true
+},{
+	name: 'brands',
+	display: 'title',
+	limit: 25,
+	source: brands
+});
+
+$('#typeahead_brand').bind('typeahead:select', function(ev, suggestion) {
+	window.location = adminpath + '/brand/edit?id=' + encodeURIComponent(suggestion.id);
 });

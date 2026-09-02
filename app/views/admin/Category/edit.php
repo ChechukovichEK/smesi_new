@@ -61,7 +61,13 @@
                                    value="<?= h($category->meta_desc); ?>">
                             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         </div>
-
+						
+						<div class="form-group has-feedback">
+							<label for="alias">ссылка (ЧПУ)</label>
+							<input type="text" name="alias" class="form-control" id="alias" placeholder="ссылка (ЧПУ)" value="<?=h($category->alias);?>" required data-toggle="translate_title">
+							<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						</div>
+						
                         <div class="form-group has-feedback">
                             <label for="short_text">Краткое описание</label>
                             <input type="text" name="short_text" class="form-control" placeholder="Краткое описание" value="<?= h($category->short_text); ?>">

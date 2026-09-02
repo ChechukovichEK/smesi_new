@@ -30,6 +30,7 @@ class Socials extends AppModel
 			'telegram' => 'Telegram',
 			'tiktok' => 'TikTok',
 			'whatsapp' => 'WhatsApp',
+			'viber' => 'Viber',
 		];
 	}
 }

@@ -40,12 +40,22 @@ class Breadcrumbs
 			foreach ($breadcrumbs_array as $alias => $title) {
 				if ($cur_alias == $alias) {
 					// текущая категория
-					$breadcrumbs .= "
+                    if ($name) {
+                        $breadcrumbs .= "
+                <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'>
+                    <a itemprop='item' href='" . PATH . "/category/{$alias}'>
+                        <span itemprop='name'>{$title}</span>
+                    </a>
+                    <meta itemprop='position' content='{$position}' />
+                </li>";
+                    } else {
+                        $breadcrumbs .= "
                 <li class='current-crumb' itemprop='itemListElement'
                     itemscope itemtype='https://schema.org/ListItem'>
                     <span itemprop='name'>{$title}</span>
                     <meta itemprop='position' content='{$position}' />
                 </li>";
+                    }
 				} else {
 					// обычная категория
 					$breadcrumbs .= "

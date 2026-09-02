@@ -56,10 +56,21 @@ class ProductController extends AppController {
 			$meta_desc = $product->meta_desc;
 		}
 
-		$brand = \R::findOne('brands', 'title = ?', [$product->manufacturer]);
+        $brand = \R::findOne('brands', 'title = ?', [$product->manufacturer]);
+        $productDetails = [
+            'country' => trim((string)$product->manufacturer_country) !== ''
+                ? trim((string)$product->manufacturer_country)
+                : ($brand['country'] ?? ''),
+            'manufacturer' => trim((string)$product->manufacturer_info) !== ''
+                ? trim((string)$product->manufacturer_info)
+                : ($brand['manufacturer'] ?? ''),
+            'importer' => trim((string)$product->importer) !== ''
+                ? trim((string)$product->importer)
+                : ($brand['importer'] ?? ''),
+        ];
 
         $this->setMeta($meta_title, $meta_desc, $product->title, $product->img);
-        $this->set(compact('product', 'related', 'gallery', 'categoryProducts', 'recentlyViewed', 'breadcrumbs', 'brand'));
+        $this->set(compact('product', 'related', 'gallery', 'categoryProducts', 'recentlyViewed', 'breadcrumbs', 'brand', 'productDetails'));
     }
 
 }

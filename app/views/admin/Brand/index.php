@@ -9,6 +9,15 @@
 	</ol>
 </section>
 
+<div class="search">
+	<form action="<?=ADMIN;?>/brand/search" class="search-form" method="get" autocomplete="off">
+		<p>
+			<input type="text" class="typeahead" id="typeahead_brand" name="s" placeholder="Поиск">
+			<input type="submit" class="search-bg" value=" ">
+		</p>
+	</form>
+</div>
+
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -49,10 +58,15 @@
 										Нет
 									<? endif; ?>
 									</td>
-                                    <td>
-                                        <a href="<?=ADMIN;?>/brand/edit?id=<?=$brand['id'];?>"><i class="fa fa-fw fa-eye"></i></a>
-                                        <a class="delete" href="<?=ADMIN;?>/brand/delete?id=<?=$brand['id'];?>"><i class="fa fa-fw fa-close text-danger"></i></a>
-                                    </td>
+									<td style="width: 110px;">
+										<div class="btn-group">
+											<a href="<?=ADMIN;?>/brand/edit?id=<?=$brand['id'];?>"
+											   class="btn btn-success"><i class="fa fa-fw fa-pencil"></i></a>
+											<a href="<?=ADMIN;?>/brand/delete?id=<?=$brand['id'];?>"
+											   class="btn btn-danger" onclick="return confirm('Удалить?')"><i
+														class="fa fa-fw fa-trash"></i></a>
+										</div>
+									</td>
                                 </tr>
                             <? endforeach; ?>
                             </tbody>

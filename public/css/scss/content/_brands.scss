@@ -3,13 +3,14 @@
 	
 	&-inner {
 		@include flex(flex-start, flex-start, nowrap);
-		gap: 20px;
+		gap: 20px 40px;
 		
 		.image {
 			flex-shrink: 0;
 			display: block;
-			max-width: 180px;
-			padding: 5px;
+			max-width: 460px;
+			max-height: 200px;
+			padding: 30px 60px;
 			border: 1px solid $color-gray-lite;
 		}
 	}
@@ -28,6 +29,7 @@
 		&-item-current {
 			background: #f1592a;
 		}
+		
 		&-item-current span {
 			color: #fff;
 		}
@@ -90,26 +92,59 @@
 }
 
 .opt-brand-prices {
-	margin: 40px 0;
+	margin: 60px 0;
+	position: relative;
+	padding: 50px 70px;
 	
-	.title {
-		@include font(42px, 600, 1, $color-black, "MyriadProSemibold");
-	}
 	
-	.text {
-		margin-top: 20px;
-		@include font(18px, 300, 1.6, $color-black, "MyriadProLight");
-	}
-	
-	a {
-		margin-top: 20px;
-		text-decoration: none;
-		color: $color-white;
+	&-inner {
+		position: relative;
+		z-index: 10;
+		@include flex(center, space-between, nowrap);
+		column-gap: 150px;
 		
-		&:hover {
-			color: $color-white;
+		.description {
+			flex-shrink: 0;
+			max-width: 860px;
+			
+			.title {
+				@include font(42px, 600, 1, $color-white, "MyriadProSemibold");
+			}
+			
+			.text {
+				margin-top: 20px;
+				@include font(20px, 300, 1.6, $color-white, "MyriadProLight");
+			}
+		}
+		
+		.action {
+			flex-shrink: 0;
+			
+			a {
+				margin-top: 20px;
+				text-decoration: none;
+				color: $color-white;
+				
+				&:hover {
+					color: $color-white;
+				}
+			}
 		}
 	}
+	
+	&-bg {
+		display: block;
+		@include position(absolute, 0, 0, 0, 0, -1);
+		@include size(100%, 100%);
+		overflow: hidden;
+		
+		img {
+			display: block;
+			@include size(100%, 100%);
+			object-fit: cover;
+		}
+	}
+	
 }
 
 .vendor-search {
@@ -154,6 +189,17 @@
 //RESPONSIVE
 
 @media (max-width: 1400px) {
+	.brand-top {
+		
+		&-inner {
+			
+			.image {
+				max-width: 300px;
+				padding: 20px 40px;
+			}
+		}
+	}
+	
 	.vendor-search {
 		.search-control {
 			input {
@@ -170,14 +216,21 @@
 	}
 	
 	.opt-brand-prices {
+		padding: 30px 50px;
 		
-		.title {
-			font-size: 30px;
-			line-height: 1.4;
-		}
-		
-		.text {
-			font-size: 16px;
+		&-inner {
+			flex-wrap: wrap;
+			
+			.description {
+				.title {
+					font-size: 30px;
+					line-height: 1.4;
+				}
+				
+				.text {
+					font-size: 16px;
+				}
+			}
 		}
 		
 	}
@@ -190,6 +243,11 @@
 @media (max-width: 992px) {
 	
 	.brand-top {
+		
+		&-inner {
+			flex-wrap: wrap;
+		}
+		
 		.filter-category {
 			display: block;
 			width: 100%;
@@ -197,16 +255,20 @@
 	}
 	
 	.opt-brand-prices {
-		display: block;
-		width: 100%;
 		margin: 20px 0;
 		
-		.title {
-			font-size: 20px;
-		}
-		
-		.text {
-			font-size: 14px;
+		&-inner {
+			.description {
+				flex-shrink: 1;
+				
+				.title {
+					font-size: 20px;
+				}
+				
+				.text {
+					font-size: 14px;
+				}
+			}
 		}
 		
 	}
@@ -215,34 +277,43 @@
 @media (max-width: 768px) {
 	.brand-top-inner {
 		flex-wrap: wrap;
+		
+		.image {
+			max-width: 100%;
+			padding: 10px;
+		}
+	}
+	
+	.opt-brand-prices {
+		padding: 20px;
 	}
 	
 	.vendor-search {
 		.search-control {
+			
+			input {
+				padding: 0 70px 0 30px;
+				font-size: 14px;
 				
-				input {
-					padding: 0 70px 0 30px;
+				&::placeholder {
 					font-size: 14px;
-					
-					&::placeholder {
-						font-size: 14px;
-					}
+				}
+			}
+			
+			.actions {
+				.search-close {
+					display: none;
 				}
 				
-				.actions {
-					.search-close {
-						display: none;
-					}
+				.btn-gradient {
+					background: #f1592a url("../img/icons/search.svg") no-repeat 50% 50%/22px 22px;
+					@include size(50px, 50px);
 					
-					.btn-gradient {
-						background: #f1592a url("../img/icons/search.svg") no-repeat 50% 50%/22px 22px;
-						@include size(50px, 50px);
-						
-						span {
-							display: none;
-						}
+					span {
+						display: none;
 					}
 				}
 			}
+		}
 	}
 }

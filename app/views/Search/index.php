@@ -14,7 +14,7 @@
 			
 			<form action="search" class="search-form" method="get" autocomplete="off">
 				<div class="search-control" data-control-clean>
-					<input type="text" class="typeahead" id="typeModal" name="search" placeholder="Поиск товаров.." autocomplete="off">
+					<input type="text" class="typeahead" id="typeModal" name="s" value="<?= $_GET['s'] ?? '' ?>" placeholder="Поиск товаров.." autocomplete="off">
 					<div class="actions">
 						<a href="javascript:void(0)" data-input-clean class="search-close"></a>
 						<button type="submit" class="btn-gradient" value=""><span>Найти</span></button>

@@ -302,147 +302,6 @@ $(document)
 		
 	});
 
-/* ============================
-   ГЛОБАЛЬНОЕ: запрет автозапуска AJAX
-============================ */
-let firstLoad = true;
-
-/* ============================
-   Сбор параметров
-============================ */
-function buildParams(page = null) {
-	let params = new URLSearchParams(window.location.search);
-	
-	// фильтры
-	let checked = $('.filters-sections input:checked')
-		.map(function () { return this.value })
-		.get()
-		.join(',');
-	
-	params.delete('filter');
-	if (checked.length > 0) params.set('filter', checked);
-	
-	// сортировка
-	let sort = $('input[name="sort"]:checked').val() || 'hit';
-	params.set('sort', sort);
-	
-	// страница
-	if (page) {
-		params.set('page', page);
-	} else {
-		params.delete('page');
-	}
-	
-	params.delete('ajax');
-	
-	return params;
-}
-
-/* ============================
-   AJAX обновление
-============================ */
-function applyFiltersAndSort(page = null) {
-	
-	// блокируем автозапуск при первой загрузке
-	if (firstLoad) {
-		firstLoad = false;
-		
-		if (page === null) return;
-		
-	}
-	
-	let params = buildParams(page);
-	
-	$('.card-list-preloader').fadeIn(100);
-	
-	$.ajax({
-		url: location.pathname + '?' + params.toString() + '&ajax=1',
-		type: 'GET',
-		headers: { 'X-Requested-With': 'XMLHttpRequest' },
-		success: function (res) {
-			$('#ajax-container').html(res);
-			$('.card-list-preloader').fadeOut(150);
-			
-			history.pushState({}, '', location.pathname + '?' + params.toString());
-		},
-		error: function () {
-			$('.card-list-preloader').fadeOut(150);
-			alert('Ошибка запроса');
-		}
-	});
-}
-
-/* ============================
-   ФИЛЬТРЫ
-============================ */
-$('body').on('change', '.filters-sections input[type=checkbox]', function () {
-	applyFiltersAndSort(1);
-});
-
-/* ============================
-   СОРТИРОВКА (dropdown)
-============================ */
-$(document)
-	.on('click', '[data-dropdown-label]', function (event) {
-		event.preventDefault();
-		
-		let $dropdown = $(this).closest('[data-dropdown]');
-		
-		if ($dropdown.hasClass('open')) {
-			$dropdown.removeClass('open');
-			return false;
-		}
-		
-		$('[data-dropdown]').removeClass('open');
-		$dropdown.addClass('open');
-		
-		return false;
-	})
-	.on('click', '[data-dropdown-item]', function () {
-		let $item = $(this),
-			$dropdown = $item.closest('[data-dropdown]'),
-			$label = $dropdown.find('[data-dropdown-label]'),
-			$input = $item.closest('label').find('input[type=radio]');
-		
-		$dropdown.removeClass('open');
-		$label.text($item.text());
-		
-		$input.prop('checked', true);
-		
-		applyFiltersAndSort(1);
-	})
-	.on('click', function (event) {
-		if ($(event.target).closest('[data-dropdown]').length) return;
-		$('[data-dropdown]').removeClass('open');
-	});
-
-/* ============================
-   AJAX пагинация
-============================ */
-$('body').on('click', '.pagination a', function (e) {
-	e.preventDefault();
-	
-	let url = new URL(this.href);
-	let page = url.searchParams.get('page');
-	
-	applyFiltersAndSort(page || 1);
-});
-
-/* ============================
-   POPSTATE — назад/вперёд
-============================ */
-window.addEventListener('popstate', function () {
-	$.ajax({
-		url: location.pathname + window.location.search,
-		type: 'GET',
-		headers: { 'X-Requested-With': 'XMLHttpRequest' },
-		success: function (res) {
-			$('#ajax-container').html(res);
-		}
-	});
-});
-
-
 
 /* MODAL
 ------------------------------------------------------------------------ */
@@ -535,29 +394,6 @@ function modal_hide(id) {
 }
 
 
-/* MODAL FILTERS CATEGORY
------------------------------------------------------------------------- */
-
-$(document).ready(function () {
-	
-	const $modal = $('#modalFilters');
-	const $modalBody = $modal.find('.modal-new-filters');
-	
-	// При открытии модалки "Фильтры"
-	$(document).on('click', '[href="#modalFilters"][data-toggle="modal-new"]', function () {
-		
-		const $originalFilters = $('.filters');
-		
-		// Переносим оригинальные фильтры в модалку
-		$modalBody.html($originalFilters.clone());
-		
-		// Делаем их видимыми внутри модалки
-		$modalBody.find('.filters').css('display', 'block');
-	});
-	
-});
-
-
 /* EDITOR
 ------------------------------------------------------------------------ */
 
@@ -643,4 +479,31 @@ $(document).on('click', '#go2top', function () {
 	$('html, body').animate({scrollTop: 0}, 1000);
 	
 	
+});
+
+/* TABS
+------------------------------------------------------------------------ */
+
+const tabs = 'data-toggle="tabs"',
+	tabsLink = 'data-tabs="link"',
+	tabsContent = 'data-tabs="content"';
+
+$(document).on('click', '[' + tabsLink + ']', function(event){
+	
+	event.preventDefault();
+	
+	let $item = $(this),
+		$tabs = $item.closest('[' + tabs + ']'),
+		tab_id = $item.attr('href');
+	
+	if(!$item.hasClass('current'))
+	{
+		$tabs.find('[' + tabsLink + ']').removeClass('current');
+		$item.addClass('current');
+		
+		$tabs.find('[' + tabsContent + ']').hide();
+		$(tab_id).fadeIn(500);
+	}
+	
+	return false;
 });

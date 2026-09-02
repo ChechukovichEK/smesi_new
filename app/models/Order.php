@@ -154,7 +154,12 @@ class Order extends AppModel {
     }
 
     public static function mailOrder($order_id, $user_email, $user_name, $user_status, $user_phone, $user_address, $note, $order_products, $order_qty, $order_sum, $samovivoz, $pay, $order_sum_dis, $order_sum_master, $order_sum_opt){
-        // Create the Transport
+		// Отключение отправки писем в тестовом режиме
+		if (App::$app->getProperty('test_mode')) {
+			return true;
+		}
+		
+		// Create the Transport
 
         $transport = (new Swift_SmtpTransport(App::$app->getProperty('smtp_host'), App::$app->getProperty('smtp_port'), App::$app->getProperty('smtp_protocol')))
             ->setUsername(App::$app->getProperty('smtp_login'))
@@ -193,7 +198,12 @@ class Order extends AppModel {
     }
 
     public static function mailBill($order_id, $user_email, $user_name, $user_status, $user_phone, $user_address, $note, $order_products, $order_qty, $order_sum, $samovivoz, $pay){
-        // Create the Transport
+		// Отключение отправки писем в тестовом режиме
+		if (App::$app->getProperty('test_mode')) {
+			return true;
+		}
+		
+		// Create the Transport
         $transport = (new Swift_SmtpTransport(App::$app->getProperty('smtp_host'), App::$app->getProperty('smtp_port'), App::$app->getProperty('smtp_protocol')))
             ->setUsername(App::$app->getProperty('smtp_login'))
             ->setPassword(App::$app->getProperty('smtp_password'))
@@ -220,6 +230,11 @@ class Order extends AppModel {
     }
 
     public static function mailRegistration($user_email, $user_name, $user_login, $pass){
+		// Отключение отправки писем в тестовом режиме
+		if (App::$app->getProperty('test_mode')) {
+			return true;
+		}
+       
         // Create the Transport
         $transport = (new Swift_SmtpTransport(App::$app->getProperty('smtp_host'), App::$app->getProperty('smtp_port'), App::$app->getProperty('smtp_protocol')))
             ->setUsername(App::$app->getProperty('smtp_login'))
@@ -257,7 +272,12 @@ class Order extends AppModel {
     }
 
     public static function signupRegistration($user_email, $user_name, $user_login){
-        // Create the Transport
+		// Отключение отправки писем в тестовом режиме
+		if (App::$app->getProperty('test_mode')) {
+			return true;
+		}
+		
+		// Create the Transport
         $transport = (new Swift_SmtpTransport(App::$app->getProperty('smtp_host'), App::$app->getProperty('smtp_port'), App::$app->getProperty('smtp_protocol')))
             ->setUsername(App::$app->getProperty('smtp_login'))
             ->setPassword(App::$app->getProperty('smtp_password'))

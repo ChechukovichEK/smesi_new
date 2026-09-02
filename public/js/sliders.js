@@ -6,11 +6,11 @@ $(document).ready(function() {
         },
         breakpoints: {
             900: {
-                /*autoplay: {
+                autoplay: {
                     enabled: true,
                     delay: 5000,
                     pauseOnMouseEnter: true,
-                }*/
+                }
             }
         },
         navigation: {
@@ -72,6 +72,24 @@ $(document).ready(function() {
 			768: { slidesPerView: 2, spaceBetween: 15 },
 			993: { slidesPerView: 3, spaceBetween: 15 },
 			1399: { slidesPerView: 3, spaceBetween: 30 },
+		}
+	});
+	
+	const brandSlider = new Swiper('[data-toggle="popular-brand"]', {
+		slidesPerView: 3,
+		spaceBetween: 20,
+		navigation: {
+			nextEl: '.svp-next',
+			prevEl: '.svp-prev',
+		},
+		observer: true,
+		observeParents: true,
+		observeSlideChildren: true,
+		breakpoints: {
+			320: { slidesPerView: 1, spaceBetween: 10 },
+			768: { slidesPerView: 2, spaceBetween: 15 },
+			993: { slidesPerView: 3, spaceBetween: 15 },
+			1399: { slidesPerView: 5, spaceBetween: 0 },
 		}
 	});
 	

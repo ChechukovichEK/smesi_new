@@ -70,7 +70,35 @@ class BrandController extends AppController {
 		$this->setMeta("Редактирование товара {$brand->title}");
 		$this->set(compact('brand'));
 	}
-
+	
+	public function typeaheadAction(){
+		if($this->isAjax()){
+			$query = !empty(trim($_GET['query'])) ? trim($_GET['query']) : null;
+			if($query){
+				$brands = \R::getAll("SELECT id, title, alias
+                                  FROM brands
+                                  WHERE title LIKE ? OR id LIKE ?", ["%{$query}%", "%{$query}%"]);
+				echo json_encode($brands);
+			}
+		}
+		die;
+	}
+	
+	public function searchAction(){
+		$query = !empty(trim($_GET['s'])) ? trim($_GET['s']) : null;
+		$brands = [];
+		if($query){
+			$brands = \R::getAll("SELECT id, title, alias, country, manufacturer, importer, sort, is_home
+                              FROM brands
+                              WHERE title LIKE ? OR alias LIKE ?
+                              ORDER BY sort DESC", ["%{$query}%", "%{$query}%"]);
+		}
+		$count = count($brands);
+		$this->setMeta('Поиск производителей: ' . h($query));
+		$this->set(compact('brands', 'query', 'count'));
+	}
+	
+	
 	public function deleteAction()
 	{
 		$id = $this->getRequestID();

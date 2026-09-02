@@ -72,10 +72,6 @@ if (!isset($_SESSION['csrf'])) {
 		<link rel="canonical" href="<?= $canonical_url ?>"/>
 	<?php endif; ?>
 	
-	<?php if (isset($_GET['page'])): ?>
-		<meta name="robots" content="noindex"/>
-	<?php endif; ?>
-	
 	<?php $versionNumber = '17.06-12:30' ?>
 	
 	<link rel="stylesheet" href="<?= PATH ?>/css/swiper-bundle.min.css">
@@ -84,6 +80,12 @@ if (!isset($_SESSION['csrf'])) {
 	<link rel="stylesheet" type="text/css" href="<?= PATH ?>/css/icon.min.css">
 	
 	<?= ishop\App::$app->getProperty('settings')['body_scripts']  ?? null; ?>
+
+    <?php if (isset($_GET['sort']) || isset($_GET['filter']) || strpos($request_uri, 'stat-dilerom-svp-ot-tls-profi') !== false): ?>
+        <meta name="robots" content="noindex, follow">
+    <?php elseif (isset($_GET['page'])): ?>
+        <meta name="robots" content="noindex"/>
+    <?php endif;?>
 
 </head>
 
@@ -165,6 +167,7 @@ if (!isset($_SESSION['csrf'])) {
 <script src="<?= PATH ?>/js/masonry.js"></script>
 <script src="<?= PATH ?>/js/base.js?v=<?= $versionNumber ?>"></script>
 <script src="<?= PATH ?>/js/main.js?v=<?= $versionNumber ?>"></script>
+<script src="<?= PATH ?>/js/filter.js?v=<?= $versionNumber ?>"></script>
 <script src="<?= PATH ?>/js/form.js?v=<?= $versionNumber ?>"></script>
 
 <?= \ishop\App::$app->getProperty('settings')['footer_scripts'] ?? null; ?>

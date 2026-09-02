@@ -1,103 +1,115 @@
 <div class="card" itemprop="itemListElement" itemscope itemtype="https://schema.org/Offer">
-	
 	<?php if ($item['hit']): ?>
 		<div class="card-hit">ХИТ продаж</div>
 	<?php endif; ?>
-	
 	<?php if ($item['sale']): ?>
 		<div class="card-sale">Акция</div>
 	<?php endif; ?>
-	
 	<a href="<?= PATH; ?>/product/<?= $item['alias'] ?>" class="card-img-wrapper">
-		<img class="card-img" src="<?= PATH; ?>/prodimg/<?= $item['img'] ?>" itemprop="image"
-			 alt="<?= str_replace('"', '', $item['title']) ?>">
+		<img class="card-img" src="<?= PATH; ?>/prodimg/<?= $item['img'] ?>" itemprop="image" alt="<?= str_replace("\"", "", $item['title']) ?>">
 	</a>
-	
-	<?php if (!empty($item['articul'])): ?>
-		<p class="card-article">Артикул: <?= $item['articul'] ?></p>
-	<?php endif; ?>
-	
+	<p class="card-article">
+		<?php if(!empty($item['articul'])): ?>
+			Артикул: <?=$item['articul'] ?>
+		<?php endif; ?>
+	</p>
 	<div class="card-is-there">
-		<?php if ($item['is_have'] == '1'): ?>
+		<?php if (($item['is_have'] !== '0') && ($item['is_have'] !== '-')): ?>
 			<span class="card-is-there-green">В наличии</span>
-			позиция:<?= $item['position'] ?>; статус:<?= $item['status'] ?>
-		<?php else: ?>
+		<?php else : ?>
 			<span class="card-is-there-blue">Скоро в продаже</span>
-			позиция:<?= $item['position'] ?>; статус:<?= $item['status'] ?>
 		<?php endif; ?>
 	</div>
-	
-	<a href="<?= PATH; ?>/product/<?= $item['alias'] ?>" class="card-title">
+	<a href="<?= PATH; ?>/product/<?= $item['alias'] ?>" class="card-title" >
 		<?= $item['title'] ?>
 	</a>
-	
-	<meta itemprop="name" content="<?= $item['title'] ?>">
-	<link itemprop="url" href="<?= PATH; ?>/product/<?= $item['alias'] ?>">
-	
-	<?php if ($item['price'] > 0): ?>
-		
-		<!-- Базовая цена -->
+    <meta itemprop="name" content="<?= $item['title'] ?>">
+    <link itemprop="url" href="<?= PATH; ?>/product/<?= $item['alias']  ?>">
+
+    <?php if ($item['price'] > '0'): ?>
 		<div class="card-price">
-			<?php if (!$item['discount']): ?>
-				<p class="card-price-val"><?= $item['price'] ?></p>
+			<?php if (!($item['discount'])): ?>
+				<p class="card-price-val"><?= $item['price']; ?></p>
+				<p class="card-price-text">руб./<?= $item['units']; ?></p>
 			<?php else: ?>
 				<div class="card-price-val">
-					<div><?= round($item['price'] * (100 - $item['discount']) / 100, 2) ?></div>
-					<div><?= $item['price'] ?></div>
+					<div><?= round(($item['price']) * ((100 - $item['discount']) / 100), 2) ?></div> <div><?= $item['price']; ?></div>
+				</div>
+				<p class="card-price-text">руб./<?= $item['units']; ?></p>
+			<?php endif; ?>
+		</div>
+		<?php if (isset($_SESSION['user']['status'])): ?>
+			<?php if ($_SESSION['user']['status'] == 'master'): ?>
+				<div class="card-dis">
+					<div class="card-dis-val">
+						<?php if (!($item['price_master'])): ?>
+							<p class="card-price-val"><?= $item['price']; ?></p>
+							<p class="card-price-text">руб./<?= $item['units']; ?></p>
+						<?php else: ?>
+							<p class="card-price-val"><?= $item['price_master']; ?></p>
+							<p class="card-price-text">руб./<?= $item['units']; ?></p>
+						<?php endif; ?>
+					</div>
+					<p class="card-dis-text">ваша&nbsp;цена</p>
 				</div>
 			<?php endif; ?>
-			<p class="card-price-text">руб./<?= $item['units'] ?></p>
-		</div>
-		
-		<!-- Персональная цена -->
-		<?php
-		$status = $_SESSION['user']['status'] ?? null;
-		$priceMap = [
-			'master' => $item['price_master'] ?? null,
-			'opt'    => $item['price_opt'] ?? null,
-			'client' => $item['price_dis'] ?? null,
-		];
-		
-		if ($status):
-			$userPrice = $priceMap[$status] ?? null;
-			?>
-			<div class="card-dis">
-				<div class="card-dis-val">
-					<p class="card-price-val"><?= $userPrice ?: $item['price'] ?></p>
-					<p class="card-price-text">руб./<?= $item['units'] ?></p>
+			
+			<?php if ($_SESSION['user']['status'] == 'opt'): ?>
+				<div class="card-dis">
+					<div class="card-dis-val">
+						<?php if (!($item['price_opt'])): ?>
+							<p class="card-price-val"><?= $item['price']; ?></p>
+							<p class="card-price-text">руб./<?= $item['units']; ?></p>
+						<?php else: ?>
+							<p class="card-price-val"><?= $item['price_opt']; ?></p>
+							<p class="card-price-text">руб./<?= $item['units']; ?></p>
+						<?php endif; ?>
+					</div>
+					<p class="card-dis-text">ваша&nbsp;цена</p>
 				</div>
-				<p class="card-dis-text">
-					<?= $status === 'client'
-						? 'при сумме чека от&nbsp;' . DISCOUNT . 'руб.'
-						: 'ваша&nbsp;цена'
-					?>
-				</p>
-			</div>
+			<?php endif; ?>
+			
+			<?php if ($_SESSION['user']['status'] == 'client'): ?>
+				<div class="card-dis">
+					<div class="card-dis-val">
+						<?php if (!($item['price_dis'])): ?>
+							<p class="card-price-val"><?= $item['price']; ?></p>
+							<p class="card-price-text">руб./<?= $item['units']; ?></p>
+						<?php else: ?>
+							<p class="card-price-val"><?= $item['price_dis']; ?></p>
+							<p class="card-price-text">руб./<?= $item['units']; ?></p>
+						<?php endif; ?>
+					</div>
+					<p class="card-dis-text">при сумме чека от&nbsp;<?= DISCOUNT; ?>руб.</p>
+				</div>
+			<?php endif; ?>
+		
 		<?php else: ?>
-			<!-- Для незарегистрированных -->
 			<div class="card-dis">
 				<div class="card-dis-val">
-					<p class="card-price-val"><?= $item['price_dis'] ?: $item['price'] ?></p>
-					<p class="card-price-text">руб./<?= $item['units'] ?></p>
+					<?php if (!($item['price_dis'])): ?>
+						<p class="card-price-val"><?= $item['price']; ?></p>
+						<p class="card-price-text">руб./<?= $item['units']; ?></p>
+					<?php else: ?>
+						<p class="card-price-val"><?= $item['price_dis']; ?></p>
+						<p class="card-price-text">руб./<?= $item['units']; ?></p>
+					<?php endif; ?>
 				</div>
-				<p class="card-dis-text">при сумме чека от&nbsp;<?= DISCOUNT ?>руб.</p>
+				<p class="card-dis-text">при сумме чека от&nbsp;<?= DISCOUNT; ?>руб.</p>
 			</div>
 		<?php endif; ?>
 		
-		<!-- Кнопки -->
-		<?php if ($item['is_have'] !== '0' && $item['is_have'] !== '-'): ?>
+		<?php if (($item['is_have'] !== '0') && ($item['is_have'] !== '-')): ?>
 			<div class="card-action">
 				<div class="quantity">
 					<div class="input-number__minus">-</div>
 					<input class="input-number__input" type="text" pattern="^[0-9]+$" value="1" name="quantity">
 					<div class="input-number__plus">+</div>
 				</div>
-				<a href="cart/add?id=<?= $item['id'] ?>" class="card-btn add-to-cart-link" data-id="<?= $item['id'] ?>">
+				<a href="cart/add?id=<?= $item['id']; ?>" class="card-btn add-to-cart-link" data-id="<?= $item['id']; ?>">
 					В корзину
 				</a>
 			</div>
 		<?php endif; ?>
-	
 	<?php endif; ?>
-
 </div>

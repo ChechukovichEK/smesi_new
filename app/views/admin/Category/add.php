@@ -43,6 +43,12 @@
                                     'prepend' => '<option value="0">Самостоятельная категория</option>',
                                 ]) ?>
                             </div>
+							
+							<div class="form-group has-feedback">
+								<label for="title">ссылка (ЧПУ)</label>
+								<input type="text" name="alias" class="form-control" id="alias" placeholder="ссылка (ЧПУ)" required data-toggle="translate_title">
+								<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+							</div>
 
                             <div class="form-group has-feedback">
                                 <label for="short_text">Краткое описание</label>

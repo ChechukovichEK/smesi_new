@@ -28,11 +28,17 @@
 	<div class="container container-article">
 		<h1><?= $new['title'] ?></h1>
 		<div class="data-block">
-			<p class="date" itemprop="datePublished"> Опубликовано: <?= $new['date'] ?></p>
-			<?php if (!empty($new['published_at']) && $new['published_at'] !== '0000-00-00 00:00:00'): ?>
-				<p class="date" itemprop="dateModified">
+			<?php $has_update_date = !empty($new['published_at']) && $new['published_at'] !== '0000-00-00 00:00:00'; ?>
+			<p class="date">
+				<?php if ($has_update_date): ?>
 					Обновлено: <?= date('Y-m-d', strtotime($new['published_at'])) ?>
-				</p>
+				<?php else: ?>
+					Опубликовано: <?= $new['date'] ?>
+				<?php endif; ?>
+			</p>
+			<meta itemprop="datePublished" content="<?= date('c', strtotime($new['date'])); ?>">
+			<?php if ($has_update_date): ?>
+				<meta itemprop="dateModified" content="<?= date('c', strtotime($new['published_at'])); ?>">
 			<?php endif; ?>
 		</div>
 		
@@ -135,6 +141,8 @@
 					<?php foreach ($other_articles as $item): ?>
 						<?php
 						$date = new DateTime($item['date']);
+						$has_update_date = !empty($item['published_at']) && $item['published_at'] !== '0000-00-00 00:00:00';
+						$updated_date = $has_update_date ? new DateTime($item['published_at']) : null;
 						$formatter = new IntlDateFormatter('ru_RU', IntlDateFormatter::LONG, IntlDateFormatter::NONE);
 						$formatter->setPattern('d MMMM yyyy');
 						?>
@@ -152,7 +160,9 @@
 							</div>
 							<div class="description">
 								<h3 class="title"><?= $item['title']; ?></h3>
-								<div class="date"><?= $formatter->format($date); ?></div>
+								<div class="date">
+									<?= $has_update_date ? 'Обновлено: ' . $formatter->format($updated_date) : 'Опубликовано: ' . $formatter->format($date); ?>
+								</div>
 								<div class="text"><?= $item['pre_content']; ?></div>
 							</div>
 						</a>

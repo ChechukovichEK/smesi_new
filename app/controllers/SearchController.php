@@ -1,8 +1,6 @@
 <?php
 
 namespace app\controllers;
-use app\models\Product;
-use ishop\App;
 
 class SearchController extends AppController{
 
@@ -19,44 +17,40 @@ class SearchController extends AppController{
         }
         die;
     }
-
-    public function indexAction(){
+	
+	public function indexAction(){
+		$query = !empty(trim($_GET['s'])) ? trim($_GET['s']) : null;
+		$products = [];
+		if($query){
+			// Сначала пробуем FULLTEXT
+			$products = \R::getAll("SELECT product.*, category.title AS cat
+            FROM product
+            JOIN category ON category.id = product.category_id
+            WHERE MATCH(product.title, product.alias, product.articul)
+            AGAINST (? IN BOOLEAN MODE)
+            AND product.status = 1", ["+$query*"]);
+			
+			// Если ничего не нашли — fallback на LIKE
+			if(!$products){
+				$products = \R::getAll("SELECT product.*, category.title AS cat
+                FROM product
+                JOIN category ON category.id = product.category_id
+                WHERE product.title LIKE ?
+                AND product.status = 1", ["%{$query}%"]);
+			}
+		}
+		$this->setMeta('Поиск по: ' . h($query));
+		$this->set(compact('products', 'query'));
+	}
+	
+	
+	/*public function indexAction(){
         $query = !empty(trim($_GET['s'])) ? trim($_GET['s']) : null;
         if($query){
             $products = \R::find('product', "MATCH (title, alias, articul) AGAINST ('+$query*') AND status = '1'");
         }
-		
-		$products = [];
-		if ($query) {
-			$products = \R::getAll(
-				"SELECT * FROM product
-             WHERE status = 1
-             AND (title LIKE ? OR articul LIKE ? OR alias LIKE ?)",
-				["%$query%", "%$query%", "%$query%"]
-			);
-		}
-		
-		// Рекомендуемые товары (как на странице товара)
-		$categoryProducts = \R::find(
-			'product',
-			"hit = '1' AND status = '1' ORDER BY hit_position LIMIT 4"
-		);
-		
-		// Недавно просмотренные (как в ProductController)
-		$recentlyViewed = null;
-		$p_model = new \app\models\Product();
-		$r_viewed = $p_model->getRecentlyViewed();
-		
-		if ($r_viewed) {
-			$recentlyViewed = \R::find(
-				'product',
-				'id IN (' . \R::genSlots($r_viewed) . ') GROUP BY id LIMIT 4',
-				$r_viewed
-			);
-		}
-		
         $this->setMeta('Поиск по: ' . h($query));
-		$this->set(compact('products', 'query', 'categoryProducts', 'recentlyViewed'));
-    }
+        $this->set(compact('products', 'query'));
+    }*/
 
 }

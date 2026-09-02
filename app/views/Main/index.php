@@ -71,7 +71,7 @@
 	</div>
 <?php endif; ?>
 
-<?php if (isset($sales) && !empty($sales)): ?>
+<?php if (isset($brands) && !empty($brands)): ?>
 	<div class="home-brands">
 		<div class="container">
 			<div class="home-title">
