@@ -480,30 +480,3 @@ $(document).on('click', '#go2top', function () {
 	
 	
 });
-
-/* TABS
------------------------------------------------------------------------- */
-
-const tabs = 'data-toggle="tabs"',
-	tabsLink = 'data-tabs="link"',
-	tabsContent = 'data-tabs="content"';
-
-$(document).on('click', '[' + tabsLink + ']', function(event){
-	
-	event.preventDefault();
-	
-	let $item = $(this),
-		$tabs = $item.closest('[' + tabs + ']'),
-		tab_id = $item.attr('href');
-	
-	if(!$item.hasClass('current'))
-	{
-		$tabs.find('[' + tabsLink + ']').removeClass('current');
-		$item.addClass('current');
-		
-		$tabs.find('[' + tabsContent + ']').hide();
-		$(tab_id).fadeIn(500);
-	}
-	
-	return false;
-});

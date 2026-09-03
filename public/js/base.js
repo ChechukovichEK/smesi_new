@@ -176,9 +176,9 @@ $(".one-click").on("click",function(){
     });
 */
 
-$(".slide-but-img").on("click",function(){
+/*$(".slide-but-img").on("click",function(){
     $(".parent_popup").show(DELAY);return false;
-});
+});*/
 
 var nav = $('.header');
 $(window).scroll(function () {

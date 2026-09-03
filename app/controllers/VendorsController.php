@@ -23,6 +23,9 @@ class VendorsController extends AppController
 	public function ViewAction(){
 		$alias = $this->route['alias'];
 		$brand  = \R::findOne( 'brands', ' alias = ? ', [$alias]);
+		if (!$brand) {
+			throw new \Exception('Бренд не найден', 404);
+		}
 		$brand_title = $brand->title;
 
 		if (empty($brand->meta_title)) {
@@ -38,7 +41,7 @@ class VendorsController extends AppController
 		}
 
 		$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-		$perpage = 1000;
+		$perpage = 20;
 		$count = \R::count('product', 'manufacturer = ? AND status = ?', [$brand->title, 1]);
 		$pagination = new Pagination($page, $perpage, $count);
 		$start = $pagination->getStart();
@@ -65,9 +68,15 @@ class VendorsController extends AppController
             $products = \R::getAll("SELECT * FROM product WHERE manufacturer = '$brand_title' AND category_id = '$category_id' AND status = '1' ORDER BY title LIMIT $start, $perpage");
         }
 		
-		if ($this->isAjax()) {
+		/*if ($this->isAjax()) {
 			$this->layout = false;
 			$this->loadView('Vendors/components/ajcont', compact('products','pagination'));
+			return;
+		}*/
+		
+		if ($this->isAjax()) {
+			$this->layout = false;
+			$this->loadView('components/ajcont', compact('products','pagination','category_id'));
 			return;
 		}
 		
@@ -75,5 +84,26 @@ class VendorsController extends AppController
 		$this->setMeta($title, $desc);
 		$this->set(compact('brand', 'products', 'pagination', 'count', 'categories'));
 	}
-
+	
+	public function checkAction() {
+		header('Content-Type: application/json; charset=utf-8');
+		
+		$url = $_POST['url'] ?? '';
+		$path = trim(parse_url($url, PHP_URL_PATH), '/');
+		$query = parse_url($url, PHP_URL_QUERY);
+		
+		$uri = $path;
+		if ($query) {
+			$uri .= '?' . $query;
+		}
+		
+		$redirect = \R::findOne('redirects', 'url_from = ?', [$uri]);
+		
+		if ($redirect) {
+			echo json_encode(['redirect' => '/' . ltrim($redirect->url_to, '/')]);
+		} else {
+			echo json_encode(['redirect' => null]);
+		}
+		exit;
+	}
 }

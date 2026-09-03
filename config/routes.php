@@ -8,6 +8,7 @@ Router::add('^page/(?P<alias>[a-z0-9-]+)/?$', ['controller' => 'Page', 'action' 
 Router::add('^group/(?P<alias>[a-z0-9-]+)/?$', ['controller' => 'Group', 'action' => 'view']);
 Router::add('^article/(?P<alias>[a-z0-9-]+)/?$', ['controller' => 'Article', 'action' => 'view']);
 
+Router::add('^vendors/check$', ['controller' => 'Vendors', 'action'     => 'check']);
 Router::add('^vendors/(?P<alias>[a-z0-9-]+)/?$', ['controller' => 'Vendors', 'action' => 'view']);
 
 Router::add('^xml-load$', ['controller' => 'Xml', 'action' => 'add']);

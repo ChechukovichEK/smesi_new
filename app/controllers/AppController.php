@@ -31,6 +31,14 @@ class AppController extends Controller {
 		
 		// Проверка редиректов
 		$uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+        /*if (strpos($uri, 'vendors/') !== false) {
+            $uri .= "?category=" . $_GET['category'];
+        }*/
+		
+		if (strpos($uri, 'vendors/') !== false) {
+			$uri .= isset($_GET['category']) ? "?category=" . (int)$_GET['category'] : '';
+		}
 		
 		$redirect = \R::findOne('redirects', 'url_from = ?', [$uri]);
 		

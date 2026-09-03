@@ -163,3 +163,42 @@ $(document).ready(function () {
 	});
 	
 });
+
+/* Переключение категорий в брендах без перезагрузки
+------------------------------------------------------------------------ */
+$(document).on('click', '.filter-category-item', function(e){
+	e.preventDefault();
+	let $item = $(this);
+	let url = $item.attr('href');
+	
+	// переключаем активный таб
+	$('.filter-category-item').removeClass('filter-category-item-current');
+	$item.addClass('filter-category-item-current');
+	
+	// сначала проверяем редирект
+	$.ajax({
+		url: '/vendors/check',
+		type: 'POST',
+		dataType: 'json',
+		data: { url: url },
+		success: function(res){
+			if (res.redirect) {
+				// если редирект найден — делаем переход
+				window.location.href = res.redirect;
+			} else {
+				// иначе обычная AJAX‑подгрузка
+				$.ajax({
+					url: url + (url.indexOf('?') > -1 ? '&ajax=1' : '?ajax=1'),
+					type: 'GET',
+					headers: { 'X-Requested-With': 'XMLHttpRequest' },
+					success: function(res){
+						$('#ajax-container').html(res);
+					},
+					error: function(){
+						alert('Ошибка загрузки товаров');
+					}
+				});
+			}
+		}
+	});
+});

@@ -17,6 +17,8 @@ $(document).ready(function() {
             nextEl: '.swiper-button-next-slides-home',
             prevEl: '.swiper-button-prev-slides-home',
         },
+		preventClicks: false,
+		preventClicksPropagation: false
     });
 
     const catTopContHome = new Swiper('.cat-top-cont', {

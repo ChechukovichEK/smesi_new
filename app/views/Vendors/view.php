@@ -45,90 +45,34 @@
 				</div>
 			<?php endif; ?>
 			
-<!--			<?php /*if($categories && count($categories)  > 1): */?>
+			<?php if ($categories && count($categories) > 1): ?>
 				<div class="filter-category">
 					<div class="filter-category-list">
-						<a href="<?php /*= PATH */?>/vendors/<?php /*=$brand['alias']*/?>" class="filter-category-item <?php /*=!isset($_GET['category']) ? 'filter-category-item-current' : ''*/?>">
-							<span>Все товары (<?php /*=$count*/?>)</span>
+						<a href="<?= PATH ?>/vendors/<?=$brand['alias']?>" class="filter-category-item <?=!isset($_GET['category']) ? 'filter-category-item-current' : ''?>">
+							<span>Все товары (<?=$count?>)</span>
 						</a>
-						<?php /*foreach ($categories as $category): */?>
-							<a href="<?php /*= PATH */?>/vendors/<?php /*=$brand['alias']*/?>?category=<?php /*= $category['id']; */?>" class="filter-category-item <?php /*=isset($_GET['category']) && $_GET['category'] == $category['id'] ? 'filter-category-item-current' : ''*/?>">
-								<span><?php /*= $category['title']; */?> (<?php /*= $category['product_count']; */?>)</span>
+						<?php foreach ($categories as $category): ?>
+							<a href="<?= PATH ?>/vendors/<?=$brand['alias']?>?category=<?= $category['id']; ?>" class="filter-category-item <?=isset($_GET['category']) && $_GET['category'] == $category['id'] ? 'filter-category-item-current' : ''?>">
+								<span><?= $category['title']; ?> (<?= $category['product_count']; ?>)</span>
 							</a>
-						<?php /*endforeach; */?>
+						<?php endforeach; ?>
 					</div>
 				</div>
-			<?php /*endif; */?>
-		</div>-->
-			
-			
-			<?php if ($categories && count($categories) > 1): ?>
-			<div class="filter-category" data-toggle="tabs">
-				<div class="filter-category-list">
-					<!-- Таб "Все товары" -->
-					<a href="#brandTabAll"
-					   class="filter-category-item filter-category-item-current"
-					   data-tabs="link">
-						<span>Все товары (<?=$count?>)</span>
-					</a>
-					<!-- Табы категорий -->
-					<?php $i = 1; foreach($categories as $category): ?>
-						<a href="#brandTab<?= $i ?>"
-						   class="filter-category-item"
-						   data-tabs="link">
-							<span><?= $category['title']; ?> (<?= $category['product_count']; ?>)</span>
-						</a>
-						<?php $i++; endforeach; ?>
-				</div>
-				
-				<!-- Контент "Все товары" -->
-				<div class="filter-category-content current" id="brandTabAll" data-tabs="content">
-					<div class="card-list">
-						<?php if (isset($products)): ?>
-							<?php foreach ($products as $item): ?>
-								<?php require APP . '/views/components/card.php'; ?>
-							<?php endforeach; ?>
-						<?php endif; ?>
-					</div>
-					<?php /*if($pagination->countPages > 1): */?><!--
-						<?php /*=$pagination;*/?>
-					--><?php /*endif; */?>
-				</div>
-				
-				<!-- Контент категорий -->
-				<?php $i = 1; foreach($categories as $category): ?>
-					<div class="filter-category-content" id="brandTab<?= $i ?>" data-tabs="content">
-						<div class="card-list">
-							<!--<p>Категория : <?php /*= $category['id'] */?></p>
-							--><?php /*= var_dump($products); */?>
-							<?php if (isset($products)): ?>
-								<?php foreach ($products as $item): ?>
-									<?php if ($item['category_id'] == $category['id']): ?>
-										<?php require APP . '/views/components/card.php'; ?>
-									<?php endif; ?>
-								<?php endforeach; ?>
-							<?php endif; ?>
-						</div>
-					</div>
-					<?php $i++; endforeach; ?>
-			</div>
-			
-			<?php else: ?>
-				
-				<div id="ajax-container">
-					<?php if (isset($products)): ?>
-						<div class="card-list">
-							<?php foreach ($products as $item): ?>
-								<?php require APP . '/views/components/card.php'; ?>
-							<?php endforeach; ?>
-						</div>
-					<?php endif; ?>
-					
-					<?php if($pagination->countPages > 1): ?>
-						<?=$pagination;?>
-					<?php endif; ?>
-				</div>
-			
 			<?php endif; ?>
+		</div>
+
+		<div id="ajax-container">
+			<?php if (isset($products)): ?>
+				<div class="card-list">
+					<?php foreach ($products as $item): ?>
+						<?php require APP . '/views/components/card.php'; ?>
+					<?php endforeach; ?>
+				</div>
+			<?php endif; ?>
+			
+			<?php if($pagination->countPages > 1): ?>
+				<?=$pagination;?>
+			<?php endif; ?>
+		</div>
 	</div>
 </div>

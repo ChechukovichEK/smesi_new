@@ -26,6 +26,13 @@
 				color: $color-white;
 			}
 		}
+		
+		&.current {
+			background: $color-orange;
+			span {
+				color: $color-white !important;
+			}
+		}
 	}
 	
 	&-content {
