@@ -67,6 +67,33 @@
 }
 
 @media (max-width: 992px) {
+	.home-products {
+		.swiper {
+			.card-dots {
+				position: relative;
+				margin-top: 15px;
+				text-align: center;
+				
+				& .swiper-pagination-bullet {
+					background: $color-gray;
+					opacity: 1;
+				}
+				
+				& .swiper-pagination-bullet-active {
+					background: $color-orange;
+				}
+			}
+		}
+		
+		.card-list {
+			display: flex;
+			
+			.card {
+				width: calc(50% - 55px) !important;
+			}
+		}
+	}
+	
 	.home-title {
 		margin-bottom: 25px;
 		
@@ -81,6 +108,15 @@
 }
 
 @media (max-width: 768px) {
+	.home-products {
+		
+		.card-list {
+			.card {
+				width: calc(100% - 44px) !important;
+			}
+		}
+	}
+	
 	.home-title {
 		margin-bottom: 20px;
 		

@@ -51,9 +51,19 @@
 			</div>
 			
 			
-			<a href="<?= ADMIN ?>/settings/edit" class="btn btn-success">
-				<i class="fa fa-fw fa-pencil"></i> Изменить настройки
-			</a>
+			<div class="from-group">
+				<a href="<?= ADMIN ?>/settings/edit" class="btn btn-success">
+					<i class="fa fa-fw fa-pencil"></i> Изменить настройки
+				</a>
+			</div>
+			
+			<div class="from-group" style="margin-top: 15px;">
+				<form action="<?= ADMIN; ?>/settings/updateAssetsVersion" method="post">
+					<button type="submit" name="version" class="btn btn-warning">
+						<i class="fa fa-fw  fa-refresh"></i> Обновнить кэш
+					</button>
+				</form>
+			</div>
 		</div>
 		
 		<div class="box-footer">

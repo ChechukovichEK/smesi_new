@@ -77,24 +77,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	const brandSlider = new Swiper('[data-toggle="popular-brand"]', {
-		slidesPerView: 3,
-		spaceBetween: 20,
-		navigation: {
-			nextEl: '.svp-next',
-			prevEl: '.svp-prev',
-		},
-		observer: true,
-		observeParents: true,
-		observeSlideChildren: true,
-		breakpoints: {
-			320: { slidesPerView: 1, spaceBetween: 10 },
-			768: { slidesPerView: 2, spaceBetween: 15 },
-			993: { slidesPerView: 3, spaceBetween: 15 },
-			1399: { slidesPerView: 5, spaceBetween: 0 },
-		}
-	});
-	
 	const popularSlider = new Swiper('[data-toggle="popular"]', {
 		slidesPerView: 3,
 		spaceBetween: 20,
@@ -172,4 +154,55 @@ $(document).ready(function() {
 		});
 		
 	});
+});
+
+/* MOBILE SLIDER
+------------------------------------------------------------------------ */
+
+$(function () {
+	let windowWidth = $(window).width();
+	
+	function initSwiper(container, wrapper, slide, dots) {
+		const $container = $(container);
+		if (!$container.length || windowWidth >= 993) return;
+		
+		$container.addClass('swiper');
+		$container.find(wrapper).addClass('swiper-wrapper');
+		$container.find(slide).addClass('swiper-slide');
+		
+		new Swiper(container, {
+			slidesPerView: 2,
+			spaceBetween: 10,
+			navigation: {
+				nextEl: '.svp-next',
+				prevEl: '.svp-prev',
+			},
+			pagination: {
+				el: dots,
+				clickable: true,
+			},
+			observer: true,
+			observeParents: true,
+			observeSlideChildren: true,
+			breakpoints: {
+				320: { slidesPerView: 1, spaceBetween: 10 },
+				768: { slidesPerView: 2, spaceBetween: 10 },
+			}
+		});
+	}
+	
+	// Инициализация обоих слайдеров
+	initSwiper('#homeBrandsSlider', '.brands-list', '.brands-item', '.brands-dots');
+	initSwiper('#homeHitsSlider', '.card-list', '.card', '.card-dots');
+	
+	// Если ширина больше — убираем классы
+	if (windowWidth >= 993) {
+		$('#homeBrandsSlider').removeClass('swiper')
+			.find('.brands-list').removeClass('swiper-wrapper')
+			.find('.brands-item').removeClass('swiper-slide');
+		
+		$('#homeHitsSlider').removeClass('swiper')
+			.find('.card-list').removeClass('swiper-wrapper')
+			.find('.card').removeClass('swiper-slide');
+	}
 });

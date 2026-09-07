@@ -3,6 +3,7 @@
 namespace app\controllers\admin;
 
 use app\models\admin\Setting;
+use ishop\App;
 
 class SettingsController extends AppController
 {
@@ -232,4 +233,29 @@ class SettingsController extends AppController
 		$_SESSION['success'] = 'Файл sitemap.xml успешно сгенерирован';
 		redirect(ADMIN . '/settings');
 	}
+	
+	public function updateAssetsVersionAction()
+	{
+		if (isset($_POST['version'])) {
+			
+			$version = date('d.m-H:i');
+			
+			// Получаем настоящий PDO через RedBean
+			$pdo = \R::getDatabaseAdapter()->getDatabase()->getPDO();
+			
+			// Обновляем в БД
+			$stmt = $pdo->prepare("UPDATE settings SET value = ? WHERE name = 'assets_version'");
+			$stmt->execute([$version]);
+			
+			// Обновляем в Registry
+			$settings = App::$app->getProperty('settings');
+			$settings['assets_version'] = $version;
+			App::$app->setProperty('settings', $settings);
+			
+			$_SESSION['success'] = 'Версия ассетов обновлена';
+		}
+		
+		redirect(ADMIN . '/settings');
+	}
+	
 }

@@ -72,12 +72,24 @@ if (!isset($_SESSION['csrf'])) {
 		<link rel="canonical" href="<?= $canonical_url ?>"/>
 	<?php endif; ?>
 	
-	<?php $versionNumber = '17.06-12:30' ?>
+	<?php $versionNumber = \ishop\App::$app->getProperty('settings')['assets_version']; ?>
 	
-	<link rel="stylesheet" href="<?= PATH ?>/css/swiper-bundle.min.css">
-	<link rel="stylesheet" type="text/css" href="<?= PATH ?>/css/style.css?v=<?= $versionNumber ?>">
-	<link rel="stylesheet" type="text/css" href="<?= PATH ?>/css/flexslider.min.css">
-	<link rel="stylesheet" type="text/css" href="<?= PATH ?>/css/icon.min.css">
+	<link rel="preload" href="<?= PATH ?>/css/style.css?v=<?= $versionNumber ?>" as="style">
+	<link rel="stylesheet" href="<?= PATH ?>/css/style.css?v=<?= $versionNumber ?>">
+	
+	<link rel="preload" href="<?= PATH ?>/css/icon.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link rel="preload" href="<?= PATH ?>/css/flexslider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link rel="preload" href="<?= PATH ?>/css/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<noscript>
+		<link rel="stylesheet" href="<?= PATH ?>/css/icon.min.css">
+		<link rel="stylesheet" href="<?= PATH ?>/css/flexslider.min.css">
+		<link rel="stylesheet" href="<?= PATH ?>/css/swiper-bundle.min.css">
+	</noscript>
+	
+	<!--<link rel="stylesheet" href="<?php /*= PATH */?>/css/swiper-bundle.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php /*= PATH */?>/css/style.css?v=<?php /*= $versionNumber */?>">
+	<link rel="stylesheet" type="text/css" href="<?php /*= PATH */?>/css/flexslider.min.css">
+	<link rel="stylesheet" type="text/css" href="<?php /*= PATH */?>/css/icon.min.css">-->
 	
 	<?= ishop\App::$app->getProperty('settings')['body_scripts']  ?? null; ?>
 
