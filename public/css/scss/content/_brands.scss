@@ -21,6 +21,10 @@
 		.text-editor {
 			margin: 0;
 		}
+		
+		.seo-toggle {
+			display: none;
+		}
 	}
 	
 	.filter-category {
@@ -272,11 +276,32 @@
 	.brand-top {
 		
 		&-inner {
-			flex-wrap: wrap;
+			display: block;
 			
 			.image {
+				float: left;
 				height: 70px;
+				margin: 0 20px 10px 0;
 				padding: 20px;
+			}
+		}
+		
+		&-description {
+			.text-editor {
+				max-height: 105px;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.seo-toggle {
+				display: block;
+				margin-top: 10px;
+				font-size: 14px;
+				color: $color-orange;
+				cursor: pointer;
+				background: none;
+				border: none;
+				padding: 0;
 			}
 		}
 		
@@ -325,6 +350,21 @@
 			max-width: 100%;
 			padding: 10px;
 			height: 50px;
+		}
+	}
+	
+	.brand-top-description {
+		.text-editor {
+			max-height: 115px;
+		}
+	}
+	
+	.brands-list {
+		grid-template-columns: repeat(auto-fit, minmax(160px, max-content));
+		justify-content: center;
+		
+		.brands-item {
+			padding: 8px 20px;
 		}
 	}
 	

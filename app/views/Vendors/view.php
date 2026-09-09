@@ -22,6 +22,7 @@
 					<div class="text-editor">
 						<?= $brand['content'] ?>
 					</div>
+					<button class="seo-toggle">Показать полностью</button>
 				</div>
 			</div>
 			

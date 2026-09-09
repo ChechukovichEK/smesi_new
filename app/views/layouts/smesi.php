@@ -74,16 +74,21 @@ if (!isset($_SESSION['csrf'])) {
 	
 	<?php $versionNumber = \ishop\App::$app->getProperty('settings')['assets_version']; ?>
 	
+	<link rel="preload" href="<?= PATH ?>/css/fonts.css" as="style">
+	<link rel="stylesheet" href="<?= PATH ?>/css/fonts.css" media="print" onload="this.media='all'">
+	
 	<link rel="preload" href="<?= PATH ?>/css/style.css?v=<?= $versionNumber ?>" as="style">
 	<link rel="stylesheet" href="<?= PATH ?>/css/style.css?v=<?= $versionNumber ?>">
 	
 	<link rel="preload" href="<?= PATH ?>/css/icon.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<link rel="preload" href="<?= PATH ?>/css/flexslider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<link rel="preload" href="<?= PATH ?>/css/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link rel="preload" href="<?= PATH ?>/font-awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<noscript>
 		<link rel="stylesheet" href="<?= PATH ?>/css/icon.min.css">
 		<link rel="stylesheet" href="<?= PATH ?>/css/flexslider.min.css">
 		<link rel="stylesheet" href="<?= PATH ?>/css/swiper-bundle.min.css">
+		<link rel="stylesheet" href="<?= PATH ?>/font-awesome/css/all.min.css">
 	</noscript>
 	
 	<!--<link rel="stylesheet" href="<?php /*= PATH */?>/css/swiper-bundle.min.css">
@@ -158,8 +163,6 @@ if (!isset($_SESSION['csrf'])) {
 </script>
 
 
-<link rel="stylesheet" href="<?= PATH ?>/font-awesome/css/all.min.css">
-
 <script>
 	const BASE_URL = '<?= PATH ?>';
 	const CSRF_TOKEN = '<?= $_SESSION['csrf'] ?>';
@@ -176,7 +179,7 @@ if (!isset($_SESSION['csrf'])) {
 <script src="<?= PATH ?>/js/jquery.inputmask.min.js"></script>
 <script src="<?= PATH ?>/js/swiper-bundle.min.js"></script>
 <script src="<?= PATH ?>/js/sliders.js?v=<?= $versionNumber ?>"></script>
-<script src="<?= PATH ?>/js/masonry.js"></script>
+<script src="<?= PATH?>/js/masonry.js"></script>
 <script src="<?= PATH ?>/js/base.js?v=<?= $versionNumber ?>"></script>
 <script src="<?= PATH ?>/js/main.js?v=<?= $versionNumber ?>"></script>
 <script src="<?= PATH ?>/js/filter.js?v=<?= $versionNumber ?>"></script>

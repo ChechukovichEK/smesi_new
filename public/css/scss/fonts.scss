@@ -1,0 +1,59 @@
+/* Основной шрифт */
+
+@font-face {
+	font-family: 'MyriadProLight';
+	src: url('../fonts/SourceSans3-Light.woff2') format('woff2'),
+	url('../fonts/SourceSans3-Light.woff') format('woff');
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'MyriadProRegular';
+	src: url('../fonts/SourceSans3-Regular.woff2') format('woff2'),
+	url('../fonts/SourceSans3-Regular.woff') format('woff');
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'MyriadProSemibold';
+	src: url('../fonts/SourceSans3-SemiBold.woff2') format('woff2'),
+	url('../fonts/SourceSans3-SemiBold.woff') format('woff');
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Дополнительный */
+
+@font-face {
+	font-family: 'Roboto-Light';
+	src: url('../fonts/Roboto-Light.woff2') format('woff2'),
+	url('../fonts/Roboto-Light.woff') format('woff');
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Roboto-Regular';
+	src: url('../fonts/Roboto-Regular.woff2') format('woff2'),
+	url('../fonts/Roboto-Regular.woff') format('woff');
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Roboto-Medium';
+	src: url('../fonts/Roboto-Medium.woff2') format('woff2'),
+	url('../fonts/Roboto-Medium.woff') format('woff');
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Roboto-Bold';
+	src: url('../fonts/Roboto-Bold.woff2') format('woff2'),
+	url('../fonts/Roboto-Bold.woff') format('woff');
+	font-style: normal;
+	font-display: swap;
+}

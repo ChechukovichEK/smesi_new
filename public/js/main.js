@@ -480,3 +480,82 @@ $(document).on('click', '#go2top', function () {
 	
 	
 });
+
+/* FAQ
+------------------------------------------------------------------------ */
+$(document).on('click', '[data-faq-title]', function () {
+	
+	let $faq = $(this).closest('[data-faq]'),
+		$text = $faq.find('[data-faq-content]');
+	
+	if($faq.hasClass('open')) {
+		
+		$faq.removeClass('open');
+		$text.slideUp(300);
+		
+		return;
+	}
+	
+	$faq.addClass('open');
+	$text.slideDown(300);
+	
+});
+
+$(document).ready(function () {
+	$('.wholesale-btn').on('click', function (e) {
+		e.preventDefault();
+		
+		const formOffset = $('#wholesaleForm').offset().top;
+		
+		$('html, body').animate(
+			{
+				scrollTop: formOffset - 50,
+			},
+			800
+		);
+	});
+});
+
+$(document).ready(function () {
+	$('[data-toggle="svpForm"]').on('click', function (e){
+		e.preventDefault();
+		
+		const formOffset = $('#svpForm').offset().top;
+		
+		$('html, body').animate(
+			{
+				scrollTop: formOffset - 50,
+			},
+			800
+		);
+		
+	});
+});
+
+$(document).ready(function () {
+	$('[data-toggle="ctaForm"]').on('click', function (e){
+		e.preventDefault();
+		
+		const formOffset = $('#ctaForm').offset().top;
+		
+		$('html, body').animate(
+			{
+				scrollTop: formOffset - 50,
+			},
+			800
+		);
+		
+	});
+});
+
+/*brands description view mobile
+____________________________________________________*/
+document.addEventListener('click', function(e) {
+	if (e.target.classList.contains('seo-toggle')) {
+		const editor = document.querySelector('.brand-top-description .text-editor');
+		editor.style.maxHeight = 'none';
+		editor.style.overflow = 'visible';
+		editor.classList.add('opened');
+		e.target.remove();
+	}
+});

@@ -16,11 +16,13 @@
 
 <div class="home-info">
 	<div class="container">
-		<a href="article" class="home-info-link">
-			<img src="img/home/school.jpg" alt="Школа ремонта" title="Школа ремонта">
+		<a href="<?= PATH ?>/article" class="home-info-link">
+			<source srcset="<?= PATH ?>/img/home/school.webp" type="image/webp">
+			<img src="<?= PATH ?>/img/home/school.jpg" alt="Школа ремонта" title="Школа ремонта" data-no-webp>
 		</a>
-		<a href="sale" class="home-info-link">
-			<img src="img/home/discounts.jpg" alt="Cкидки/акции" title="Cкидки/акции">
+		<a href="<?= PATH ?>/page/opt" class="home-info-link">
+			<source srcset="<?= PATH ?>/img/home/opt.webp" type="image/webp">
+			<img src="<?= PATH ?>/img/home/opt.jpg" alt="Опт" title="Опт" data-no-webp>
 		</a>
 	</div>
 </div>

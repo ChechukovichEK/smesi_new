@@ -189,7 +189,7 @@ $(window).scroll(function () {
     }
 });
 
-var viber = document.getElementsByClassName("viber");
+/*var viber = document.getElementsByClassName("viber");
   for (var i = 0; i < viber.length; i++) {
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
       viber[i].setAttribute('href', 'viber://add?number=375445920533');}
@@ -205,73 +205,6 @@ $(".up-but").on("click",function(event){
   $('body,html').animate({scrollTop:top-150},1500);
 });
 
-$(".inp-phone").inputmask("+375 (99) 999-99-99");
+$(".inp-phone").inputmask("+375 (99) 999-99-99");*/
 
-});
-
-/* FAQ
------------------------------------------------------------------------- */
-$(document).on('click', '[data-faq-title]', function () {
-
-    let $faq = $(this).closest('[data-faq]'),
-        $text = $faq.find('[data-faq-content]');
-
-    if($faq.hasClass('open')) {
-
-        $faq.removeClass('open');
-        $text.slideUp(300);
-
-        return;
-    }
-
-    $faq.addClass('open');
-    $text.slideDown(300);
-
-});
-
-$(document).ready(function () {
-    $('.wholesale-btn').on('click', function (e) {
-        e.preventDefault();
-
-        const formOffset = $('#wholesaleForm').offset().top;
-
-        $('html, body').animate(
-            {
-                scrollTop: formOffset - 50,
-            },
-            800
-        );
-    });
-});
-
-$(document).ready(function () {
-	$('[data-toggle="svpForm"]').on('click', function (e){
-		e.preventDefault();
-		
-		const formOffset = $('#svpForm').offset().top;
-		
-		$('html, body').animate(
-			{
-				scrollTop: formOffset - 50,
-			},
-			800
-		);
-		
-	});
-});
-
-$(document).ready(function () {
-	$('[data-toggle="ctaForm"]').on('click', function (e){
-		e.preventDefault();
-		
-		const formOffset = $('#ctaForm').offset().top;
-		
-		$('html, body').animate(
-			{
-				scrollTop: formOffset - 50,
-			},
-			800
-		);
-		
-	});
 });
