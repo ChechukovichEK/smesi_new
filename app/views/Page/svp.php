@@ -546,3 +546,18 @@
 	</div>
 
 </div>
+<link rel="stylesheet" href="<?= PATH ?>/css/gallery.css?v=<?= $versionNumber ?>">
+<div class="container">
+	
+	<div class="upload-box" id="uploadBox">
+		<div class="dropzone" id="dropzone">
+			<p>Перетащите фото сюда или нажмите для выбора</p>
+		</div>
+		
+		<input type="file" id="fileInput" multiple accept="image/*" hidden>
+		
+		<div class="preview" id="preview"></div>
+	</div>
+
+</div>
+<script src="<?= PATH?>/js/drug-and-drop.js"></script>
